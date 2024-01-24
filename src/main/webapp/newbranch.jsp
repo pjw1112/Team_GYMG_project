@@ -17,12 +17,5 @@
 </head>
 <body>
 
-	1.git eclipse
-	2. edit
-	3. edty
-	4dddddd
-	5dddd
-	555555555
-	
 </body>
 </html>
