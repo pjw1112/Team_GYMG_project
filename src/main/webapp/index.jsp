@@ -23,9 +23,7 @@
 		<h3 class="panel-heading">Title</h3>
 		<p class="panel-body">Hello world!</p>
 		<pre>
-지누꺼임
-수정사항 적용하고
-업데이트
+수정사항 반영!!
 	</div>
 	<!-- div container -->
 	<!-- div container -->
