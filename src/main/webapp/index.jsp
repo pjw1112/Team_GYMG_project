@@ -17,20 +17,7 @@
 </head>
 <body>
 
-   <!-- div container -->
-   <!-- div container -->
-   <div class="container  panel panel-warning">
-      <h3 class="panel-heading">Title</h3>
-      <p class="panel-body">Hello world!</p>
-      <pre>
-The time on the server is serverTime.
-      </pre>
-      <%
-
-      %>
-   </div>
-   <!-- div container -->
-   <!-- div container -->
+	1.git eclipse
 
 </body>
 </html>
