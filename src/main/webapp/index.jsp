@@ -23,7 +23,9 @@
 		<h3 class="panel-heading">Title</h3>
 		<p class="panel-body">Hello world!</p>
 		<pre>
-지누꺼임
+			지누랑 예니꺼임
+		</pre>
+
 	</div>
 	<!-- div container -->
 	<!-- div container -->
