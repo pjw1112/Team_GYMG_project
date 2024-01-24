@@ -22,7 +22,11 @@
 	<div class="container  panel panel-warning">
 		<h3 class="panel-heading">Title</h3>
 		<p class="panel-body">Hello world!</p>
-		<pre>문정이가 수정해봤어요 ~ </pre>
+
+		<pre>
+			지누랑 예니랑 문정이꺼임
+		</pre>
+
 	</div>
 	<!-- div container -->
 	<!-- div container -->
