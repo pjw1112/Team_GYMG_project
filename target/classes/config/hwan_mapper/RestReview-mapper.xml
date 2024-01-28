@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.rvdao.RestReviewDao">
+
+	<insert id="insertReview" parameterType="RestReviewDto">
+		insert
+		into
+		rest_review(user_no, rest_no, review_content, review_star,
+		review_auth)
+		values (#{user_no}, #{rest_no}, #{review_content},
+		#{review_star}, #{review_auth});
+	</insert>
+
+	<select id="readAllReview" resultType="RestReviewDto">
+
+		select r1.review_no, r2.rest_name , r1.review_content, r1.review_time
+		from review r1 join restaurant r2
+		where r1.rest_no = r2.rest_no;
+
+	</select>
+	
+	<delete id="deleteReview"  parameterType="RestReviewDto">
+		delete from review where review_no=#{review_no};
+	</delete>
+	
+
+	<select id="reviewCnt" parameterType="java.util.HashMap"  resultType="RestReviewDto" >
+		select * from review order by review_no desc limit #{pstartno}, #{onepagelimit}
+	</select>
+	
+	<select id="listtotal" resultType="int">
+		select count(*) from review
+	</select>
+
+
+
+
+	<!-- <select id="userread" parameterType="int"
+		resultType="RestReviewDto">
+		select * from rest_review 
+		where user_no=#{user_no} order by
+		review_no desc;
+	</select>
+
+	<select id="userreadAll" resultType="RestReviewDto">
+		select *
+		from rest_review
+		order by user_no desc;
+	</select>
+
+
+	<select id="userread" parameterType="int" resultType="RestReviewDto" 
+		> select distinct * from rest_review where user_no=#{user_no} ORDER BY review_no 
+		DESC; </select>
+
+	<select id="restread" parameterType="int"
+		resultType="RestReviewDto">
+		select * from rest_review where
+		rest_no=#{rest_no} order by
+		review_no desc LIMIT 1;
+	</select>
+
+	<select id="restreadAll" resultType="RestReviewDto">
+		select *
+		from rest_review
+		order by rest_no desc;
+	</select>
+
+
+	<delete id="delete" parameterType="RestReviewDto">
+		delete from rest_review where
+		rest_no=#{rest_no};
+	</delete> -->
+
+</mapper>

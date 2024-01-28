@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.jin.UserDao">
+
+	<insert id="insert" parameterType="UserDto" >
+		insert into user (type_no, join_type_no, user_id, user_name, user_nick, user_pw, user_phone, user_ip ) 
+		values (#{type_no}, #{join_type_no}, #{user_id}, #{user_name}, #{user_nick}, #{user_pw}, #{user_phone}, #{user_ip})
+	</insert>
+	<update id="updatepw" parameterType="UserDto">
+		update user set user_pw=#{user_pw} where user_id=#{user_id}
+	</update>
+	<delete id="delete" parameterType="int">
+		delete from userinfo where
+		no=#{no}
+	</delete>
+	<select id="duplicateIdCheck" resultType="int">
+		select count(*) from user where user_id=#{user_id} limit 1
+	</select>
+	
+	<select id="find_id" resultType="UserDto">
+		select * from user where user_name=#{user_name} and user_phone=#{user_phone} limit 1
+	</select>
+	<select id="read_user_no" resultType="UserDto">
+		select * from user where user_id=#{user_id} limit 1
+	</select>
+	<select id="user_login" resultType="UserDto">
+		select * from user where user_id=#{user_id} and user_pw=#{user_pw} limit 1
+	</select>
+	<select id="readAll" resultType="UserDto">
+		select * from user order by user_no desc
+	</select>
+
+
+
+</mapper>
