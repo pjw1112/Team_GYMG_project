@@ -7,3 +7,5 @@
 SPRING 프로젝트 폴더
 Team_GYMG.war
 project.sql
+
+박진우, 박예은, 김문정, 피지환
