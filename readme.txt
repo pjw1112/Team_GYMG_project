@@ -8,4 +8,7 @@ SPRING 프로젝트 폴더
 Team_GYMG.war
 project.sql
 
+문정 내일 발표 떨려요 ~ 
+
 박진우, 박예은, 김문정, 피지환
+
