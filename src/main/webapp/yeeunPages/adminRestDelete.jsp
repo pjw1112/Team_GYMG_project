@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@ include file="../inc/header.jsp"%>
-<div class="container">
+<div class="ye-container">
 	<!-- header end -->
 	<div class="wrapper-yeeun">
 		<h2 class="admin-title">식당 삭제</h2>

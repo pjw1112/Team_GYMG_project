@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@ include file="../inc/header.jsp"%>
-<div class="container">
+<div class="ye-container">
 	<div class="wrapper-yeeun">
 		<h2 class="admin-title">식당 추가</h2>
 		<form id="rest-insert-form" method="post" action="adminRestWrite.ye">
@@ -10,7 +10,7 @@
 				<legend>식당정보</legend>
 				<h3>식당정보</h3>
 				<div class="mg70">
-					<label for="ctg_no">카테고리</label> <select id="ctg_no" name="ctg_no">
+					<label for="ctg_no">카테고리</label><select id="ctg_no" name="ctg_no">
 						<option value="" selected hidden>카테고리 선택</option>
 						<option value="1">한식</option>
 						<option value="2">양식</option>
@@ -28,11 +28,11 @@
 					</select>
 				</div>
 				<div>
-					<label for="rest_name">상호명</label> <input type="text"
+					<label for="rest_name">상호명</label><input type="text"
 						id="rest_name" name="rest_name" placeholder="식당 상호명 입력" />
 				</div>
 				<div>
-					<label for="rest_tel">전화번호</label> <input type="text" id="rest_tel"
+					<label for="rest_tel">전화번호</label><input type="text" id="rest_tel"
 						name="rest_tel" placeholder="- 포함 입력" />
 				</div>
 				<div>
@@ -42,13 +42,12 @@
 						onclick="sample6_execDaumPostcode()" value="주소검색" />
 				</div>
 				<div>
-					<label for="rest_address2">상세주소</label> <input type="text"
+					<label for="rest_address2">상세주소</label><input type="text"
 						id="rest_address2" name="rest_address2" placeholder="상세주소"
 						title="상세주소 입력" />
 				</div>
 				<div class="mg30">
-					<label for="rest_desc">상세정보</label>
-					<textarea id="rest_desc" name="rest_desc"></textarea>
+					<label for="rest_desc">상세정보</label><textarea id="rest_desc" name="rest_desc"></textarea>
 				</div>
 			</fieldset>
 			<fieldset>

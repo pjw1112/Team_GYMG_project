@@ -1,6 +1,7 @@
+
 @charset "utf-8";
 
-.container {
+.ye-container {
 	/* height: 100%; */
 	margin: 0 auto;
 	padding-top: 80px;
@@ -128,6 +129,9 @@ footer {
 	padding: 40px;
 	width: 100%;
 	min-width: 1000px;
+}
+footer a:link, footer a:visited, footer a:hover, footer a:focus {
+	color: #fff;
 }
 .footer_row1 {
 	font-size: 14px;

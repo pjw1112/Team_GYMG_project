@@ -316,8 +316,11 @@ input {
     line-height: 60px;
     padding: 0 10px;
     font-size: 24px;
-    border-bottom: 1px solid #fd9b36;
     margin-bottom: 10px;
+    background-color: #fd9b36;
+    padding: 0px 30px;
+    border-radius: 10px;
+    color: white;
 }
 .board_single_title{
 	float : left;
@@ -325,9 +328,10 @@ input {
 .board_single_title_data{
 	text-align: right;
     margin-bottom: 30px;
-    border-bottom: 1px solid #fd9b36;
+    border-bottom: 2px solid #999;
     padding-bottom: 20px;
 }
+
 .board_single_writer_profile_image{
 	height:30px;
 }
@@ -346,6 +350,7 @@ input {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 0 30px;
 }
 .board_content{
 	padding: 10px 0;
@@ -406,8 +411,9 @@ input {
 }
 .board_write_list_btn_wrapper{
 	height: 40px;
-    width: 90px;
+    width: 100%;
     margin: 10px 0;
+    text-align: right;
 }
 .board_write_list_btn{
     background-color: #fd9b36;
@@ -471,7 +477,7 @@ input {
     height: 100px;
     padding: 22px;
     background-color: white;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
     margin-bottom: 10px;
     border-radius: 10px;
     justify-content: space-between;

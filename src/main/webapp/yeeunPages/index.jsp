@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@ include file="../inc/header.jsp"%>
-<div class="container">
+<div class="ye-container">
 	<!-- header end -->
 	<section class="top-section">
 		<div class="top-content">
@@ -10,7 +10,7 @@
 			<p>
 				가봄,맛봄에 나만의 맛집을 공유해주세요!<br />매달 추첨을 통해 소정의 선물을 드려요.
 			</p>
-			<a href="">자세히보기</a>
+			<a href="board_single.moon?board_no=153">자세히보기</a>
 		</div>
 	</section>
 	<div class="wrapper-yeeun">
@@ -66,9 +66,9 @@
 		</section>
 		<section class="section-yeeun sec4">
 			<h2>
-				<strong>경기도 과천시</strong> 근처 맛봄 추천
+				<strong>서울 강남구</strong> 근처 맛봄 추천
 			</h2>
-			<a href="searchResult.ye?ctg_no=&searchKey=경기도+과천시" class="more-btn org-short-btn">전체보기</a>
+			<a href="searchResult.ye?ctg_no=&searchKey=서울+강남구" class="more-btn org-short-btn">전체보기</a>
 			<ul class="main-rest-list1">
 				<c:forEach var="list" items="${locList}">
 					<li class="rest-small-card"><a href="detail.ye?rest_no=${list.rest_no}" title="식당명 상세페이지 이동">

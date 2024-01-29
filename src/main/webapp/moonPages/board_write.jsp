@@ -63,7 +63,6 @@
 	    	var ctg_no = $('.board_write_ctg').find().val();
 	    	
 	    	submitBtn.click(function(){
-	    			
 	    		
 	    		if(boardTitle.val() == ""){
 	    			alert("게시글 제목이 빈칸입니다. 확인해주세요 ! ");
@@ -76,15 +75,9 @@
 	    			return false;
 	    		}
 	    		
-	    		
-	    		
-	    		
 	    	})
 	    	
-	    	
 	    });
-	    
-	  
 		</script>
     </div>
 <%@ include file="../inc/footer.jsp" %>

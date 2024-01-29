@@ -14,22 +14,23 @@
             			</div>
             		</div>
             		
-            		<!-- 게시물 작성자 이름 / 작성 날짜  -->
-            		<div class="board_single_writer_wrapper">	
-            			<div class="board_single_writer_user">
-	            			<span class="board_single_writer_profile_image"><img src="${pageContext.request.contextPath }/images/profile.jpg" alt="작성자 사진"></span>
-	           				<span class="board_single_writer_profile_nick">${singleBoard.board_nick }</span>
-           				</div>
-           				<div class="board_single_writer_time">
-           					<span class="board_single_writer_date">${singleBoard.board_time }</span>
-            			</div>
+            		<div class="board_title_wrapper-ye">
+	            		<!-- 게시물 작성자 이름 / 작성 날짜  -->
+	            		<div class="board_single_writer_wrapper">	
+	            			<div class="board_single_writer_user">
+		            			<span class="board_single_writer_profile_image"><img src="${pageContext.request.contextPath }/images/profile.svg" alt="작성자 사진"></span>
+		           				<span class="board_single_writer_profile_nick">${singleBoard.board_nick }</span>
+	           				</div>
+	           				<div class="board_single_writer_time">
+	           					<span class="board_single_writer_date">${singleBoard.board_time }</span>
+	            			</div>
+	            		</div>
+	            		<div class="board_single_title_data"> <!-- 조회수, 추천수, 댓글수  -->
+	           				<span>조회수 : ${singleBoard.board_hit }</span>
+	           				<span></span>
+	           				<span></span>
+	           			</div>
             		</div>
-            		<div class="board_single_title_data"> <!-- 조회수, 추천수, 댓글수  -->
-           				<span>조회수 : ${singleBoard.board_hit }</span>
-           				<span></span>
-           				<span></span>
-           			</div>
-            		
             		<div class="board_content" id="board_content"> <!-- 게시물 내용 -->
             		</div>
             		<div class="board_single_btn_wrapper">	<!-- 버튼 ~  -->
@@ -105,9 +106,9 @@
             			
             		</div>
             		
-            		<div class="board_single_review_showmore_btn">	<!-- 댓글 더보기 버튼 -->
+            		<!-- <div class="board_single_review_showmore_btn">	댓글 더보기 버튼
             			<input type="button"   value="더보기"  class="btn_moon board_write_submit_btn" id="write_button">  
-            		</div>
+            		</div> -->
             	</div>
             	<div id="sessionUserNo" data-user-no="${sessionScope.login_user_dto.user_no }"></div>
             </div>
@@ -120,9 +121,11 @@
 	        var writeReplyBtn = $('#board_review_write_btn');
 	        var likeBtn = $('.board_single_like_btn');
 	        var urlBtn = $('#board_link_copy_btn');
+	        var replyDeleteBtn = $('.board_single_review_delete_btn_input');
 	        var writeBtnNologin = $("#board_write_nologin");
 	        var replyWriteBtnNologin = $("#board_review_write_btn_nologin");
 	        var sessionUserNo = $("#sessionUserNo").data('user-no');
+	        
 	        var likeornot = '';
 	        var unlikeCnt = '';
 	        var likeCnt = '';
@@ -191,6 +194,17 @@
 	            deleteReply(replyNo);
 	        });
 	        
+	        /* 
+	        replyDeleteBtn.click(function(){
+	        	var replyNo = $(this).closest('.board_single_review_single').data('no');
+	        	deleteReply(replyNo);
+	        }) 
+	        
+	        $('.board_single_review_delete_btn_input').click(function () {
+			    var replyNo = $(this).closest('.board_single_review_single').data('no');
+			    deleteReply(replyNo);
+			});*/
+	        
 	        //댓글 작성 등록 버튼 클릭시 댓글 insert -> 댓글 리스트 재로드
 	        writeReplyBtn.click(function () {
         		if(replyContent.val() == ""){
@@ -245,7 +259,7 @@
 						    $("<div>").addClass("board_single_review_profile_img")
 						        .append(
 						            $("<div>").addClass("board_single_review_nick_time")
-						                .append($("<img>").attr("src", "${pageContext.request.contextPath}/images/profile.jpg").attr("alt", "작성자 사진"))
+						                .append($("<img>").attr("src", "${pageContext.request.contextPath}/images/profile.svg").attr("alt", "작성자 사진"))
 						                .append($("<p>").html(list.reply_nick))
 						                .append($("<p>").html(list.reply_time))
 						        )
@@ -278,7 +292,6 @@
 	                    "reply_no": replyNo
 	                },
 	                error: function (xhr, status, msg) {
-	                	alert(replyNo);
 	                    alert(status + "/" + msg);
 	                },
 	                success: function (json) {

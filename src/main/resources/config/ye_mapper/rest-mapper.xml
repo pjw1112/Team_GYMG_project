@@ -135,7 +135,7 @@
 		WHERE r.rest_no IN (SELECT
 		rest_no
 		FROM restaurant WHERE
-		rest_address LIKE '%경기도 과천시%')
+		rest_address LIKE '%서울 강남구%')
 		GROUP BY
 		r.rest_no,
 		rc.ctg_name,

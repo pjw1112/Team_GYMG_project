@@ -128,13 +128,11 @@
 	    		}else{
 	    			location.href="board_list.moon?pstartno=0&ctg_no=${param.ctg_no}&key=" + selected.val() + "&value=" + search.val()
 	    		}
-	    		
 	    	})
 	    	
 	    	 writeBtnNologin.click(function(){
 	        	alert('로그인 후 이용가능한 서비스입니다.');
 	        })
-	        
 	        
 	       function noticeList(){
 	    		 $.ajax({
@@ -154,7 +152,6 @@
 	    	}
 	    	
 	    	
-	    	
 	    	function noticeListResult(json) {
 	    	    $("#notice").empty();
 	    	    $.each(json.list, function (idx, list) {
@@ -168,8 +165,6 @@
 	    	            .prependTo(".board_tbody");
 	    	    }); 
 	    	}
-	       
-	    	
 	       
 	    });
 		</script>
