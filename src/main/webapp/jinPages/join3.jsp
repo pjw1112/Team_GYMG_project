@@ -20,10 +20,7 @@
 
 a {
 	text-decoration: none;
-	
 }
-
-
 
 body {
 	font-family: "Malgun Gothic", dotum, sans-serif;
@@ -144,49 +141,53 @@ li {
 	color: white;
 	background-color: #FD9B36;
 }
+
+.btn1 {
+	color: white !important;
+}
 </style>
 
 
-<div class="container">
-<div class="join_container">
+<div class="ye-container">
+	<div class="join_container">
 
-	<div class="login_box">
-		<div class="inner_container">
-			<div class="row_box row1">
-				<img class="welcome_img" src="images/welcome.svg">
-			</div>
-			<div class="row_box"></div>
-			<div class="row_box"></div>
-			<div class="row_box"></div>
-			<div class="row_box"></div>
-			<div class="row_box"></div>
-
-			<div class="row_box row2"></div>
-
-			<div class="row_box2 row4">가봄,맛봄에 오신 것을 환영합니다!</div>
-			<div class="row_box2 row5">회원 가입 완료!</div>
-			<div class="row_box2 row6">가봄,맛봄의 다양한 서비스를 자유롭게 이용하실 수 있습니다.</div>
-			<div class="row_box2 row7">
-				<div class="d-grid">
-					<a href="GoToLoginPage.jin" class="btn btn-warning btn-block btn1">로그인
-						하러 가기</a>
+		<div class="login_box">
+			<div class="inner_container">
+				<div class="row_box row1">
+					<img class="welcome_img" src="images/welcome.svg">
 				</div>
+				<div class="row_box"></div>
+				<div class="row_box"></div>
+				<div class="row_box"></div>
+				<div class="row_box"></div>
+				<div class="row_box"></div>
+
+				<div class="row_box row2"></div>
+
+				<div class="row_box2 row4">가봄,맛봄에 오신 것을 환영합니다!</div>
+				<div class="row_box2 row5">회원 가입 완료!</div>
+				<div class="row_box2 row6">가봄,맛봄의 다양한 서비스를 자유롭게 이용하실 수 있습니다.</div>
+				<div class="row_box2 row7">
+					<div class="d-grid">
+						<a href="GoToLoginPage.jin" class="btn btn-warning btn-block btn1">로그인
+							하러 가기</a>
+					</div>
+
+				</div>
+				<div class="row_box2 row7">
+					<div class="d-grid"></div>
+				</div>
+				<div class="row_box2 row7">
+					<div class="d-grid"></div>
+				</div>
+				<div class="row_box"></div>
+
+				<div class="row_box2"></div>
+
 
 			</div>
-			<div class="row_box2 row7">
-				<div class="d-grid"></div>
-			</div>
-			<div class="row_box2 row7">
-				<div class="d-grid"></div>
-			</div>
-			<div class="row_box"></div>
-
-			<div class="row_box2"></div>
-
-
 		</div>
 	</div>
-</div>
 </div>
 
 

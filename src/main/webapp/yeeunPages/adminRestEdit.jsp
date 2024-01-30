@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@ include file="../inc/header.jsp"%>
-<div class="container">
+<div class="ye-container">
 	<!-- header end -->
 	<div class="wrapper-yeeun">
 		<h2 class="admin-title">식당 수정</h2>
@@ -65,8 +65,7 @@
 						title="상세주소 입력" value="${list.get(0).rest_address2 }" />
 				</div>
 				<div class="mg30">
-					<label for="rest_desc">상세정보</label>
-					<textarea id="rest_desc" name="rest_desc">${list.get(0).rest_desc }</textarea>
+					<label for="rest_desc">상세정보</label><textarea id="rest_desc" name="rest_desc">${list.get(0).rest_desc }</textarea>
 				</div>
 			</fieldset>
 			<fieldset>

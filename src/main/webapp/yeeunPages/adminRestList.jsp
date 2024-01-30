@@ -2,11 +2,11 @@
 	pageEncoding="UTF-8"%>
 
 <%@ include file="../inc/header.jsp"%>
-<div class="container">
+<div class="ye-container">
 	<!-- header end -->
 	<div class="wrapper-yeeun">
 		<h2 class="admin-title">식당 목록</h2>
-		<div class="search-box">
+<!-- 		<div class="search-box">
 			<select name="searchType" class="admin-select">
 				<option value="default" selected hidden>검색조건 선택</option>
 				<option value="rest_no">식당번호</option>
@@ -14,7 +14,7 @@
 			</select> <input type="text" class="admin-short-input" title="검색어 입력"
 				placeholder="검색어 입력" /> <input type="button" class="admin-btn-1"
 				title="검색시작" value="검색" />
-		</div>
+		</div> -->
 		<p class="admin-table-count">총 식당수 : ${list.size() }</p>
 		<table class="admin-table">
 			<!-- <caption>
@@ -57,13 +57,13 @@
 		</table>
 
 		<ul class="pagenation">
-			<li class="prebtn"><a href="#"></a></li>
+		<!-- 	<li class="prebtn"><a href="#"></a></li>
 			<li class="active"><a href="">1</a></li>
 			<li><a href="">2</a></li>
 			<li><a href="">3</a></li>
 			<li><a href="">4</a></li>
 			<li><a href="">5</a></li>
-			<li class="nextbtn"><a href="#"></a></li>
+			<li class="nextbtn"><a href="#"></a></li> -->
 		</ul>
 		<div class="btn-box">
 			<a href="adminRestWrite.ye" class="org-short-btn" title="식당추가">식당

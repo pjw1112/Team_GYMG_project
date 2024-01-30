@@ -146,16 +146,21 @@ label {
 input[type='email']::placeholder {
 	color: #cccccc;
 }
-
+/* 회원가입form 유효성 검사 관련 CSS */
+/* 회원가입form 유효성 검사 관련 CSS */
+/* 회원가입form 유효성 검사 관련 CSS */
 .check_message {
+	margin-top : 5px;
 	font-size: 16px;
 	/*border : 1px solid red;*/
 	width: 100%;
 	text-align: right;
-	line-height: 14px;
+	line-height: 18px;
 	position: relative;
 }
-
+.check_message p{
+	line-height: 22px;
+}
 .check_success {
 	position: absolute;
 	color: rgb(56, 255, 56);
@@ -170,7 +175,7 @@ input[type='email']::placeholder {
 	top: -39px;
 	right: 12px;
 	font-size: 25px;
-	top: -39px;
+	
 }
 
 .check_fail {
@@ -195,9 +200,16 @@ input[type='email']::placeholder {
 	color: rgb(252, 87, 16);
 	margin-bottom: 0;
 }
+.header_column1 a {
+    color: #fd9b36;
+}
+
+/* 회원가입form 유효성 검사 관련 CSS */
+/* 회원가입form 유효성 검사 관련 CSS */
+/* 회원가입form 유효성 검사 관련 CSS */
 
 </style>
-<div class="container">
+<div class="ye-container">
 <div class="toptier_container">
 	<br> <br>
 	<div class="row_box row1">아이디 / 비밀번호 찾기</div>
@@ -323,7 +335,7 @@ id_check_btn.addEventListener("submit",function(event){
 					console.log(data);
 					console.log(typeof(data));
 					
-					if(data=="1"){
+					if(data>= 1){
 						  email_form_label_Check.innerHTML = "";
 				          let p = document.createElement("p");
 				          p.innerHTML = "이메일로 인증번호 전송중...";

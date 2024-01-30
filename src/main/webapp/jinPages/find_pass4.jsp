@@ -151,7 +151,7 @@ label {
 	color : #FD9B36;
 }
 </style>
-<div class="container">
+<div class="ye-container">
 <div class="toptier_container">
 	<br> <br>
 	<div class="row_box row1">아이디 / 비밀번호 찾기</div>

@@ -52,6 +52,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.dao.TestDao;
 import com.dao.jin.LocationDao;
 import com.dto.jin.UserDto;
+import com.dto.jin.User_fileDto;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -91,7 +92,7 @@ public class FrontController {
 
 	@RequestMapping(value = "/GoToMain.jin", method = { RequestMethod.GET })
 	public String gotoMain() {
-		return "/jinPages/main.jsp";
+		return "index.ye";
 	}
 
 	@RequestMapping(value = "/GoToLoginPage.jin", method = { RequestMethod.GET })
@@ -178,7 +179,7 @@ public class FrontController {
         }
 		
 		
-		return "redirect:GoToMain.jin";
+		return "redirect:index.ye";
 	}
 	/* -- Just Page Moving Mappers -- */
 	/* -- Just Page Moving Mappers -- */
@@ -397,9 +398,13 @@ public class FrontController {
 	
 
 	@RequestMapping(value = "/upload.jin", method = {RequestMethod.POST} )
-	public String upload_post(MultipartFile file, HttpServletRequest request, Model model) throws IOException {
+	public String upload_post(MultipartFile file, String user_no,HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
 	
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
     	log.info("........POST");
+    	log.info("........user_no :"+user_no);
 		log.info("........NAME : " + file.getOriginalFilename());
 		log.info("........size : " + file.getSize());
 		log.info("........contentType : " + file.getContentType());
@@ -422,7 +427,16 @@ public class FrontController {
 				model.addAttribute("title", request.getParameter("title"));
 				model.addAttribute("file", save);
 			*/
-				return "redirect:GoToMic_tab1Page.jin";
+				Map<String, Object> item = new HashMap<String, Object>();
+
+				item.put("user_no", Integer.parseInt(user_no));
+				item.put("file", save);
+				if(service.insert_user_profile_img(item, request, response) > 0 ) {
+					
+					System.out.println("사용자 프로필 이미지 업로드 성공");
+					return "redirect:GoToMic_tab1Page.jin";
+				}
+				
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -432,18 +446,57 @@ public class FrontController {
 			
 			
 		
-		
-		return "file_upload_fail";
+			System.out.println("사용자 프로필 이미지 업로드 실패");
+			
+		return "redirect:GoToMic_tab1Page.jin";
     	
     }
     
 	
 	
+	@RequestMapping(value = "/user_profile_img_check.jin", method = { RequestMethod.POST })
+	@ResponseBody
+	public String user_profile_img_check( 
+			User_fileDto user_filedto,
+			HttpServletRequest request, HttpServletResponse response) 
+					throws IOException, ServletException {
+
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
+		Map<String, Object> item = new HashMap<String, Object>();
+
+		System.out.println("....받은 유저 번호 : "+user_filedto);
+		item.put("user_filedto", user_filedto);
+		
+		String file_name = service.read_user_profile_img(item, request, response);
+		
+		if(file_name != null) {
+			return file_name;
+		}
+		
+		return "false";
+	}
 	
 	
 	
-	
-	
+	@RequestMapping(value = "/user_locationListPull.jin", method = { RequestMethod.POST }, produces = "application/text; charset=UTF-8")
+	@ResponseBody
+	public String user_locationListPull( 
+			String user_no,
+			HttpServletRequest request, HttpServletResponse response) 
+					throws IOException, ServletException {
+
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
+		Map<String, Object> item = new HashMap<String, Object>();
+
+		System.out.println("★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆....받은 유저 번호 : "+user_no);
+		item.put("user_no", user_no);
+		
+		return service.read_user_location(item, request, response);
+	}
 	
 	
 	
@@ -484,7 +537,7 @@ public class FrontController {
 
 		String parameter ="?grant_type=authorization_code" +
 				"&client_id=5311dcef4df09cce6029d72479addf8c" +
-				"&redirect_uri=http://localhost:8080/Team_GYMG/Kakao_login.jin" +
+				"&redirect_uri=http://15.164.164.72:8080/Team_GYMG/Kakao_login.jin" +
 				"&code="+code;
 		
 		urlapi+= parameter;
@@ -675,7 +728,7 @@ public class FrontController {
 		    String clientSecret = "EX0nHpNPpN";//애플리케이션 클라이언트 시크릿값";
 		    String code = request.getParameter("code");
 		    String state = request.getParameter("state");
-		    String redirectURI = URLEncoder.encode("http://localhost:8080/Team_GYMG/naver_login.jin", "UTF-8");
+		    String redirectURI = URLEncoder.encode("http://15.164.164.72:8080/Team_GYMG/naver_login.jin", "UTF-8");
 		    String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code"
 		        + "&client_id=" + clientId
 		        + "&client_secret=" + clientSecret
@@ -1006,7 +1059,38 @@ public class FrontController {
 	/* changeUserPass.jin */
 	
 	
+	/* user_update.jin */
+	/* user_update.jin */
+	/* user_update.jin */
+	@RequestMapping(value = "/user_update.jin", method = { RequestMethod.POST })
+	public String user_update(UserDto userdto, String user_location,HttpServletRequest request, HttpServletResponse response) 
+			throws IOException, ServletException {
+			log.info("...............유저 정보 업데이트 시작");
+		 	System.out.println(".... 입력받은 dto : "+userdto);
+		 	System.out.println(".... 입력받은 user_location : "+user_location);
+			
+		 	Map<String, Object> item = new HashMap<String, Object>();
+
+			item.put("userdto", userdto);
+			item.put("user_location", user_location);
+			
+			log.info("......... user update service go");
+			
+			if (service.update_pw(item, request, response) > 0) {
+
+				return "redirect:/jinPages/find_pass5.jsp";
+			}
+			
+		 	
+		 	
+		 	
+			return "";
+			
+	}
 	
+	/* user_update.jin */
+	/* user_update.jin */
+	/* user_update.jin */
 	
 	
 	

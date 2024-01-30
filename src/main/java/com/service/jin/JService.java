@@ -25,5 +25,11 @@ public interface JService {
 	
 	public int update_pw(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 	
+	public int insert_user_profile_img(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	
+	public String read_user_profile_img(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	
+	public String read_user_location(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	
 	
 }

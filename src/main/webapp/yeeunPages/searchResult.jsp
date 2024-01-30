@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ include file="../inc/header.jsp"%>
 
-<div class="container">
+<div class="ye-container">
 	<div class="wrapper-yeeun">
 		<section class="section-yeeun sec1">
 			<h2>맛봄 검색</h2>
@@ -108,10 +108,10 @@
 				<h3>
 					검색 결과 <strong>${searchResult.size()}</strong>
 				</h3>
-				<select name="sort" class="admin-select">
+				<!-- <select name="sort" class="admin-select">
 					<option value="reviewAvg" selected>별점순</option>
 					<option value="like">좋아요순</option>
-				</select>
+				</select> -->
 			</div>
 			<ul class="result-rest-list2">
 				<c:forEach var="rest" items="${searchResult}">
@@ -133,8 +133,8 @@
 									</p>
 									<p class="rest-name">${rest.rest_name}</p>
 									<p class="rest-desc">${rest.rest_desc}</p>
-									<p class="rest-menu">오늘도 한우 육회비빔밥, 한우 갈비살, 한우 양념 갈비살,오늘도 한우
-										육회비빔밥, 한우 갈비살, 한우 양념 갈비살</p>
+								<!-- 	<p class="rest-menu">오늘도 한우 육회비빔밥, 한우 갈비살, 한우 양념 갈비살,오늘도 한우
+										육회비빔밥, 한우 갈비살, 한우 양념 갈비살</p> -->
 									<p class="rest-address">${rest.rest_address}
 										<c:if test="${rest.rest_address2 != null}">, ${rest.rest_address2}</c:if>
 									</p>
@@ -153,7 +153,7 @@
 					</a></li>
 				</c:forEach>
 			</ul>
-			<ul class="pagenation">
+			<!-- <ul class="pagenation">
 				<li class="prebtn"><a href="#"></a></li>
 				<li class="active"><a href="">1</a></li>
 				<li><a href="">2</a></li>
@@ -161,7 +161,7 @@
 				<li><a href="">4</a></li>
 				<li><a href="">5</a></li>
 				<li class="nextbtn"><a href="#"></a></li>
-			</ul>
+			</ul> -->
 		</section>
 	</div>
 </div>

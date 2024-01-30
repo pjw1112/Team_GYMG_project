@@ -9,5 +9,10 @@
 		values (#{user_no}, #{location_no})
 	</insert>
 	
+	<select id="read" parameterType="User_locationDto" resultType="User_locationDto">
+		select * from user_location where user_no = ${user_no}
+	
+	</select>
+
 
 </mapper>

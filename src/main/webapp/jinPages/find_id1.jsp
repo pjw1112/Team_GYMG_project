@@ -74,6 +74,7 @@ li {
 	display: grid;
 	grid-template-columns: 1fr 2fr 1fr;
 	grid-gap: 20px;
+	grid-row-gap: 35px;
 }
 
 .item {
@@ -150,16 +151,21 @@ label {
 .spinner img {
 	width: 30px;
 }
-
+/* 회원가입form 유효성 검사 관련 CSS */
+/* 회원가입form 유효성 검사 관련 CSS */
+/* 회원가입form 유효성 검사 관련 CSS */
 .check_message {
+	margin-top : 5px;
 	font-size: 16px;
 	/*border : 1px solid red;*/
 	width: 100%;
 	text-align: right;
-	line-height: 14px;
+	line-height: 18px;
 	position: relative;
 }
-
+.check_message p{
+	line-height: 22px;
+}
 .check_success {
 	position: absolute;
 	color: rgb(56, 255, 56);
@@ -174,7 +180,7 @@ label {
 	top: -39px;
 	right: 12px;
 	font-size: 25px;
-	top: -39px;
+	
 }
 
 .check_fail {
@@ -199,8 +205,26 @@ label {
 	color: rgb(252, 87, 16);
 	margin-bottom: 0;
 }
+.header_column1 a {
+    color: #fd9b36;
+}
+
+/* 회원가입form 유효성 검사 관련 CSS */
+/* 회원가입form 유효성 검사 관련 CSS */
+/* 회원가입form 유효성 검사 관련 CSS */
+
+.timer_wrapper{
+	position: relative;
+}
+.timerDisplay{
+	position: absolute;
+	top : -70px;
+	right : 20px;
+	color : #888888;
+}
+
 </style>
-<div class="container">
+<div class="ye-container">
 <div class="toptier_container">
 	<br> <br>
 	<div class="row_box row1">아이디 / 비밀번호 찾기</div>
@@ -218,7 +242,7 @@ label {
 			<form action="find_id.jin" id="find_id_form" method="get">
 				<div class="main_form">
 					<div class="item column1"></div>
-					<div class="item column2 mygray">회원가입시 등록한 휴대전화번호로 인증해주세요</div>
+					<div class="item column2 mygray">회원가입시 등록한 휴대폰으로 인증해주세요</div>
 					<div class="item column3"></div>
 					<!-- #################################################### -->
 
@@ -266,7 +290,9 @@ label {
 					<!-- #################################################### -->
 					<!-- #################################################### -->
 					<div class="item column1"></div>
-					<div class="item column2 timerDisplay"></div>
+					<div class="item column2 timer_wrapper">
+					<div class="timerDisplay"></div>
+					</div>
 					<div class="item column3"></div>
 					<!-- #################################################### -->
 					<!-- #################################################### -->

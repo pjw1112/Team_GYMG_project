@@ -108,14 +108,17 @@ label {
 /* 회원가입form 유효성 검사 관련 CSS */
 /* 회원가입form 유효성 검사 관련 CSS */
 .check_message {
+	margin-top : 5px;
 	font-size: 16px;
 	/*border : 1px solid red;*/
 	width: 100%;
 	text-align: right;
-	line-height: 14px;
+	line-height: 18px;
 	position: relative;
 }
-
+.check_message p{
+	line-height: 22px;
+}
 .check_success {
 	position: absolute;
 	color: rgb(56, 255, 56);
@@ -130,7 +133,7 @@ label {
 	top: -39px;
 	right: 12px;
 	font-size: 25px;
-	top: -39px;
+	
 }
 
 .check_fail {
@@ -155,6 +158,10 @@ label {
 	color: rgb(252, 87, 16);
 	margin-bottom: 0;
 }
+.header_column1 a {
+    color: #fd9b36;
+}
+
 /* 회원가입form 유효성 검사 관련 CSS */
 /* 회원가입form 유효성 검사 관련 CSS */
 /* 회원가입form 유효성 검사 관련 CSS */
@@ -191,6 +198,7 @@ label {
 	border: 3px solid #FD9B36;
 	box-sizing: border-box;
 	padding: 15px;
+	padding-top : 25px;
 	border-radius: 15px;
 	top: -230px;
 	left: 10px;
@@ -207,7 +215,7 @@ label {
 
 .sms_row1 {
 	color: #FD9B36;
-	font-size: 16px;
+	font-size: 15px;
 }
 
 .sms_row2 {
@@ -233,7 +241,7 @@ label {
 	/*border : 1px solid blue;*/
 	position: absolute;
 	color: gray;
-	top: 72px;
+	top: 77px;
 	right: 85px;
 }
 
@@ -296,7 +304,7 @@ label {
 .location_row2 {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-	gap: 10px;
+	gap: 6px;
 }
 
 .location_item {
@@ -306,6 +314,7 @@ label {
 	border-radius: 8px;
 	background-color: #FD9B36;
 	cursor: pointer;
+	line-height: 23px;
 }
 
 .location_item:hover {
@@ -331,7 +340,7 @@ input[type='email']::placeholder {
 	color: #cccccc;
 }
 </style>
-<div class="container">
+<div class="ye-container">
 <div class="join_container">
 
 	<div class="login_box">
@@ -421,8 +430,7 @@ input[type='email']::placeholder {
 										</p>
 									</div>
 									<div class="sms_row3">
-										<button type="button" class="btn btn-warning btn_sms4">인증번호
-											확인</button>
+										<button type="button" class="btn btn-warning btn_sms4">인증 확인</button>
 									</div>
 								</div>
 
@@ -783,7 +791,7 @@ pass_form.addEventListener("input", () => {
     			
     			  pass_form_label_Check.innerHTML = "";
     		        let p = document.createElement("p");
-    		        p.innerHTML = "특수문자 !~@#$%^&*-_=+ 1~ 3자 필요 <i class='fa-regular fa-square'></i><i class='fa-solid fa-square'></i><i class='fa-solid fa-square'></i>";
+    		        p.innerHTML = "특문 !~@#$%^&*-_=+ 1~3자 필요 <i class='fa-regular fa-square'></i><i class='fa-solid fa-square'></i><i class='fa-solid fa-square'></i>";
     		        p.classList.add("fail");
     		        pass_form_label_Check.appendChild(p);
     		  
@@ -1105,7 +1113,7 @@ join_form.addEventListener('submit', function(event) {
 		return;
 	}
 	if(!id_verify_ok ){
-		alert("아이디 입력을 확인해주세요.");
+		alert("아이디 유효성 검사를 확인해주세요.");
 		
 		return;
 	}
@@ -1115,27 +1123,27 @@ join_form.addEventListener('submit', function(event) {
 		return;
 	}
 	if(!nick_ok ){
-		alert("nick 입력을 확인해주세요.");
+		alert("닉네임 입력을 확인해주세요.");
 		
 		return;
 	}
 	if(!pass_ok ){
-		alert("pass 입력을 확인해주세요.");
+		alert("비밀번호 입력을 확인해주세요.");
 		
 		return;
 	}
 	if(!pass2_ok ){
-		alert("pass2 입력을 확인해주세요.");
+		alert("비밀번호 확인 일치 여부를 확인해주세요.");
 		
 		return;
 	}
 	if(!phone_ok ){
-		alert("phone_ok 입력을 확인해주세요.");
+		alert("핸드폰 입력을 확인해주세요.");
 		
 		return;
 	}
 	if(!phone_verify_ok ){
-		alert("phone_verify_ok 입력을 확인해주세요.");
+		alert("핸드폰 인증을 확인해주세요.");
 		
 		return;
 	}

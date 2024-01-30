@@ -54,8 +54,7 @@
 	    		lang:"ko-KR",
 	    		placeholder:'내용을 입력하세요'
 	    	})
-	    	
-	    	
+
 	    	
 	    	
 	    	var submitBtn = $('#write_button');
@@ -78,10 +77,7 @@
 	    		
 	    	})
 	    	
-	    	
 	    });
-	    
-	  
 		</script>
     </div>
 <%@ include file="../inc/footer.jsp" %>

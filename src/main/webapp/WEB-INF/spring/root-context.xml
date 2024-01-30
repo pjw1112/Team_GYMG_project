@@ -50,6 +50,8 @@
 				<value>classpath:/config/jin_mapper/user-mapper.xml</value>
 				<value>classpath:/config/jin_mapper/location-mapper.xml</value>
 				<value>classpath:/config/jin_mapper/user-location-mapper.xml</value>
+				<value>classpath:/config/jin_mapper/img-file-mapper.xml</value>
+				<value>classpath:/config/jin_mapper/user-file-mapper.xml</value>
 				<!-- moon jung mapper -->
 				<value>classpath:/config/moon_mapper/board-mapper.xml</value> 
 				<!-- ye eun mapper -->

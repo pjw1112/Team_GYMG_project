@@ -3,6 +3,7 @@ package com.service.jin;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
@@ -17,9 +18,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dao.jin.Img_fileDao;
 import com.dao.jin.UserDao;
+import com.dao.jin.User_fileDao;
 import com.dao.jin.User_locationDao;
+import com.dto.jin.Img_fileDto;
 import com.dto.jin.UserDto;
+import com.dto.jin.User_fileDto;
 import com.dto.jin.User_locationDto;
 import com.mysql.cj.Session;
 
@@ -46,6 +51,13 @@ public class JService_Impl implements JService {
 	@Autowired
 	User_locationDao user_locationdao;
 
+	@Autowired
+	Img_fileDao img_filedao;
+	
+	@Autowired
+	User_fileDao user_filedao;
+	
+	
 //	sms verification
 //	sms verification
 //	sms verification	
@@ -352,6 +364,115 @@ public class JService_Impl implements JService {
 //	update_pw	
 //	update_pw	
 //	update_pw	
+
+	@Override
+	public int insert_user_profile_img(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
+		User_fileDto user_file_dto = new User_fileDto();  
+		user_file_dto.setUser_no((int)item.get("user_no"));
+		
+		Img_fileDto img_file_dto = new Img_fileDto();
+		img_file_dto.setFile_name((String)item.get("file"));
+		if( user_filedao.read(user_file_dto) == null) {
+			
+			//유저 no로 검색해서 없으면 img인서트 user_img인서트
+			
+			if( img_filedao.insert(img_file_dto)> 0 ) {
+			img_file_dto = img_filedao.read_byFileName(img_file_dto);
+			
+			user_file_dto.setFile_no(img_file_dto.getFile_no());
+			
+			if( user_filedao.insert(user_file_dto) > 0 ) {
+			
+			System.out.println("...img_filedao.insert 성공");
+			System.out.println("...user_filedao.insert 성공");
+			
+			return 1;
+			}
+			}
+		}else {
+			//유저 no로 검색해서 있으면 img업데이트
+			user_file_dto = user_filedao.read(user_file_dto);
+			
+			img_file_dto.setFile_no(user_file_dto.getFile_no());
+			
+			if(img_filedao.update(img_file_dto) >0) {
+			
+			System.out.println("...img_filedao.update 성공");
+			
+			
+			return 1;
+			}
+		}
+		
+		
+		return 0;
+	}
+
+	@Override
+	public String read_user_profile_img(Map<String, Object> item, HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
+		User_fileDto user_filedto = (User_fileDto)item.get("user_filedto");
+		
+		user_filedto = user_filedao.read(user_filedto);
+		
+		if(user_filedto != null) {
+			Img_fileDto img_filedto = new Img_fileDto();
+			img_filedto.setFile_no(user_filedto.getFile_no());
+			img_filedto = img_filedao.read(img_filedto);
+			
+			if(img_filedto != null) {
+				
+				return img_filedto.getFile_name();
+			}
+			
+		}
+		
+		return null;
+	}
+
+	@Override
+	public String read_user_location(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
+		User_locationDto user_locationdto = new User_locationDto();
+		
+		user_locationdto.setUser_no( Integer.parseInt((String)item.get("user_no")));
+		
+		List<User_locationDto> list =
+		user_locationdao.read(user_locationdto);
+		
+		String[] locationList = { "서초구", "강남구", "종로구", "중구", "용산구", "성동구", "중랑구", "성북구", "도봉구", "노원구", "은평구",
+				"서대문구", "강서구", "구로구", "금천구", "영등포구", "동작구", "관악구", "광진구", "동대문구", "마포구", "양천구", "강동구" };
+
+		String result="";
+		for(User_locationDto dto : list) {
+			
+			if(result.length()==0) {
+				result = locationList[dto.getLocation_no()-1];
+			}else {
+				result +=", "+ locationList[dto.getLocation_no()-1];
+			}
+			
+			
+		}
+		
+		return result;
+	}
 	
 	
 	

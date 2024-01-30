@@ -39,7 +39,7 @@ li {
 
 .toptier_box {
 	width: 900px;
-	height: 510px;
+	/*height: 510px;*/
 	border: 4px solid #FD9B36;
 	border-radius: 0 0 40px 40px;
 	margin: 0 auto;
@@ -69,12 +69,13 @@ li {
 .main_form {
 	/*border: 1px solid black;*/
 	width: 650px;
-	height: 310px;
+	/*height: 310px;*/
 	margin: 0 auto;
 	display: grid;
 	grid-template-columns: 1fr 2fr 0.8fr;
 	grid-template-rows: 1fr 1fr 1fr 1fr;
 	grid-gap: 20px;
+	row-gap : 30px;
 }
 
 .item {
@@ -158,14 +159,17 @@ line-height : 30px;
 /* 회원가입form 유효성 검사 관련 CSS */
 /* 회원가입form 유효성 검사 관련 CSS */
 .check_message {
+	margin-top : 5px;
 	font-size: 16px;
 	/*border : 1px solid red;*/
 	width: 100%;
 	text-align: right;
-	line-height: 14px;
+	line-height: 18px;
 	position: relative;
 }
-
+.check_message p{
+	line-height: 22px;
+}
 .check_success {
 	position: absolute;
 	color: rgb(56, 255, 56);
@@ -180,7 +184,7 @@ line-height : 30px;
 	top: -39px;
 	right: 12px;
 	font-size: 25px;
-	top: -39px;
+	
 }
 
 .check_fail {
@@ -205,12 +209,15 @@ line-height : 30px;
 	color: rgb(252, 87, 16);
 	margin-bottom: 0;
 }
-/* 회원가입form 유효성 검사 관련 CSS */
-/* 회원가입form 유효성 검사 관련 CSS */
-/* 회원가입form 유효성 검사 관련 CSS */
+.header_column1 a {
+    color: #fd9b36;
+}
 
+/* 회원가입form 유효성 검사 관련 CSS */
+/* 회원가입form 유효성 검사 관련 CSS */
+/* 회원가입form 유효성 검사 관련 CSS */
 </style>
-<div class="container">
+<div class="ye-container">
 <div class="toptier_container">
 	<br> <br>
 	<div class="row_box row1">아이디 / 비밀번호 찾기</div>
@@ -317,7 +324,7 @@ pass_form.addEventListener("input", () => {
   			
   			  pass_form_label_Check.innerHTML = "";
   		        let p = document.createElement("p");
-  		        p.innerHTML = "특수문자 !~@#$%^&*-_=+ 1~ 3자 필요 <i class='fa-regular fa-square'></i><i class='fa-solid fa-square'></i><i class='fa-solid fa-square'></i>";
+  		        p.innerHTML = "특문 !~@#$%^&*-_=+ 1~3자 필요 <i class='fa-regular fa-square'></i><i class='fa-solid fa-square'></i><i class='fa-solid fa-square'></i>";
   		        p.classList.add("fail");
   		        pass_form_label_Check.appendChild(p);
   		  

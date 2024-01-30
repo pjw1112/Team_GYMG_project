@@ -9,8 +9,10 @@
 <!-- header -->
 <!-- header -->
 <%
+
+/*http://15.164.164.72:8080/Team_GYMG/naver_login.jin*/
     String clientId = "jjoG5L0Odeyao6UOPCVc";//애플리케이션 클라이언트 아이디값";
-    String redirectURI = URLEncoder.encode("http://localhost:8080/Team_GYMG/naver_login.jin", "UTF-8");
+    String redirectURI = URLEncoder.encode("http://15.164.164.72:8080/Team_GYMG/naver_login.jin", "UTF-8");
     SecureRandom random = new SecureRandom();
     String state = new BigInteger(130, random).toString();
     String apiNaver_URL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
@@ -21,7 +23,7 @@
     
     String apiKakao_URL="https://kauth.kakao.com/oauth/authorize?response_type=code&";
     apiKakao_URL+="client_id=5311dcef4df09cce6029d72479addf8c";
-    apiKakao_URL+="&redirect_uri=http://localhost:8080/Team_GYMG/Kakao_login.jin";
+    apiKakao_URL+="&redirect_uri=http://15.164.164.72:8080/Team_GYMG/Kakao_login.jin";
 %>
 
 
@@ -105,6 +107,7 @@ li {
 .btn {
 	border: none;
 	height: 50px;
+	line-height: 40px; 
 	font-size: 16px;
 }
 
@@ -120,7 +123,7 @@ li {
 
 .btn2:hover {
 	background-color: #D6C101;
-	color: black;
+	color: white;
 }
 
 .btn3 {
@@ -139,8 +142,18 @@ li {
 .hover:hover {
 	color: #adadad;
 }
+.header_column1 a {
+    color: #fd9b36;
+}
+.form-check{
+	
+}
+.form-check-label{
+	line-height: 23px;
+}
+
 </style>
-<div class="container">
+<div class="ye-container">
 	<div class="join_container">
 
 		<div class="login_box">
@@ -171,7 +184,7 @@ li {
 					<div class="form-check">
 					<div>
 					<input type="checkbox" id="remember_id" name="remember_id" class="form-check-input" />
-                    <label for="remember_id" class="form-check-label"> 아이디 기억하기</label>
+                    <label for="remember_id" class="form-check-label">아이디 기억하기</label>
                     </div>
                     <div>
 					<input type="checkbox" id="remember_login" name="remember_login" class="form-check-input" /> 
@@ -249,7 +262,7 @@ normal_login_btn.addEventListener("click", () =>{
 				if(data=="2000"){
 					
 					alert("로그인 성공");
-				 	location.href="GoToMain.jin";	
+				 	location.href="index.ye";	
 					
 				}else{
 					alert("로그인 실패 : 아이디와 비밀번호를 다시 확인해주세요.");
