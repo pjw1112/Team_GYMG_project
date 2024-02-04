@@ -69,21 +69,14 @@
 					if(aa.trim()=="true"){
 						location.href="index.ye";
 					}
-					
-					
-					
-					
-					
-					
-					
-					
+						
 				}
 
 			}
 		});
 	}
 
-	//아아이디 기억하기 설정된 쿠키 값 확인하기
+	//아이디 기억하기 설정된 쿠키 값 확인하기
 	function getCookieValue(cookieName) {
 		// 쿠키 문자열을 가져옴
 		var cookieString = document.cookie;
