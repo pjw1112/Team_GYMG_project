@@ -5,8 +5,11 @@
 <mapper namespace="com.dao.jin.User_locationDao">
 
 	<insert id="insert" parameterType="User_locationDto">
-		insert into user_location (user_no, location_no) 
-		values (#{user_no}, #{location_no})
+		insert into user_location (user_no, location_no) values (#{user_no}, #{location_no})
+	</insert>
+	
+	<insert id="delete" parameterType="User_locationDto">
+		delete from user_location where user_no = #{user_no}
 	</insert>
 	
 	<select id="read" parameterType="User_locationDto" resultType="User_locationDto">

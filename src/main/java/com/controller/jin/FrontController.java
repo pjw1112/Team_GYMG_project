@@ -23,9 +23,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
 
-
-
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,15 +30,12 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.UUID;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,7 +43,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.dao.TestDao;
 import com.dao.jin.LocationDao;
 import com.dto.jin.UserDto;
 import com.dto.jin.User_fileDto;
@@ -68,123 +61,16 @@ public class FrontController {
 	/* -- Autowired Section -- */
 	/* -- Autowired Section -- */
 	@Autowired
-	TestDao testDao;
-
-	@Autowired
 	JService service;
 
 	@Autowired
 	LocationDao locationdao;
-
 	/* -- Autowired Section -- */
 	/* -- Autowired Section -- */
 	/* -- Autowired Section -- */
-
-	/* -- Just Page Moving Mappers -- */
-	/* -- Just Page Moving Mappers -- */
-	/* -- Just Page Moving Mappers -- */
-	@RequestMapping(value = "/GoToTestPage.jin", method = { RequestMethod.GET })
-	public String Test(Model model) {
-
-		model.addAttribute("time", testDao.readTime());
-		return "/testPages/test-jin.jsp";
-	}
-
-	@RequestMapping(value = "/GoToMain.jin", method = { RequestMethod.GET })
-	public String gotoMain() {
-		return "index.ye";
-	}
-
-	@RequestMapping(value = "/GoToLoginPage.jin", method = { RequestMethod.GET })
-	public String goToLoginPage() {
-		return "/jinPages/login.jsp";
-	}
-
-	@RequestMapping(value = "/GoToJoin1Page.jin", method = { RequestMethod.GET })
-	public String GoToJoin1Page() {
-		return "/jinPages/join1.jsp";
-	}
-
-	@RequestMapping(value = "/GoToJoin2Page.jin", method = { RequestMethod.GET })
-	public String GoToJoin2Page() {
-		return "/jinPages/join2.jsp";
-	}
-
-	@RequestMapping(value = "/GoToFind_id1Page.jin", method = { RequestMethod.GET })
-	public String GoToFind_id1Page() {
-		return "/jinPages/find_id1.jsp";
-	}
-
-	@RequestMapping(value = "/GoToFind_id3Page.jin", method = { RequestMethod.GET })
-	public String GoToFind_id3Page() {
-		return "/jinPages/find_id3.jsp";
-	}
 	
-	@RequestMapping(value = "/GoToFind_id2Page.jin", method = { RequestMethod.GET })
-	public String GoToFind_id2Page() {
-		return "/jinPages/find_id2.jsp";
-	}
-
-	@RequestMapping(value = "/GoToFind_pass1Page.jin", method = { RequestMethod.GET })
-	public String GoToFind_pass1Page() {
-		return "/jinPages/find_pass1.jsp";
-	}
-
-	@RequestMapping(value = "/GoToFind_pass2Page.jin", method = { RequestMethod.GET })
-	public String GoToFind_pass2Page() {
-		return "find_pass_email_trans.jin";
-	}
-
-	@RequestMapping(value = "/GoToFind_pass3Page.jin", method = { RequestMethod.POST })
-	public String GoToFind_pass3Page() {
-		return "/jinPages/find_pass3.jsp";
-	}
-
-	@RequestMapping(value = "/GoToMic_tab1Page.jin", method = { RequestMethod.GET })
-	public String GoToMic_tab1Page() {
-		return "/jinPages/mic_tab1.jsp";
-	}
-
-	@RequestMapping(value = "/GoToMic_tab2Page.jin", method = { RequestMethod.GET })
-	public String GoToMic_tab2Page() {
-		return "/jinPages/mic_tab2.jsp";
-	}
-
-	@RequestMapping(value = "/GoToMic_tab3Page.jin", method = { RequestMethod.GET })
-	public String GoToMic_tab3Page() {
-		return "/jinPages/mic_tab3.jsp";
-	}
-
-	@RequestMapping(value = "/join_successs.jin", method = { RequestMethod.GET })
-	public String join_successs() {
-		return "/jinPages/join3.jsp";
-	}
 	
-	@RequestMapping(value = "/user_logout.jin", method = { RequestMethod.GET })
-	public String user_logout(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		
-		HttpSession session = request.getSession();
-		session.invalidate();
-		
-		// 쿠키 삭제
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if ("remember_login".equals(cookie.getName())) {
-                    cookie.setMaxAge(0); // 쿠키 삭제
-                    response.addCookie(cookie);
-                }
-            }
-        }
-		
-		
-		return "redirect:index.ye";
-	}
-	/* -- Just Page Moving Mappers -- */
-	/* -- Just Page Moving Mappers -- */
-	/* -- Just Page Moving Mappers -- */
-
+	
 	/* -- Ajax Mappers -- */
 	/* -- Ajax Mappers -- */
 	/* -- Ajax Mappers -- */
@@ -195,6 +81,7 @@ public class FrontController {
 		HttpSession session = request.getSession();
 		PrintWriter out = response.getWriter();
 		Map<String, Object> item = new HashMap<String, Object>();
+		
 		session.setAttribute("verify_nubmer", verify_nubmer);
 
 		if (service.VerifyMobileBySms(item, request, response) > 0) {
@@ -203,6 +90,7 @@ public class FrontController {
 		}
 	}
 
+	
 	@RequestMapping(value = "/receivesmsverify.jin", method = RequestMethod.POST)
 	public void receivesmsverify(String input4number, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
@@ -248,6 +136,9 @@ public class FrontController {
 		}
 
 	}
+	
+	
+	
 	@RequestMapping(value = "/receiveemailverify.jin", method = RequestMethod.POST)
 	public void receiveemailverify(String input4number, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
@@ -292,6 +183,21 @@ public class FrontController {
 		}
 
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping(value = "/IDduplicateCheck.jin", method = RequestMethod.POST)
 	public void idduplicateCheck(String inputID, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -336,7 +242,7 @@ public class FrontController {
 
 			return "2000";
 		}
-		;
+		
 
 		return "2001";
 	}
@@ -396,61 +302,11 @@ public class FrontController {
 
 	
 	
-
-	@RequestMapping(value = "/upload.jin", method = {RequestMethod.POST} )
-	public String upload_post(MultipartFile file, String user_no,HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
 	
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
-		
-    	log.info("........POST");
-    	log.info("........user_no :"+user_no);
-		log.info("........NAME : " + file.getOriginalFilename());
-		log.info("........size : " + file.getSize());
-		log.info("........contentType : " + file.getContentType());
-		/*				*/
-		/*				*/
-		//#1. 파일이름 중복 안되게 고유값 설정
-		UUID uid = UUID.randomUUID();
-		String save = uid.toString() + "_" + file.getOriginalFilename();
-		log.info("........save name : " + save);
-		//#2. 파일 업로드
-		String rootPath = request.getSession().getServletContext().getRealPath("/");
-		rootPath += "resources\\upload";
-		log.info("...... rootPath : " + rootPath);
-		
-		File target = new File(rootPath, save );
-		
-			try {
-				FileCopyUtils.copy(file.getBytes(), target);
-				/*
-				model.addAttribute("title", request.getParameter("title"));
-				model.addAttribute("file", save);
-			*/
-				Map<String, Object> item = new HashMap<String, Object>();
+	
+	
 
-				item.put("user_no", Integer.parseInt(user_no));
-				item.put("file", save);
-				if(service.insert_user_profile_img(item, request, response) > 0 ) {
-					
-					System.out.println("사용자 프로필 이미지 업로드 성공");
-					return "redirect:GoToMic_tab1Page.jin";
-				}
-				
-				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			
-			
-		
-			System.out.println("사용자 프로필 이미지 업로드 실패");
-			
-		return "redirect:GoToMic_tab1Page.jin";
-    	
-    }
+	
     
 	
 	
@@ -492,7 +348,7 @@ public class FrontController {
 		
 		Map<String, Object> item = new HashMap<String, Object>();
 
-		System.out.println("★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆....받은 유저 번호 : "+user_no);
+		System.out.println("★☆user_locationListPull.jin....받은 유저 번호 : "+user_no);
 		item.put("user_no", user_no);
 		
 		return service.read_user_location(item, request, response);
@@ -537,7 +393,8 @@ public class FrontController {
 
 		String parameter ="?grant_type=authorization_code" +
 				"&client_id=5311dcef4df09cce6029d72479addf8c" +
-				"&redirect_uri=http://15.164.164.72:8080/Team_GYMG/Kakao_login.jin" +
+				//"&redirect_uri=http://15.164.164.72:8080/Team_GYMG/Kakao_login.jin" +
+				"&redirect_uri=http://localhost:8080/Team_GYMG/Kakao_login.jin" +
 				"&code="+code;
 		
 		urlapi+= parameter;
@@ -550,7 +407,7 @@ public class FrontController {
 		conn.setRequestMethod("POST");
 		conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 		conn.setDoOutput(true); //서버한테 전달
-		conn.setDoOutput(true);
+		
 				
 		DataOutputStream out = new DataOutputStream(conn.getOutputStream());
 		out.writeBytes(parameter);
@@ -728,7 +585,8 @@ public class FrontController {
 		    String clientSecret = "EX0nHpNPpN";//애플리케이션 클라이언트 시크릿값";
 		    String code = request.getParameter("code");
 		    String state = request.getParameter("state");
-		    String redirectURI = URLEncoder.encode("http://15.164.164.72:8080/Team_GYMG/naver_login.jin", "UTF-8");
+		    String redirectURI = URLEncoder.encode("http://localhost:8080/Team_GYMG/naver_login.jin", "UTF-8");
+		    //String redirectURI = URLEncoder.encode("http://15.164.164.72:8080/Team_GYMG/naver_login.jin", "UTF-8");
 		    String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code"
 		        + "&client_id=" + clientId
 		        + "&client_secret=" + clientSecret
@@ -773,6 +631,10 @@ public class FrontController {
 		    
 		return "get_naver_member_profile.jin";
 	}
+	
+	
+	
+	
 	@RequestMapping(value = "/get_naver_member_profile.jin", method = { RequestMethod.GET, RequestMethod.POST })
 	public String get_naver_member_profile(HttpServletRequest request, HttpServletResponse response) 
 			throws IOException, ServletException {
@@ -1063,34 +925,147 @@ public class FrontController {
 	/* user_update.jin */
 	/* user_update.jin */
 	@RequestMapping(value = "/user_update.jin", method = { RequestMethod.POST })
-	public String user_update(UserDto userdto, String user_location,HttpServletRequest request, HttpServletResponse response) 
+	public String user_update(MultipartFile file, UserDto userdto, String user_location,HttpServletRequest request, HttpServletResponse response) 
 			throws IOException, ServletException {
-			log.info("...............유저 정보 업데이트 시작");
-		 	System.out.println(".... 입력받은 dto : "+userdto);
-		 	System.out.println(".... 입력받은 user_location : "+user_location);
+		
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		
+		Map<String, Object> item = new HashMap<String, Object>();
+		
+    	log.info("........POST : user_update.jin");
+    	log.info("........File NAME : " + file.getOriginalFilename());
+		log.info("........File size : " + file.getSize());
+		log.info("........File contentType : " + file.getContentType());
+		log.info("........UserDto : " + userdto);
+		log.info("........user_location : " + user_location);
 			
-		 	Map<String, Object> item = new HashMap<String, Object>();
-
-			item.put("userdto", userdto);
-			item.put("user_location", user_location);
+		item.put("file", file);
+		item.put("userdto", userdto);
+		item.put("user_location", user_location);
+		
+		if(service.user_update(item, request, response) > 0 ){
 			
-			log.info("......... user update service go");
+			log.info("......유저 업데이트 최종 성공 !!! ");
 			
-			if (service.update_pw(item, request, response) > 0) {
-
-				return "redirect:/jinPages/find_pass5.jsp";
-			}
-			
-		 	
-		 	
-		 	
-			return "";
+			return "redirect:user_change_succsess.jin";
+		}
+		out.print("<script>alert('유저 정보 변경에 실패했습니다. 비밀번호를 다시 확인해주세요');</script>");
+		return "redirect:user_change_fail.jin";
 			
 	}
+	/* user_update.jin */
+	/* user_update.jin */
+	/* user_update.jin */
 	
-	/* user_update.jin */
-	/* user_update.jin */
-	/* user_update.jin */
+	
+	@RequestMapping(value = "/upload.jin", method = {RequestMethod.POST} )
+	public String upload_post(MultipartFile file, String user_no,HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
+	
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
+    	log.info("........POST");
+    	log.info("........user_no :"+user_no);
+		log.info("........NAME : " + file.getOriginalFilename());
+		log.info("........size : " + file.getSize());
+		log.info("........contentType : " + file.getContentType());
+		/*				*/
+		/*				*/
+		//#1. 파일이름 중복 안되게 고유값 설정
+		UUID uid = UUID.randomUUID();
+		String save = uid.toString() + "_" + file.getOriginalFilename();
+		log.info("........save name : " + save);
+		
+		//#2. 파일 업로드
+		String rootPath = request.getSession().getServletContext().getRealPath("/");
+		rootPath += "resources\\upload";
+		log.info("...... rootPath : " + rootPath);
+		
+		File target = new File(rootPath, save );
+		
+			try {
+				FileCopyUtils.copy(file.getBytes(), target);
+				
+				Map<String, Object> item = new HashMap<String, Object>();
+
+				item.put("user_no", Integer.parseInt(user_no));
+				item.put("file", save);
+				if(service.insert_user_profile_img(item, request, response) > 0 ) {
+					
+					System.out.println("사용자 프로필 이미지 업로드 성공");
+					return "redirect:GoToMic_tab1Page.jin";
+				}
+				
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			
+		
+			System.out.println("사용자 프로필 이미지 업로드 실패");
+			
+		return "redirect:GoToMic_tab1Page.jin";
+    	
+    }
+	
+	
+	@RequestMapping(value = "/user_pass_change.jin", method = {RequestMethod.POST} )
+	public String user_pass_change(String user_pw_before,UserDto userdto,HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
+	
+		Map<String, Object> item = new HashMap<String, Object>();
+
+		item.put("user_pw_before", user_pw_before);
+		item.put("userdto", userdto);
+		
+		if( service.update_pw2(item, request, response) > 0 ){
+			
+			request.setAttribute("message", "비밀번호 변경 성공! 변경된 비밀번호로 다시 로그인해주세요.");
+			request.setAttribute("location", "user_logout.jin");
+			
+
+			
+		}else {
+			
+			request.setAttribute("message", "비밀번호 변경 실패.. 비밀번호 입력을 다시 확인해주세요.");
+			request.setAttribute("location", "GoToMic_tab2Page.jin");
+		}
+	
+		return "message.jin";
+	}
+	
+	
+	
+	@RequestMapping(value = "/delete_user_by_self.jin", method = {RequestMethod.POST} )
+	public String user_pass_change(UserDto userdto, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	
+		Map<String, Object> item = new HashMap<String, Object>();
+
+		item.put("userdto", userdto);
+		System.out.println(".☆★.☆★.☆★");
+		System.out.println(userdto);
+		
+		System.out.println(".☆★.☆★.☆★");
+		if( service.delete_user(item, request, response) > 0 ){
+			
+			request.setAttribute("message", "탈퇴가 완료되었습니다. 이용해주셔서 감사합니다.");
+			request.setAttribute("location", "user_logout.jin");
+			
+
+			
+		}else {
+			
+			request.setAttribute("message", "회원 탈퇴 실패.. 비밀번호 입력을 다시 확인해주세요.");
+			request.setAttribute("location", "GoToMic_tab3Page.jin");
+		}
+	
+		return "message.jin";
+	}
 	
 	
 	
