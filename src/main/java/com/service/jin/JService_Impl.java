@@ -1,8 +1,13 @@
 package com.service.jin;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.InetAddress;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +37,8 @@ import com.dto.jin.Img_fileDto;
 import com.dto.jin.UserDto;
 import com.dto.jin.User_fileDto;
 import com.dto.jin.User_locationDto;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.mysql.cj.Session;
 
 import lombok.extern.log4j.Log4j;
@@ -63,9 +70,18 @@ public class JService_Impl implements JService {
 	@Autowired
 	User_fileDao user_filedao;
 
-//	sms verification
-//	sms verification
-//	sms verification	
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+
+	// sms verification
+	// sms verification
+	// sms verification
 	final DefaultMessageService messageService;
 
 	public JService_Impl() {
@@ -114,13 +130,22 @@ public class JService_Impl implements JService {
 
 		return 0;
 	}
-//	sms verification
-//	sms verification
-//	sms verification
+	// sms verification
+	// sms verification
+	// sms verification
 
-//	user_duplicateIdCheck	
-//	user_duplicateIdCheck	
-//	user_duplicateIdCheck	
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+
+	// user_duplicateIdCheck
+	// user_duplicateIdCheck
+	// user_duplicateIdCheck
 	@Override
 	public int user_duplicateIdCheck(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -131,9 +156,18 @@ public class JService_Impl implements JService {
 
 		return userdao.duplicateIdCheck(userdto);
 	}
-//	user_duplicateIdCheck	
-//	user_duplicateIdCheck	
-//	user_duplicateIdCheck
+	// user_duplicateIdCheck
+	// user_duplicateIdCheck
+	// user_duplicateIdCheck
+
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
 
 	// user_Insert
 	// user_Insert
@@ -175,6 +209,15 @@ public class JService_Impl implements JService {
 	// user_Insert
 	// user_Insert
 
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+
 	// insert_user_location
 	// insert_user_location
 	// insert_user_location
@@ -211,9 +254,16 @@ public class JService_Impl implements JService {
 	// insert_user_location
 	// insert_user_location
 
-	// user_login
-	// user_login
-	// user_login
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+
+	// 유저 로그인 (일반 + sns 로그인)
 	@Override
 	public int user_login(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -226,6 +276,7 @@ public class JService_Impl implements JService {
 		String remember_id = (String) item.get("remember_id");
 		String remember_login = (String) item.get("remember_login");
 
+		// 로그인 유형 1
 		if (login_type.equals("1")) {
 			if (userdao.read(userdto) != null) {
 
@@ -267,7 +318,7 @@ public class JService_Impl implements JService {
 				return 1;
 			}
 
-		} else {
+		} else {// 로그인 유형 1 이외의 로그인 (sns)
 
 			if (userdao.read(userdto) == null) {
 
@@ -284,6 +335,7 @@ public class JService_Impl implements JService {
 				}
 
 			} else {
+
 				UserDto login_user_dto = userdao.read(userdto);
 				if (login_user_dto != null) {
 					session.setAttribute("login_user_dto", login_user_dto);
@@ -297,13 +349,17 @@ public class JService_Impl implements JService {
 
 		return 0;
 	}
-//	user_login
-//	user_login
-//	user_login
 
-//	cookie_login
-//	cookie_login
-//	cookie_login
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+
+//	쿠키 로그인
 	@Override
 	public int cookie_login(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -334,13 +390,17 @@ public class JService_Impl implements JService {
 		}
 		return 0;
 	}
-//	cookie_login
-//	cookie_login
-//	cookie_login
 
-//	find_id	
-//	find_id	
-//	find_id	
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+
+//	아이디 찾기
 	@Override
 	public int find_id(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -358,13 +418,17 @@ public class JService_Impl implements JService {
 
 		return 0;
 	}
-//	find_id	
-//	find_id	
-//	find_id	
 
-//	update_pw	
-//	update_pw	
-//	update_pw	
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+
+	// 비밀번호 찾기 탭에서 비밀번호 바꾸기
 	@Override
 	public int update_pw(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -379,13 +443,17 @@ public class JService_Impl implements JService {
 
 		return 0;
 	}
-//	update_pw	
-//	update_pw	
-//	update_pw	
 
-//	update_pw2	
-//	update_pw2	
-//	update_pw2	
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+
+	// 유저 정보 수정 탭에서 비밀번호 바꾸기
 	@Override
 	public int update_pw2(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -415,10 +483,17 @@ public class JService_Impl implements JService {
 
 		return 0;
 	}
-//	update_pw2	
-//	update_pw2	
-//	update_pw2	
 
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+
+	// 유저 번호를 받아서 DB에서 해당 유저 번호에 해당하는 이미지 파일 이름을 user_img 테이블에서 가져와서 리턴
 	@Override
 	public String read_user_profile_img(Map<String, Object> item, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -445,6 +520,16 @@ public class JService_Impl implements JService {
 		return null;
 	}
 
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+
+	// 유저 번호를 받아서 DB에서 해당 유저 번호에 해당하는 장소 넘버를 user_location 테이블에서 가져와서 문자열로 바꿔서 리턴
 	@Override
 	public String read_user_location(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -476,6 +561,16 @@ public class JService_Impl implements JService {
 		return result;
 	}
 
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+
+	// 유저 정보 업데이트
 	@Transactional
 	@Override
 	public int user_update(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response)
@@ -542,6 +637,7 @@ public class JService_Impl implements JService {
 		return 0;
 	}
 
+	// 유저 프로필 이미지 업데이트
 	@Override
 	public int insert_user_profile_img(Map<String, Object> item, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -593,6 +689,115 @@ public class JService_Impl implements JService {
 		return 0;
 	}
 
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+
+	// 유저 로그 아웃
+	@Override
+	public int user_logout(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+
+		HttpSession session = request.getSession();
+		UserDto login_user_dto = (UserDto) session.getAttribute("login_user_dto");
+		int join_type = login_user_dto.getJoin_type_no();
+
+		
+
+		switch (join_type) {
+		
+		case 1:// 1. 일반유저 일 경우 로그아웃
+
+			
+			break;
+			
+		case 2:// 2. 네이버유저 일 경우 로그아웃
+
+			String clientId = "jjoG5L0Odeyao6UOPCVc";// 애플리케이션 클라이언트 아이디값";
+			String clientSecret = "EX0nHpNPpN";// 애플리케이션 클라이언트 시크릿값";
+			
+			
+			String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=delete&"+
+					"client_id="+clientId+
+					"&client_secret="+clientSecret+
+					"&access_token="+"{접근 토큰}"+
+					"&service_provider=NAVER";
+			
+			JsonParser parser = new JsonParser();
+			JsonObject my_object = null;
+			try {
+				URL url = new URL(apiURL);
+				HttpURLConnection con = (HttpURLConnection) url.openConnection();
+				con.setRequestMethod("GET");
+				int responseCode = con.getResponseCode();
+				BufferedReader br;
+				if (responseCode == 200) { // 정상 호출
+					br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				} else { // 에러 발생
+					br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+				}
+				String inputLine;
+				StringBuilder res = new StringBuilder();
+				while ((inputLine = br.readLine()) != null) {
+					res.append(inputLine);
+				}
+				br.close();
+				if (responseCode == 200) {
+					System.out.println(res.toString());
+					my_object = (JsonObject) parser.parse(res.toString());
+				}
+			} catch (Exception e) {
+				// Exception 로깅
+			}
+			
+			break;
+			
+		case 3:// 3. 카카오유저 일 경우 로그아웃
+
+			
+			break;
+
+		default:
+			
+			log.info("join_type 값이 1,2,3 범위를 벗어남");
+			break;
+		}
+
+		// 세션 무효
+		session.invalidate();
+
+		// 쿠키 삭제
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if ("remember_login".equals(cookie.getName())) {
+					cookie.setMaxAge(0); // 쿠키 삭제
+					response.addCookie(cookie);
+				}
+			}
+		}
+
+		return 0;
+	}
+
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+	// 유저 삭제
 	@Override
 	public int delete_user(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -601,7 +806,7 @@ public class JService_Impl implements JService {
 		userdto = (UserDto) item.get("userdto");
 
 		if (userdao.delete(userdto) > 0) {
-			
+
 			return 1;
 		}
 
