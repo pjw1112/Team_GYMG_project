@@ -1,6 +1,13 @@
 package com.test;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
@@ -66,7 +73,7 @@ public class Test_jinwoo {
 		System.out.println( (String)item.get("item"));
 	}
 	
-	@Test
+	@Test @Ignore
 	public void test8() {
 		
 		String[] locationList = { "서초구", "강남구", "종로구", "중구", "용산구", "성동구", "중랑구", "성북구", "도봉구", "노원구", "은평구",
@@ -96,7 +103,58 @@ public class Test_jinwoo {
 		
 	}
 	
-	
+	@Test
+	public void test9() throws IOException {
+		
+		String urlapi = "https://apis-navi.kakaomobility.com/v1/directions?";
+
+		String parameter ="origin=127.11015314141542,37.39472714688412&"
+					+ "destination=127.10824367964793,37.401937080111644";
+		
+		urlapi+= parameter;
+		URL url = null;
+		HttpURLConnection conn = null;
+		BufferedReader br = null;
+
+		url = new URL(urlapi);
+		conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("GET");
+		conn.setRequestProperty("Authorization", "KakaoAK 5311dcef4df09cce6029d72479addf8c");
+		conn.setRequestProperty("Content-Type", "application/json");
+		
+		conn.setDoOutput(true); //서버한테 전달
+		
+				
+		DataOutputStream out = new DataOutputStream(conn.getOutputStream());
+		out.writeBytes(parameter);
+		out.close();
+		
+		
+		
+		if (conn.getResponseCode() == 200) {
+			System.out.println("정상실행");
+			br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		} else {
+			System.out.println("비정상실행");
+			System.out.println("리스폰즈 코드 : "+conn.getResponseCode());
+			br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+		}
+
+		
+		String line = "";
+		StringBuffer buffer = new StringBuffer();
+		
+		while ((line = br.readLine()) != null) {
+			buffer.append(line);
+		}
+		br.close();
+		conn.disconnect();
+		
+		String result =  buffer.toString();
+		System.out.println("===========================");
+		System.out.println("카카오 모빌리티 경로 api 결과 : "+result);
+		
+	}
 	
 	
 	

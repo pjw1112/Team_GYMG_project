@@ -9,6 +9,7 @@ import com.dto.jin.UserDto;
 public interface UserDao {
 
 	public int insert(UserDto dto);
+	public int updateuser(UserDto dto);
 	public int updatepw(UserDto dto);
 	public int delete(UserDto dto);
 	public int duplicateIdCheck(UserDto dto);

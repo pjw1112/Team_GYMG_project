@@ -3,15 +3,23 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
 	<context:component-scan base-package="com" />
 	<context:property-placeholder
 		location="classpath:/config/db.properties" />
+
+
+	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource"> 
+		<property name="driverClass" value="${db.driverClass}"></property> <property 
+		name="url" value="${db.url}"></property> <property name="username" value="${db.username}"></property> 
+		<property name="password" value="${db.password}"></property> </bean> -->
 
 
 	<!-- HikariCP -->
@@ -36,7 +44,6 @@
 	<!-- sqlSessionFactory -->
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
-
 		<property name="configLocation"
 			value="classpath:/config/mybatis-config.xml"></property>
 		<property name="dataSource" ref="dataSource"></property>
@@ -53,8 +60,12 @@
 				<value>classpath:/config/jin_mapper/img-file-mapper.xml</value>
 				<value>classpath:/config/jin_mapper/user-file-mapper.xml</value>
 				<!-- moon jung mapper -->
+<<<<<<< HEAD
 				<value>classpath:/config/moon_mapper/board-mapper.xml</value> 
 				<value>classpath:/config/moon_mapper/recipe-mapper.xml</value> 
+=======
+				<value>classpath:/config/moon_mapper/board-mapper.xml</value>
+>>>>>>> branch 'master' of https://github.com/pjw1112/Team_GYMG_project.git
 				<!-- ye eun mapper -->
 				<value>classpath:/config/ye_mapper/rest-mapper.xml</value>
 			</list>
@@ -76,7 +87,18 @@
 	<!-- sqlSessionTemplate -->
 	<!-- sqlSessionTemplate -->
 
-	
+	<!-- tx -->
+	<!-- tx -->
+	<!-- tx -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<tx:annotation-driven />
+	<!-- tx -->
+	<!-- tx -->
+	<!-- tx -->
+
 
 	<!-- MapperScanner -->
 	<!-- MapperScanner -->

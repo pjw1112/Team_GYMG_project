@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface JService {
 	
-	public int user_duplicateIdCheck(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException;
+	public int user_duplicateIdCheck(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 	
 	public int user_Insert(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response) throws UnknownHostException;
 	
@@ -19,17 +18,26 @@ public interface JService {
 	
 	public int user_login(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 	
+	public int user_logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	
 	public int cookie_login(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 	
 	public int find_id(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 	
 	public int update_pw(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 	
+	public int update_pw2(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	
 	public int insert_user_profile_img(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 	
 	public String read_user_profile_img(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 	
 	public String read_user_location(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	
+	public int user_update(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	
+	public int delete_user(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	
 	
 	
 }

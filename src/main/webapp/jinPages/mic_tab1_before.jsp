@@ -14,27 +14,21 @@
 		<div class="login_box">
 			<div class="inner_container">
 				
+				
 				<div class="tab">
-					<!-- 
-				<div class="tab_item tab_1"><a href="GoToMic_tab1Page.jin">회원정보 변경</a></div>
-				<div class="tab_item tab_2"><a href="GoToMic_tab2Page.jin">비밀번호 변경</a></div>
-				<div class="tab_item tab_3"><a href="GoToMic_tab3Page.jin">회원 탈퇴</a></div>
-			 -->
 					<a href="GoToMic_tab1Page.jin">
 					<div class="tab_item tab_1">회원정보 변경</div></a> 
 					<a href="GoToMic_tab2Page.jin">
 					<div class="tab_item tab_2">비밀번호 변경</div></a> 
 					<a href="GoToMic_tab3Page.jin">
 					<div class="tab_item tab_3">회원 탈퇴</div></a>
-
-
 				</div>
 
-
-				<form action="user_update.jin" id="user_update_form" method="post" enctype="multipart/form-data">
-					
+				<form action="user_update.jin" id="user_update_form" method="post">
 					<div class="img_upload_wrapper">
-						
+					<!-- 
+					<form action="upload.jin?user_no=${login_user_dto.user_no}" method="post" id="img_upload_form" enctype="multipart/form-data">
+					 -->
 					<div class="img_row1">프로필 이미지 올리기</div>
 					<div class="img_row2">
 						<div class="img_wrap">
@@ -47,10 +41,9 @@
 					<div class="img_row4">
 						<input type="button" class="form-control submit img_submit" value="업로드" title="업로드" class="form-control">
 					</div>
-						<img class="tri1" src="${pageContext.request.contextPath}/images/tri1.svg">
-						<img class="tri2" src="${pageContext.request.contextPath}/images/tri2.svg">
+					<img class="tri1" src="${pageContext.request.contextPath}/images/tri1.svg">
+					<img class="tri2" src="${pageContext.request.contextPath}/images/tri2.svg">
 					</div>
-					
 					
 					<div class="profile">
 						<div class="profile_sec1">
@@ -105,8 +98,10 @@
 							<label for="user_phone" class="form-label">휴대폰 번호</label>
 						</div>
 						<div class="item column2 phone_check">
-							<input type="tel" id="user_phone" name="user_phone" class="form-control" value="${login_user_dto.user_phone }" >
-							<label for="user_phone" class="check_message"></label>
+							<input type="tel" id="user_phone" name="user_phone"
+								class="form-control"
+								value="${login_user_dto.user_phone }" ><label
+							for="user_phone" class="check_message"></label>
 						</div>
 						<div class="item column3 column3_sms">
 						<div class="sms_check_wrapper">
@@ -882,43 +877,56 @@ $.ajax({
 </script>
 
 
-<script>
+<script type="text/javascript">
 //이미지 업로드 스크립트
-let img_pre;  
 
-//이미지 미리보기
-    let target_file;
+	let img_pre;  
 
-    $("#file").on("change", e => {
+	//이미지 미리보기
+	var sel_file;
+	
+	$("#file").on("change", function(e){
+		
+		var files = e.target.files;
+		var filesArr = Array.prototype.slice.call(files);
 
-        let file = e.target.files[0];
-        let reg = /(.*?)\/(jpg|jpeg|png|bmp|svg)$/;
+		var reg = /(.*?)\/(jpg|jpeg|png|bmp)$/;
 
-        if (!file.type.match(reg)) {
-            alert("확장자는 이미지 확장자만 가능합니다.");
-            return;
-        }
+		filesArr.forEach(function(f) {
+			
+			if (!f.type.match(reg)) {
+				alert("확장자는 이미지 확장자만 가능합니다.");
+				return;
+			}
 
-        let reader = new FileReader();
+			sel_file = f;
 
-        reader.onload = function (load) {
-            target_file = load.target.result;
-            $("#img").attr("src", load.target.result);
-        }
+			var reader = new FileReader();
+			
+			reader.onload = function(e) {
+				$("#img").attr("src", e.target.result);
+				console.log(e.target.result);
+				img_pre = e.target.result;
+			}
+			
+			reader.readAsDataURL(f);
+		});
+	});
+	
 
-        reader.readAsDataURL(file);
-    });
-   
-    $(".img_submit").on("click", () => {
-        $("#profile_img_button").attr("src", target_file);
-        $(".img_upload_wrapper").toggle();
-    });
+	
+	
 	
 	$("#profile_img_button").on("click", () => {
 		$(".img_upload_wrapper").toggle();
 	});
 	
-	
+	$("#img_upload_form").on("submit", (e) => {
+		
+		e.preventDefault;
+		
+		$(".img_upload_wrapper").hide();
+	});
 
 	
 	 //프로필 이미지 가져와서 버튼에 넣기
@@ -1011,14 +1019,6 @@ let img_pre;
 	 		event.preventDefault();
 	 		return;
 	 	}
-	 	
-	 	if(!$("#user_pw").val()){
-	 		alert("비밀번호 입력을 확인해주세요.");
-	 		event.preventDefault();
-	 		return;
-	 		
-	 	}
-	 	
 	 	
 	 	
 	
