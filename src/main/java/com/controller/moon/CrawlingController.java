@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.dto.moon.RecipeDto;
+import com.dto.moon.RecipeVoDto;
 import com.service.moon.RecipeService;
 
 @Controller
@@ -26,9 +27,11 @@ public class CrawlingController {
 	RecipeService service;
 	
 	 @RequestMapping(value = "/goCrawling.moon", method = RequestMethod.GET)
-	    public String goCrawling(Model model, RecipeDto recipeDto) {
+	    public String goCrawling(Model model, RecipeVoDto recipeVoDto) {
 	        String baseUrl = "https://www.10000recipe.com";
-
+	        int i = 1;
+	        int j = 1;
+	        
 	        try {
 	        	Document doc = Jsoup.connect(baseUrl + "/index.html").get();
 	            
@@ -47,25 +50,49 @@ public class CrawlingController {
 	                    Elements servElements = subDoc.select(".view2_summary_info .view2_summary_info1");
 	                    Elements hourElements = subDoc.select(".view2_summary_info .view2_summary_info2");
 	                    Elements levelElements = subDoc.select(".view2_summary_info .view2_summary_info3");
-
+	                    Elements steps = subDoc.select(".view_step .view_step_cont");
+	                    Elements ingredients = subDoc.select("div.cont_ingre2 div.ready_ingre3 ul:not(.case1) li");
 	                    
-	                    for (Element imgElement : imgElements) {
-	                        String imageUrl = imgElement.attr("src");
-	                        String title = titleElements.text();
-	                        String serv = servElements.text();
-	                        String hour = hourElements.text();
-	                        String level = levelElements.text();
+	                    //
+//	                    for (Element imgElement : imgElements) {
+//	                        String imageUrl = imgElement.attr("src");
+//	                        String title = titleElements.text();
+//	                        String serv = servElements.text();
+//	                        String hour = hourElements.text();
+//	                        String level = levelElements.text();
+//	                        
+//	                        recipeVoDto.setImg_url(imageUrl);
+//	                        recipeVoDto.setTitle(title);
+//	                        recipeVoDto.setServings(serv);
+//	                        recipeVoDto.setCooking_time(hour);
+//	                        recipeVoDto.setDifficulty(level);
+//	                        model.addAttribute("recipeVoDto", service.insertRecipe(recipeVoDto));
+//	                    }
+	                    
+//	                    for(Element step : steps) {
+//	                    	String step_html = step.html();
+//	                    	recipeVoDto.setRecipe_id(i);
+//	                    	recipeVoDto.setInstruction(step_html);
+//	                    	model.addAttribute("recipeStep", service.insertRecipeStep(recipeVoDto));
+//	                    }
+//	                    i++;
+	                    
+	                    for (Element ingredient : ingredients) {
+	                        String text = ingredient.text();
+
+	                        int endIndex = text.indexOf("구매");
+	                        String name = text.substring(0, endIndex);
+
+	                        String quantity = ingredient.select("span.ingre_unit").text();
+
+	                        recipeVoDto.setRecipe_id(j);
+	                        recipeVoDto.setIngredient_name(name);
+	                        recipeVoDto.setIngredient_amount(quantity);
+	                        model.addAttribute("recipeIngredient", service.insertRecipeIngredient(recipeVoDto));
 	                        
-	                        recipeDto.setImg_url(imageUrl);
-	                        recipeDto.setTitle(title);
-	                        recipeDto.setServings(serv);
-	                        recipeDto.setCooking_time(hour);
-	                        recipeDto.setDifficulty(level);
-	                        model.addAttribute("recipeDto", service.insertRecipe(recipeDto));
-	                        
-	                        
-	                        
-	                    }
+	                     }
+	                     j++;
+	                    
 	                } catch (IOException e) {
 	                    e.printStackTrace();
 	                }
