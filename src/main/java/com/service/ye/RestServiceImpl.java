@@ -1,11 +1,13 @@
 package com.service.ye;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import com.dao.ye.RestDao;
@@ -30,6 +32,19 @@ public class RestServiceImpl implements RestService {
 	public List<Map<String, Object>> readCtg(){
 		return dao.readCtg();
 	}
+	@Transactional
+	public List<Object> main(){
+		List<Object> list = new ArrayList<>();
+		try {
+			list.add(dao.mainLocRec());
+			list.add(dao.mainLikeRec());
+			list.add(dao.readCtg());
+		}catch(Exception e) {
+			throw new RuntimeException("Failed to save data.", e);
+		}
+		return list;
+	
+	}
 	// 검색 결과
 	public void searchResult(String searchKey, List<Integer> ctgNos, Model model){
 		model.addAttribute("searchResult",dao.searchCtg(searchKey,ctgNos));
@@ -48,29 +63,36 @@ public class RestServiceImpl implements RestService {
 	@Override
 	public List<Object> readRest(int restNo) {
 		List<Object> list = new ArrayList<Object>();
+		
 		list.add(dao.readRestInfo(restNo));
 		list.add(dao.readRestBiz(restNo));
-//		list.add(dao.listRestFile(restNo));
 		list.add(dao.listMenu(restNo));
+		list.add(dao.listRestFile(restNo));
 
 		return list;
 	}
 
 	@Override
-	public int insertRest(RestInfoDto infoDto, ArrayList<RestBizDto> bizList, ArrayList<MenuDto> menuList) {
-		// 식당정보, 영업시간, 메뉴리스트, 파일리스트 삽입 (추가필요)
+	public int insertRest(RestInfoDto infoDto, ArrayList<RestBizDto> bizList, ArrayList<MenuDto> menuList, ArrayList<RestFileDto> fileList) {
+		// 식당정보, 영업시간, 메뉴리스트, 파일리스트 삽입
 		int result = -1;
 		if (dao.insertRestInfo(infoDto) > 0) {
 			for (int i = 0; i < bizList.size(); i++) {
 				bizList.get(i).setRest_no(infoDto.getRest_no());
 				bizList.get(i).setBiz_day(i + 1);
-				System.out.println(bizList.get(i));
 				dao.insertRestBiz(bizList.get(i));
 			}
 			for (int i = 0; i < menuList.size(); i++) {
-				System.out.println(menuList.get(i));
 				menuList.get(i).setRest_no(infoDto.getRest_no());
 				dao.insertMenu(menuList.get(i));
+			}
+			if(fileList != null) {
+				for (int i = 0; i< fileList.size(); i++) {
+					RestFileDto file = fileList.get(i);
+					dao.insertFile(file); // file테이블에 file_name 저장, 생성된 file_no 가져오기
+					file.setRest_no(infoDto.getRest_no()); // rest_no 저장
+					dao.insertRestFile(fileList.get(i)); // rest_file에 file_no, rest_no 저장
+				}
 			}
 			result = 1;
 		}
@@ -111,6 +133,31 @@ public class RestServiceImpl implements RestService {
 			result = 1;
 		}
 		return result;
+	}
+	
+	@Override
+	public int checkRestLike(int restNo, int userNo) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("rest_no", restNo);
+		map.put("user_no", userNo);
+		
+		return dao.amILikeRest(map);
+	}
+	
+	
+	@Override
+	@Transactional
+	public int toggleRestLike(int restNo, int userNo) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("rest_no", restNo);
+		map.put("user_no", userNo);
+		
+		if(dao.amILikeRest(map) > 0) {
+			dao.deleteLikeRest(map);
+		}else {
+			dao.addLikeRest(map);
+		}
+		return dao.countLikeRest(restNo);
 	}
 
 }

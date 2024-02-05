@@ -550,7 +550,6 @@ public class FrontController {
 		conn.setRequestMethod("POST");
 		conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 		conn.setDoOutput(true); //서버한테 전달
-		conn.setDoOutput(true);
 				
 		DataOutputStream out = new DataOutputStream(conn.getOutputStream());
 		out.writeBytes(parameter);
