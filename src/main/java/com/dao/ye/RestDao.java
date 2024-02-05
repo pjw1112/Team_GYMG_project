@@ -43,10 +43,10 @@ public interface RestDao {
 	/*
 	restFile
 	*/
-	public List<RestFileDto> listRestFile(int restNo);
-	public RestFileDto readRestFile();
-	public int insertFile(RestFileDto dto);
-	public int insertRestFile(RestFileDto dto);
+	public List<RestFileDto> listRestFile(int rest_no);
+	public RestFileDto readRestFile(); // 
+	public int insertFile(RestFileDto dto); //file_name 저장 , file_no 반환
+	public int insertRestFile(RestFileDto dto); // file_no, rest_no 저장
 
 	/*
 	restMenu
@@ -54,4 +54,11 @@ public interface RestDao {
 	public List<MenuDto> listMenu(int restNo); // test
 	public int insertMenu(MenuDto dto); // test
 	public int deleteMenu(int restNo); // test
+	
+	/* restLike */
+	public int countLikeRest(int restNo);
+	public int amILikeRest(Map<String, Integer> paraMap);
+	public int addLikeRest(Map<String, Integer> paraMap);
+	public int deleteLikeRest(Map<String, Integer> paraMap);
+	
 }
