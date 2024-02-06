@@ -69,21 +69,14 @@
 					if(aa.trim()=="true"){
 						location.href="index.ye";
 					}
-					
-					
-					
-					
-					
-					
-					
-					
+						
 				}
 
 			}
 		});
 	}
 
-	//아아이디 기억하기 설정된 쿠키 값 확인하기
+	//아이디 기억하기 설정된 쿠키 값 확인하기
 	function getCookieValue(cookieName) {
 		// 쿠키 문자열을 가져옴
 		var cookieString = document.cookie;
@@ -204,14 +197,13 @@
 							<c:choose>
 								<c:when test="${sessionScope.login_user_dto.type_no == 1}">
 									<strong>${sessionScope.login_user_dto.user_name}</strong> 님 | 
-							<a href="GoToAdmin1Page.jin" class="header_session_btn"><strong>ADMIN</strong></a> |
+							<strong>ADMIN</strong> |
 							<a href="user_logout.jin" class="header_session_btn"><strong>Out</strong></a>
 								</c:when>
 								<c:when test="${sessionScope.login_user_dto.type_no == 2}">
 									<strong>${sessionScope.login_user_dto.user_name}</strong> 님 | 
 							<a href="GoToMic_tab1Page.jin" class="header_session_btn"><strong>MY</strong></a> |
-							<a href="user_logout.jin" class="header_session_btn"><strong>Log
-											Out</strong></a>
+							<a href="user_logout.jin" class="header_session_btn"><strong>Log Out</strong></a>
 								</c:when>
 
 							</c:choose>

@@ -21,7 +21,7 @@
 							<div class="chk-container">
 								<div class="chk-group">
 									<input type="checkbox" id="ctg_all" name="ctg_no" value="0"
-										<c:if test='${paramValues.ctg_no[0] eq ""}'>checked</c:if> />
+										<c:if test='${paramValues.ctg_no[0] eq "" || paramValues.ctg_no[0] eq 0}'>checked</c:if> />
 									<div class="chkbox-custom"></div>
 									<label class="chkbox-label" for="ctg_all">전체</label>
 								</div>

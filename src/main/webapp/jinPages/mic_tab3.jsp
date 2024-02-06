@@ -69,11 +69,13 @@ li {
 .main_form {
 	/*border: 1px solid black;*/
 	width: 720px;
-	height: 450px;
 	margin: 35px auto;
+	margin-bottom : 80px;
+	margin-top : 100px;
 	display: grid;
 	grid-template-columns: 1fr 2fr 1fr;
-	grid-gap: 20px;
+	grid-gap: 30px;
+	row-gap: 50px;
 }
 
 .item {
@@ -117,7 +119,7 @@ input {
 }
 
 .pass_intro {
-	width : 750px;
+	width: 750px;
 	margin: 80px auto;
 	margin-bottom: 50px;
 	font-size: 21px;
@@ -126,21 +128,18 @@ input {
 	font-size: 21px
 }
 
-.pass_intro1{
+.pass_intro1 {
 	font-size: 42px;
-	
-	
-}
-.pass_intro2{
-	
-	margin: 40px auto;
-}
-.pass_intro3{
-	
-	margin: 40px auto;
-	font-size : 28px;
 }
 
+.pass_intro2 {
+	margin: 40px auto;
+}
+
+.pass_intro3 {
+	margin: 40px auto;
+	font-size: 28px;
+}
 
 .column1 {
 	text-align: right;
@@ -256,7 +255,7 @@ hr {
 /* 회원가입form 유효성 검사 관련 CSS */
 /* 회원가입form 유효성 검사 관련 CSS */
 .check_message {
-	margin-top : 5px;
+	margin-top: 5px;
 	font-size: 16px;
 	/*border : 1px solid red;*/
 	width: 100%;
@@ -264,9 +263,11 @@ hr {
 	line-height: 18px;
 	position: relative;
 }
-.check_message p{
+
+.check_message p {
 	line-height: 22px;
 }
+
 .check_success {
 	position: absolute;
 	color: rgb(56, 255, 56);
@@ -281,7 +282,6 @@ hr {
 	top: -39px;
 	right: 12px;
 	font-size: 25px;
-	
 }
 
 .check_fail {
@@ -306,82 +306,175 @@ hr {
 	color: rgb(252, 87, 16);
 	margin-bottom: 0;
 }
+
 .header_column1 a {
-    color: #fd9b36;
+	color: #fd9b36;
 }
 
 /* 회원가입form 유효성 검사 관련 CSS */
 /* 회원가입form 유효성 검사 관련 CSS */
 /* 회원가입form 유효성 검사 관련 CSS */
+.pledge_check{
+position: relative;
+}
+.pledge_message{
+	color : #cccccc;
+	position: absolute;
+	top : -30px;
+	left : 0;
+}
+
+
 </style>
 <div class="ye-container">
-<div class="join_container">
+	<div class="join_container">
 
-	<div class="login_box">
-		<div class="inner_container">
-
-
-
-			<div class="tab">
-				<a href="GoToMic_tab1Page.jin"><div class="tab_item tab_1">회원정보 변경</div></a>
-				<a href="GoToMic_tab2Page.jin"><div class="tab_item tab_2">비밀번호 변경</div></a>
-				<a href="GoToMic_tab3Page.jin"><div class="tab_item tab_3">회원 탈퇴</div></a>
-			</div>
-
-
-			<form action="#" method="post">
-
-				<div class="pass_intro1 pass_intro">회원 탈퇴 안내</div>
-				<div class="pass_intro2 pass_intro">
-					탈퇴를 완료하면 계정과 모든 관련 데이터는 영구적으로 삭제됩니다.<br>
-					이는 되돌릴 수 없는 조치이므로, 신중하게 결정해 주세요.
-				</div>
-				<div class="pass_intro3 pass_intro">
-					중요한 데이터나 정보가 있다면 탈퇴 전에 다시 한번 확인 해 주세요.
+		<div class="login_box">
+			<div class="inner_container">
+				
+				<div class="tab">
+					<a href="GoToMic_tab1Page.jin"><div class="tab_item tab_1">회원정보 변경</div></a> 
+					<a href="GoToMic_tab2Page.jin"><div class="tab_item tab_2">비밀번호 변경</div></a> 
+					<a href="GoToMic_tab3Page.jin"><div class="tab_item tab_3">회원 탈퇴</div></a>
 				</div>
 
-				<div class="pass_intro4 pass_intro">
-				탈퇴를 원하실 경우 아래의 '계정 탈퇴' 버튼을 클릭해 주세요. 그 전에, 탈퇴하는 데 대한 질문이나 우려 사항이 있으시면 언제든지 [고객 지원 센터]에 문의하실 수 있습니다.
-				</div>
-				<div class="main_form main_form2">
 
-					<div class="item column1">
-						<label for="user_pw" class="form-label">비밀번호 확인</label>
+				<form action="delete_user_by_self.jin" id="delete_user_form" method="post">
+					
+					<input type="hidden" id="user_no" name="user_no" value="${login_user_dto.user_no}">
+					
+					<div class="pass_intro1 pass_intro">회원 탈퇴 안내</div>
+					<div class="pass_intro2 pass_intro">
+						탈퇴를 완료하면 계정과 모든 관련 데이터는 영구적으로 삭제됩니다.<br> 이는 되돌릴 수 없는 조치이므로,
+						신중하게 결정해 주세요.
 					</div>
-					<div class="item column2">
-						<input type="password" id="user_pw" name="user_pw"
-							class="form-control middle_input">
+					<div class="pass_intro3 pass_intro">중요한 데이터나 정보가 있다면 탈퇴 전에 다시
+						한번 확인 해 주세요.</div>
+
+					<div class="pass_intro4 pass_intro">탈퇴를 원하실 경우 아래의 '계정 탈퇴'
+						버튼을 클릭해 주세요. 그 전에, 탈퇴하는 데 대한 질문이나 우려 사항이 있으시면 언제든지 [고객 지원 센터]에
+						문의하실 수 있습니다.</div>
+					<div class="main_form">
+
+						<div class="item column1">
+							<label for="pledge" class="form-label">탈퇴 서약</label>
+						</div>
+						<div class="item column2 pledge_check">
+							<div class="pledge_message">"${login_user_dto.user_name} 탈퇴 동의합니다" 서약 입력</div>
+							<input type="text" id="pledge" name="pledge" class="form-control middle_input"> 
+							<label for="pledge" class="check_message"></label>
+						</div>
+						<div class="item column3"></div>
+						<!-- #################################################### -->
+						<div class="item column1">
+							<label for="user_pw" class="form-label">비밀번호 확인</label>
+						</div>
+						<div class="item column2 pw_check">
+							<input type="password" id="user_pw" name="user_pw"
+								class="form-control middle_input">
+							<label for="user_pw" class="check_message"></label>
+						</div>
+						<div class="item column3"></div>
+						<!-- #################################################### -->
+		
+						
+					</div>
+					<hr>
+					<br> <br>
+
+					<div class="reset">
+						<input type="reset" class="btn btn-secondary btn-cancel"
+							value="취소">
+					</div>
+					<div class="submit">
+						<input type="submit" class="btn btn-danger btn-save" value="계정 탈퇴">
 					</div>
 					<div class="item column3"></div>
 					<!-- #################################################### -->
-
-				</div>
-				<hr>
-				<br> <br>
-
-				<div class="reset">
-					<a href="" class="btn btn-secondary btn-cancel">취소</a>
-				</div>
-				<div class="submit">
-					<input type="submit" class="btn btn-danger btn-save" value="저장">
-				</div>
-				<div class="item column3"></div>
-				<!-- #################################################### -->
+				</form>
 
 
 
 
-			</form>
-
-
-
-
+			</div>
 		</div>
 	</div>
 </div>
-</div>
+
+<script>
+let pass_ok = false;
+let pledge_ok = false;
+
+let pass_form = document.querySelector("#user_pw");
+let pledge_form = document.querySelector("#pledge");
+
+let pass_form_label_Check = document.querySelector(".pw_check .check_message");
+let pledge_form_label_Check = document.querySelector(".pledge_check .check_message");
+
+let pledge_message = "${login_user_dto.user_name} 탈퇴 동의합니다";
+pledge_form.addEventListener('input', function() {
+	
+	if( pledge_form.value == pledge_message){
+		pledge_form_label_Check.innerHTML = "";
+	      let p = document.createElement("p");
+	      p.innerHTML = "서약 조건 충족";
+	      p.classList.add("success");
+	      pledge_form_label_Check.appendChild(p);
+
+	      let success = document.createElement("div");
+	      success.innerHTML = "<i class='fa-regular fa-circle-check'></i>";
+	      success.classList.add("check_success");
+	      pledge_form_label_Check.appendChild(success);
+	      
+	      pledge_ok = true;
+	}else{
+		pledge_form_label_Check.innerHTML = "";
+ 	      let p = document.createElement("p");
+ 	      p.innerHTML = "서약을 정확하게 입력해주세요";
+ 	      p.classList.add("fail");
+ 	      pledge_form_label_Check.appendChild(p);
+
+ 	      let fail = document.createElement("div");
+ 	      fail.innerHTML = "<i class='fa-regular fa-circle-xmark'></i>";
+ 	      fail.classList.add("check_fail");
+ 	      pledge_form_label_Check.appendChild(fail);
+
+ 	      pledge_ok = false;
+	}
+	
+	
+});
 
 
+//최종 폼 제출
+let delete_user_form = document.getElementById("delete_user_form");
+delete_user_form.addEventListener('submit', function(event) {
+	
+	
+	if(!pledge_ok){
+		alert("탈퇴 서약 입력을 확인해주세요.");
+		event.preventDefault();
+		return;
+	}
+	
+	if($(pass_form).val().length < 8 ){
+		alert("비밀번호 입력을 확인해주세요.");
+		event.preventDefault();
+		return;
+	}
+	
+
+	let message="회원탈퇴를 진행합니다. 탈퇴가 완료되면 계정을 복구할 수 없습니다. 계속하시겠습니까?";
+	if(!confirm(message)){
+		event.preventDefault();
+	}
+	
+	
+});
+
+
+
+</script>
 
 
 

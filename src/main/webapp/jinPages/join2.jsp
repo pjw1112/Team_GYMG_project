@@ -786,7 +786,8 @@ pass_form.addEventListener("input", () => {
     	        success.innerHTML = "<i class='fa-regular fa-circle-check'></i>";
     	        success.classList.add("check_success");
     	        pass_form_label_Check.appendChild(success);
-
+    	        
+    	        pass_ok = true;
     		  }else{
     			
     			  pass_form_label_Check.innerHTML = "";
@@ -807,7 +808,7 @@ pass_form.addEventListener("input", () => {
     		  } 
     	  
        
-        pass_ok = true;
+        
       } else {
         pass_form_label_Check.innerHTML = "";
         let p = document.createElement("p");
@@ -1133,7 +1134,7 @@ join_form.addEventListener('submit', function(event) {
 		return;
 	}
 	if(!pass2_ok ){
-		alert("비밀번호 확인 일치 여부를 확인해주세요.");
+		alert("비밀번호 일치 여부를 확인해주세요.");
 		
 		return;
 	}

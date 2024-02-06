@@ -5,7 +5,7 @@
 <div class="ye-container">
 	<div class="wrapper-yeeun">
 		<h2 class="admin-title">식당 추가</h2>
-		<form id="rest-insert-form" method="post" action="adminRestWrite.ye">
+		<form id="rest-insert-form" method="post" action="adminRestWrite.ye" enctype="multipart/form-data">
 			<fieldset>
 				<legend>식당정보</legend>
 				<h3>식당정보</h3>
@@ -130,13 +130,13 @@
 					</tbody>
 				</table>
 			</fieldset>
-			<!-- <fieldset>
+			<fieldset>
 				<legend>식당 사진 업로드</legend>
 				<h3>식당사진</h3>
 				<div class="mg70 mg30">
 					<input type="file" name="uploadFiles" multiple />
 				</div>
-			</fieldset> -->
+			</fieldset>
 			<fieldset>
 				<legend>메뉴</legend>
 				<h3>메뉴</h3>
@@ -223,9 +223,9 @@
 						});
 
 				// form 전송시 메뉴 길이 함께 전송 
-				$('#rest-insert-form').on('submit', function() {
-					/* e.preventDefault();
-					console.log($('.menu-box')); */
+				$('#rest-insert-form').on('submit', function(e) {
+					/* e.preventDefault(); */
+					/* alert($('.menu-box').length);  */
 					$('.menuSize').val($('.menu-box').length);
 				})
 
