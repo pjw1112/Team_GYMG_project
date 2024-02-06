@@ -19,4 +19,24 @@
 		values (#{recipe_id}, #{ingredient_name}, #{ingredient_amount});
 	</insert>
 	
+	<select id="recipeAll" resultType="RecipeVoDto">
+		select * from recipe
+	</select>
+	
+	<select id="recipeStep" resultType="RecipeVoDto">
+		select recipe.recipe_id, step.instruction 
+		from recipe
+		left join step
+		on recipe.recipe_id = step.recipe_id
+		where recipe.recipe_id= #{recipe_id}
+	</select>
+	
+	<select id="recipeIngredient" resultType="RecipeVoDto">
+		select recipe.recipe_id, ingredient.ingredient_name, ingredient.ingredient_amount
+		from recipe
+		left join ingredient
+		on recipe.recipe_id = ingredient.recipe_id
+		where recipe.recipe_id= #{recipe_id}
+	</select>
+	
 </mapper>

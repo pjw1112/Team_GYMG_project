@@ -1,5 +1,7 @@
 package com.service.moon;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,21 @@ public class RecipeServiceImpl implements RecipeService{
 	@Override
 	public int insertRecipeIngredient(RecipeVoDto recipeVoDto) {
 		return dao.insertRecipeIngredient(recipeVoDto);
+	}
+
+	@Override
+	public List<RecipeVoDto> recipeAll(RecipeVoDto recipeVoDto) {
+		return dao.recipeAll(recipeVoDto);
+	}
+
+	@Override
+	public List<RecipeVoDto> recipeStep(RecipeVoDto recipeVoDto) {
+		return dao.recipeStep(recipeVoDto);
+	}
+
+	@Override
+	public List<RecipeVoDto> recipeIngredient(RecipeVoDto recipeVoDto) {
+		return dao.recipeIngredient(recipeVoDto);
 	}
 
 }
