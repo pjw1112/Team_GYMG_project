@@ -17,7 +17,7 @@ public interface RestService {
 
 	public void searchResult(String searchKey, List<Integer> ctgNos, Model model);
 	
-	public List<RestInfoDto> mainLocRecList();
+	public List<RestInfoDto> mainLocRecList(String searchKey);
 	public List<RestInfoDto> mainLikeRecList();
 	public List<Map<String, Object>> readCtg();
 	public List<Object> main();

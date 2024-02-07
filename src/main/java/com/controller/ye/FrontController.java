@@ -14,8 +14,11 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -31,6 +34,9 @@ import com.dto.ye.MenuDto;
 import com.dto.ye.RestBizDto;
 import com.dto.ye.RestFileDto;
 import com.dto.ye.RestInfoDto;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.service.ye.RestService;
 
 @Controller("ye-controller")
@@ -42,14 +48,23 @@ public class FrontController {
    // 카카오 길찾기
    @ResponseBody
    @RequestMapping(value="/findRestKakao.ye", method=RequestMethod.GET)
-   public String findRest(@RequestParam Map<String, String> param) throws IOException {
-	   String origin = param.get("origin");
+   public String findRest(@RequestParam Map<String, String> param, HttpServletRequest request) throws IOException {
+	   HttpSession session = request.getSession();
+	   
+//	   String origin = param.get("origin");
+	   String origin = session.getAttribute("longitude") + "," + session.getAttribute("latitude");
+			   
 	   String destination = param.get("destination");
 	   System.out.println("카카오 길찾기 ( 출발지 : " + origin + " / 도착지 : " + destination + " )");
 	   
 	   String REST_API_KEY = "53b7e029069bb988d3e217b3f96575eb";
-	   String api_url = "https://apis-navi.kakaomobility.com/v1/directions";
-	   String api_parameter = "?origin=127.11015314141542,37.39472714688412&destination=127.10824367964793,37.401937080111644&waypoints=&priority=RECOMMEND&car_fuel=GASOLINE&car_hipass=false&alternatives=false&road_details=false";
+	   String api_url = "https://apis-navi.kakaomobility.com/v1/directions?";
+	   String api_parameter = "origin=" + origin
+	   		+ "&destination=127.10824367964793,37.401937080111644"
+	   		+ "&waypoints="
+	   		+ "&priority=RECOMMEND"
+	   		+ "&car_fuel=GASOLINE&car_hipass=false"
+	   		+ "&alternatives=false&road_details=false";
 	   
 	  URL url = new URL(api_url+api_parameter);
 	  HttpURLConnection conn =(HttpURLConnection) url.openConnection();
@@ -59,9 +74,9 @@ public class FrontController {
 	  conn.setDoOutput(true);
 	  conn.setDoInput(true);
 	  
-	  DataOutputStream out = new DataOutputStream(conn.getOutputStream());
-	  out.writeBytes(api_parameter);
-	  out.close();
+//	  DataOutputStream out = new DataOutputStream(conn.getOutputStream());
+//	  out.writeBytes(api_parameter);
+//	  out.close();
 	  
 	  System.out.println("Response Code: " + conn.getResponseCode());
 	  
@@ -83,6 +98,7 @@ public class FrontController {
 	  String resultString = buffer.toString();
 	  System.out.println("return : " + resultString);
 	  
+	  
 //	  JsonParser parser = new JsonParser();
 //	  JsonElement jsonElement = parser.parse(resultString);
 //	  if(jsonElement.isJsonObject()) {
@@ -97,9 +113,9 @@ public class FrontController {
    @RequestMapping(value="/index.ye", method=RequestMethod.GET)
    public String main(Model model) {
 	   List<Object> list = service.main();
-	   model.addAttribute("locList",list.get(0));
-	   model.addAttribute("likeList",list.get(1));
-	   model.addAttribute("ctgList",list.get(2));
+//	   model.addAttribute("locList",list.get(0));
+	   model.addAttribute("likeList",list.get(0));
+	   model.addAttribute("ctgList",list.get(1));
 	   
 	   return "/yeeunPages/index.jsp";
    }
@@ -259,6 +275,73 @@ public class FrontController {
 	   return service.toggleRestLike(restNo, userNo);
    }
    
+//   @RequestMapping(value="/getAddress.ye", method=RequestMethod.GET, headers={"Content-type=application/json"})
+//   @RequestMapping(value="/getAddress.ye", method=RequestMethod.GET, headers={"Content-type=application/json"}   ,  produces="application/json; charset=UTF-8"  )
+   @RequestMapping(
+		    value = "/getAddress.ye",
+		    method = RequestMethod.GET,
+		    headers = "Content-Type=application/json", // 헤더 이름과 값의 쌍으로 설정
+		    produces = "application/json; charset=UTF-8"
+		)
+   @ResponseBody
+   public String getAddress(@RequestParam Map<String, String> param, HttpServletRequest request, HttpServletResponse response) throws IOException {
+   
+	   String longitude = param.get("longitude");
+	   String latitude = param.get("latitude");
+	   
+	   HttpSession session = request.getSession();
+	   session.setAttribute("longitude", longitude);
+	   session.setAttribute("latitude", latitude);
+	   
+	   String REST_API_KEY = "53b7e029069bb988d3e217b3f96575eb";
+	   String api_url = "https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=" + longitude + "&y=" + latitude;
+	   
+	   URL url = new URL(api_url);
+	   HttpURLConnection conn =(HttpURLConnection) url.openConnection();
+	   conn.setRequestMethod("GET");
+	   conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+	   conn.setRequestProperty("Authorization", "KakaoAK " + REST_API_KEY);
+	   conn.setDoOutput(true);	
+	   conn.setDoInput(true);
+	  
+	  System.out.println("Response Code: " + conn.getResponseCode());
+	  
+	  BufferedReader br = null;
+	  if(conn.getResponseCode() == 200) {
+		  br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	  }else {
+		  br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+	  }
+	  
+	  String line = "";
+	  StringBuffer buffer = new StringBuffer();
+	  while((line = br.readLine()) != null) {
+		  buffer.append(line);
+	  }
+	  br.close();
+	  conn.disconnect();
+	  
+	  String resultString = buffer.toString();
+	  System.out.println("return : " + resultString);
+	  
+	  
+//	  JsonParser parser = new JsonParser();
+//	  JsonElement jsonElement = parser.parse(resultString);
+//	  if(jsonElement.isJsonObject()) {
+//		  JsonObject resultJson = jsonElement.getAsJsonObject();
+//		  return resultJson;
+//	  }
+//	  return null;
+	  
+	  return resultString;
+	   
+   }
+   
+   @GetMapping("getLocList.ye")
+   @ResponseBody
+   public List<RestInfoDto> getLocList(String searchKey){
+	   return service.mainLocRecList(searchKey);
+   }
    
 
 

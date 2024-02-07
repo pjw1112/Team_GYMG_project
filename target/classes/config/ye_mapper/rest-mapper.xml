@@ -132,10 +132,10 @@
 		(rest_no)
 		LEFT JOIN review rr USING
 		(rest_no)
-		WHERE r.rest_no IN (SELECT
-		rest_no
+		WHERE r.rest_no IN
+		(SELECT rest_no
 		FROM restaurant WHERE
-		rest_address LIKE '%경기도 과천시%')
+		rest_address LIKE CONCAT( '%' , #{searchKey}, '%'))
 		GROUP BY
 		r.rest_no,
 		rc.ctg_name,
