@@ -224,10 +224,21 @@ function shareMessage() {
 $(function(){
 	$('.find-rest-btn').on('click',function(){
 		alert('길찾기를 시작합니다.');
+		
+		
 		let origin = '127.111202,37.394912,name=현재위치주소';
 		let destination = '127.111202,37.394912,name=식당명';
 		
-		$.ajax({
+		getLocation();
+		
+		
+		
+		
+		
+		
+		
+		
+		/* $.ajax({
 			url : 'findRestKakao.ye',
 			type : "GET",
 			data : {origin : origin,
@@ -239,10 +250,42 @@ $(function(){
 			success : function(json){
 				console.log(json);
 			}
-		})
+		}) */
 		
 	})
+	
+	
 })
+</script>
+<script>
+//위치정보 사용
+function getLocation() {
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(getAddressByCoords,redirectLocation, geo_options);
+        //navigator.geolocation.getCurrentPosition(successCallback,errorCallback,{ timeout: 10_000 });
+	} else {
+		alert('현재 위치를 가져올 수 없습니다.');
+	}
+}
+
+// 위치 정보 조회 성공시 호출
+function getAddressByCoords(position) {
+	var longitude = position.coords.longitude;
+	var latitude = position.coords.latitude;
+	console.log("현재 위치  : (경도) "+longitude + ", (위도) " + latitude);
+	
+}
+
+//위치 정보 조회 실패시 호출
+function redirectLocation(error) {
+	alert('에러 발생');
+}
+
+//타임아웃 변수
+var geo_options = {
+	maximumAge        : 5000, 
+	timeout           : 10000
+};
 </script>
 <script>
 $(function(){
@@ -278,7 +321,7 @@ $(function(){
 				url : 'restLike.ye',
 				type : 'GET', 
 				data : {restNo : restNo, userNo : userNo },
-				dataType : "text",
+				dataType : "json",
 				error : function(xhr, status, msg){
 					alert(status + ' / ' + msg);
 				},

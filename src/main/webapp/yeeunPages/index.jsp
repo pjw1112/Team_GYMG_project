@@ -66,12 +66,13 @@
 		</section>
 		<section class="section-yeeun sec4">
 			<h2>
-				<strong>서울 강남구</strong> 근처 맛봄 추천
+				<strong class="current-location"></strong> 근처 맛봄 추천
 			</h2>
-			<a href="searchResult.ye?ctg_no=&searchKey=서울+강남구" class="more-btn org-short-btn">전체보기</a>
+			<a href="searchResult.ye?ctg_no=&searchKey=" class="more-btn org-short-btn">전체보기</a>
 			<ul class="main-rest-list1">
-				<c:forEach var="list" items="${locList}">
-					<li class="rest-small-card"><a href="detail.ye?rest_no=${list.rest_no}" title="식당명 상세페이지 이동">
+				
+					<%-- <li class="rest-small-card">
+						<a href="detail.ye?rest_no=${list.rest_no}" title="식당명 상세페이지 이동">
 							<div>
 								<figure class="rest-img-box">
 									<img src="${pageContext.request.contextPath}/images/dummy_rest_img.png" alt="" />
@@ -90,8 +91,9 @@
 									<span class="like-count">${list.rest_like_cnt}</span>
 								</div>
 							</div>
-					</a></li>
-				</c:forEach>
+						</a>
+					</li> --%>
+				
 			</ul>
 		</section>
 		<section class="section-yeeun sec5">
@@ -126,4 +128,110 @@
 		<!--footer start-->
 	</div>
 </div>
+
+<script>
+$(function(){
+	getLocation();
+})
+</script>
+<script>
+//위치정보 사용
+function getLocation() {
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(getAddressByCoords,redirectLocation, geo_options);
+        //navigator.geolocation.getCurrentPosition(successCallback,errorCallback,{ timeout: 10_000 });
+	} else {
+		alert('현재 위치를 가져올 수 없습니다.');
+	}
+}
+
+// 위치 정보 조회 성공시 호출
+function getAddressByCoords(position) {
+	var longitude = position.coords.longitude;
+	var latitude = position.coords.latitude;
+	console.log("현재 위치  : (경도) "+longitude + ", (위도) " + latitude);
+	getAddress(longitude,latitude);
+	
+}
+
+//위치 정보 조회 실패시 호출
+function redirectLocation(error) {
+	alert('에러 발생');
+}
+
+//타임아웃 변수
+var geo_options = {
+	maximumAge        : 0, 
+	timeout           : 30000
+};
+
+// 경도, 위도로 주소값 찾기
+function getAddress(longitude,latitude){
+	$.ajax({
+		url : 'getAddress.ye',
+		type : 'GET',
+		data : {longitude : longitude , latitude : latitude },
+		dataType : 'json',
+		contentType : 'application/json;charset=UTF-8',
+		error : function(xhr, status, msg){
+			alert(status + " / " + msg);
+		},
+		success : function(data){
+			let loc = data.documents[0].region_2depth_name;
+			$('.current-location').html(loc);
+			$('.more-btn').attr('href','searchResult.ye?ctg_no=&searchKey='+loc);
+			getLocList(loc);
+		}
+	})
+}
+
+function getLocList(loc){
+	$.ajax({
+		url : 'getLocList.ye',
+		type : 'GET',
+		data : {searchKey : loc},
+		dataType : 'json',
+		error : function(xhr, status, msg){
+			alert(status + " / " + msg);
+		},
+		success : function(json){
+			console.log(json);
+			$.each(json,function(index, item){
+				var li = $('<li class="rest-small-card"></li>');
+				var a = $('<a></a>').attr('href', 'detail.ye?rest_no=' + item.rest_no).attr('title', item.rest_name + '상세페이지 이동');
+				var div = $('<div></div>');
+				var figure = $('<figure class="rest-img-box"></figure>');
+				var img = $('<img>').attr('src', '${pageContext.request.contextPath}/images/dummy_rest_img.png').attr('alt', '');
+				
+				figure.append(img);
+				div.append(figure);
+				
+				var p1 = $('<p class="review-box"></p>');
+				var starImg = $('<img>').attr('src', '${pageContext.request.contextPath}/images/star_icon.svg').attr('alt', '별 아이콘');
+				var span1 = $('<span></span>').text(item.review_avg + '(' + item.review_cnt + ')');
+				p1.append(starImg).append(span1);
+				div.append(p1);
+				var p2 = $('<p class="rest-name"></p>').text(item.rest_name);
+				div.append(p2);
+				var p3 = $('<p class="rest-desc"></p>').text(item.rest_desc);
+				div.append(p3);
+				var span2 = $('<span class="ctg-name"></span>').text(item.ctg_name);
+			    div.append(span2);
+			    var likeBox = $('<div class="like-box"></div>');
+			    var likeFigure = $('<figure></figure>');
+			    var heartImg = $('<img>').attr('src', '${pageContext.request.contextPath}/images/heart_icon.svg').attr('alt', '하트 아이콘');
+			    likeBox.append(likeFigure.append(heartImg));
+			    var likeCount = $('<span class="like-count"></span>').text(item.rest_like_cnt);
+			    likeBox.append(likeCount);
+			    div.append(likeBox);
+			    a.append(div);
+			    li.append(a);
+			    $('ul.main-rest-list1').append(li);
+
+			})
+			
+		}
+	})
+}
+</script>
 <%@ include file="../inc/footer.jsp"%>

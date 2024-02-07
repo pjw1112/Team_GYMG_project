@@ -16,7 +16,7 @@ public interface RestDao {
 	
 	
 	/* main */
-	public List<RestInfoDto> mainLocRec(); // test
+	public List<RestInfoDto> mainLocRec(String searchKey); // test
 	public List<RestInfoDto> mainLikeRec(); // test
 	public List<Map<String, Object>> readCtg(); //test 
 	

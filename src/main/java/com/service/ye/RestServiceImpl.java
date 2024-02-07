@@ -23,8 +23,8 @@ public class RestServiceImpl implements RestService {
 	RestDao dao;
 
 	// 메인
-	public List<RestInfoDto> mainLocRecList(){
-		return dao.mainLocRec();
+	public List<RestInfoDto> mainLocRecList(String searchKey){
+		return dao.mainLocRec(searchKey);
 	}
 	public List<RestInfoDto> mainLikeRecList(){
 		return dao.mainLikeRec();
@@ -36,7 +36,7 @@ public class RestServiceImpl implements RestService {
 	public List<Object> main(){
 		List<Object> list = new ArrayList<>();
 		try {
-			list.add(dao.mainLocRec());
+//			list.add(dao.mainLocRec());
 			list.add(dao.mainLikeRec());
 			list.add(dao.readCtg());
 		}catch(Exception e) {
