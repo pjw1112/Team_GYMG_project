@@ -173,13 +173,23 @@
 					</tbody>
 				</table>
 			</fieldset>
-			<!-- 			<fieldset>
+			<fieldset>
 				<legend>식당 사진 업로드</legend>
 				<h3>식당사진</h3>
 				<div class="mg70 mg30">
-					<input type="file" name="uploadFiles" multiple />
+					<input type="file" name="uploadFiles" multiple hidden/>
+					
+					<ul class="rest-file-ye">
+					<c:if test="${not empty list.get(3)}">
+						<c:forEach var="file" items="${list.get(3)}" varStatus="status">
+						<li>
+							<img src="${pageContext.request.contextPath}/resources/uploads/${file.file_name}" alt=""/>
+						</li>
+						</c:forEach>
+					</c:if>
+					</ul>
 				</div>
-			</fieldset> -->
+			</fieldset>
 			<fieldset>
 				<legend>메뉴</legend>
 				<h3>메뉴</h3>

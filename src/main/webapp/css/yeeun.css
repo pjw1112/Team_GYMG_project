@@ -307,6 +307,24 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
 }
+/* 식당 수정 */
+ul.rest-file-ye {
+    margin-top: 30px;
+    display: flex;
+    gap: 10px;
+}
+
+ul.rest-file-ye li {
+    width: 100px;
+    height: 100px;
+    background-color: #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+ul.rest-file-ye li img {
+    height: 100%;
+}
 /* 식당 삭제 */
 #rest-delete-form label {
 	display: inline-block;
@@ -593,6 +611,7 @@ ul.main-rest-list1 li .rest-img-box {
 	border-radius: 20px;
 }
 
+
 ul.main-rest-list1 li a .rest-img-box img {
 	width: 100%;
 }
@@ -845,6 +864,9 @@ p.rest-tel {
 	display: flex;
 	flex-direction: row;
 }
+.rest-img-empty{
+	margin-top: 50px;
+}
 
 .rest-img-box::after {
 	display: block;
@@ -859,8 +881,8 @@ p.rest-tel {
 
 .rest-img-box div {
 	height: 100%;
-	width: calc(100%/ 3);
-	background: url('../images/dummy_rest_img.png') no-repeat center;
+	background-position: center;
+	background-repeat : no-repeat;
 	background-size: cover;
 }
 
@@ -941,6 +963,15 @@ p.rest-tel {
 	border: 1px solid #ddd;
 	width: 400px;
 	border-radius: 10px;
+}
+.rest-map button.org-large-btn {
+    position: absolute;
+    z-index: 10;
+    bottom: 7px;
+    width: calc(100% - 20px);
+    left: 10px;
+    padding: 12px !important;
+    text-align: center;
 }
 
 .rest-social {

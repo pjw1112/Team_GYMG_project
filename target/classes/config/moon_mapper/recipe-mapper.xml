@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.moon.RecipeDao">
+		
+	<insert id="insertRecipe" parameterType="RecipeVoDto">
+		insert into recipe (title, servings, cooking_time, difficulty, img_url) 
+		values (#{title}, #{servings}, #{cooking_time}, #{difficulty}, #{img_url});
+	</insert>
+	
+	<insert id="insertRecipeStep" parameterType="RecipeVoDto">
+		insert into step (recipe_id, instruction) 
+		values (#{recipe_id}, #{instruction});
+	</insert>
+	
+	<insert id="insertRecipeIngredient" parameterType="RecipeVoDto">
+		insert into ingredient (recipe_id, ingredient_name, ingredient_amount) 
+		values (#{recipe_id}, #{ingredient_name}, #{ingredient_amount});
+	</insert>
+	
+</mapper>

@@ -21,6 +21,7 @@
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/yeeun.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
@@ -197,14 +198,13 @@
 							<c:choose>
 								<c:when test="${sessionScope.login_user_dto.type_no == 1}">
 									<strong>${sessionScope.login_user_dto.user_name}</strong> 님 | 
-							<a href="GoToAdmin1Page.jin" class="header_session_btn"><strong>ADMIN</strong></a> |
+							<strong>ADMIN</strong> |
 							<a href="user_logout.jin" class="header_session_btn"><strong>Out</strong></a>
 								</c:when>
 								<c:when test="${sessionScope.login_user_dto.type_no == 2}">
 									<strong>${sessionScope.login_user_dto.user_name}</strong> 님 | 
 							<a href="GoToMic_tab1Page.jin" class="header_session_btn"><strong>MY</strong></a> |
-							<a href="user_logout.jin" class="header_session_btn"><strong>Log
-											Out</strong></a>
+							<a href="user_logout.jin" class="header_session_btn"><strong>Log Out</strong></a>
 								</c:when>
 
 							</c:choose>

@@ -132,10 +132,10 @@
 		(rest_no)
 		LEFT JOIN review rr USING
 		(rest_no)
-		WHERE r.rest_no IN (SELECT
-		rest_no
+		WHERE r.rest_no IN
+		(SELECT rest_no
 		FROM restaurant WHERE
-		rest_address LIKE '%경기도 과천시%')
+		rest_address LIKE CONCAT( '%' , #{searchKey}, '%'))
 		GROUP BY
 		r.rest_no,
 		rc.ctg_name,
@@ -240,9 +240,6 @@
 		r.rest_tel
 		ORDER BY review_avg desc, review_cnt desc, rest_like_cnt desc
 	</select>
-
-
-
 	<select id="checkAdminPw" resultType="string">
 		SELECT user_pw from user
 		WHERE type_no = 1
@@ -250,6 +247,31 @@
 	<delete id="deleteRestInfo" parameterType="int">
 		DELETE FROM restaurant
 		WHERE rest_no = #{rest_no}
+	</delete>
+	<insert id="insertFile" parameterType="RestFileDto" useGeneratedKeys="true" keyProperty="file_no">
+		INSERT into img_file (file_name) values (#{file_name})
+	</insert>
+	<insert id="insertRestFile" parameterType="RestFileDto">
+		INSERT into rest_file (file_no, rest_no) values (#{file_no}, #{rest_no})
+	</insert>
+	<select id="listRestFile" resultType="RestFileDto" parameterType="int">
+		SELECT i.file_no, i.file_name, i.file_time, rf.rest_no 
+		FROM img_file i 
+		JOIN rest_file rf 
+		ON i.file_no = rf.file_no 
+		WHERE rest_no = #{rest_no}
+	</select>
+	<select id="countLikeRest" resultType="int" parameterType="int">
+		SELECT count(*) FROM rest_like WHERE rest_no = #{rest_no}
+	</select>
+	<select id="amILikeRest" resultType="int" parameterType="map">
+		SELECT count(*) FROM rest_like WHERE rest_no = #{rest_no} AND user_no = #{user_no}
+	</select>
+	<insert id="addLikeRest" parameterType="map">
+		INSERT INTO rest_like (rest_no, user_no) VALUES (#{rest_no}, #{user_no})
+	</insert>
+	<delete id="deleteLikeRest" parameterType="map">
+		DELETE FROM rest_like WHERE rest_no = #{rest_no} AND user_no = #{user_no}
 	</delete>
 
 </mapper>
