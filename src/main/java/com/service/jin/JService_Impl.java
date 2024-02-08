@@ -276,7 +276,8 @@ public class JService_Impl implements JService {
 		String login_type = (String) item.get("login_type");
 		String remember_id = (String) item.get("remember_id");
 		String remember_login = (String) item.get("remember_login");
-
+		
+		
 		// 로그인 유형 1
 		if (login_type.equals("1")) {
 			if (userdao.read(userdto) != null) {
