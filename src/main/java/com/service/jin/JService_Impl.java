@@ -37,6 +37,7 @@ import com.dto.jin.Img_fileDto;
 import com.dto.jin.UserDto;
 import com.dto.jin.User_fileDto;
 import com.dto.jin.User_locationDto;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mysql.cj.Session;
@@ -275,7 +276,8 @@ public class JService_Impl implements JService {
 		String login_type = (String) item.get("login_type");
 		String remember_id = (String) item.get("remember_id");
 		String remember_login = (String) item.get("remember_login");
-
+		
+		
 		// 로그인 유형 1
 		if (login_type.equals("1")) {
 			if (userdao.read(userdto) != null) {
@@ -708,70 +710,7 @@ public class JService_Impl implements JService {
 		response.setContentType("text/html; charset=UTF-8");
 
 		HttpSession session = request.getSession();
-		UserDto login_user_dto = (UserDto) session.getAttribute("login_user_dto");
-		int join_type = login_user_dto.getJoin_type_no();
-
 		
-
-		switch (join_type) {
-		
-		case 1:// 1. 일반유저 일 경우 로그아웃
-
-			
-			break;
-			
-		case 2:// 2. 네이버유저 일 경우 로그아웃
-
-			String clientId = "jjoG5L0Odeyao6UOPCVc";// 애플리케이션 클라이언트 아이디값";
-			String clientSecret = "EX0nHpNPpN";// 애플리케이션 클라이언트 시크릿값";
-			
-			
-			String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=delete&"+
-					"client_id="+clientId+
-					"&client_secret="+clientSecret+
-					"&access_token="+"{접근 토큰}"+
-					"&service_provider=NAVER";
-			
-			JsonParser parser = new JsonParser();
-			JsonObject my_object = null;
-			try {
-				URL url = new URL(apiURL);
-				HttpURLConnection con = (HttpURLConnection) url.openConnection();
-				con.setRequestMethod("GET");
-				int responseCode = con.getResponseCode();
-				BufferedReader br;
-				if (responseCode == 200) { // 정상 호출
-					br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-				} else { // 에러 발생
-					br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-				}
-				String inputLine;
-				StringBuilder res = new StringBuilder();
-				while ((inputLine = br.readLine()) != null) {
-					res.append(inputLine);
-				}
-				br.close();
-				if (responseCode == 200) {
-					System.out.println(res.toString());
-					my_object = (JsonObject) parser.parse(res.toString());
-				}
-			} catch (Exception e) {
-				// Exception 로깅
-			}
-			
-			break;
-			
-		case 3:// 3. 카카오유저 일 경우 로그아웃
-
-			
-			break;
-
-		default:
-			
-			log.info("join_type 값이 1,2,3 범위를 벗어남");
-			break;
-		}
-
 		// 세션 무효
 		session.invalidate();
 
@@ -786,7 +725,7 @@ public class JService_Impl implements JService {
 			}
 		}
 
-		return 0;
+		return 1;
 	}
 
 	/*
@@ -797,20 +736,114 @@ public class JService_Impl implements JService {
 	 * 
 	 * 
 	 */
+	
 	// 유저 삭제
 	@Override
 	public int delete_user(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
+		int result_int = 0;
+		
 		userdto = (UserDto) item.get("userdto");
+		userdto = userdao.read(userdto);
+		
+		int join_type = userdto.getJoin_type_no();
+		// 1. 일반 2. 네이버 3. 카카오
+		
+		switch (join_type) {
 
+		case 1:// 1. 일반유저 일 경우 로그아웃
+			System.out.println("☆★☆★ 일반 유저 탈퇴 ☆★☆★");
+			break;
+
+		case 2:// 2. 네이버유저 일 경우 로그아웃
+			System.out.println("☆★☆★ 네이버 유저 탈퇴 ☆★☆★");
+			String clientId = "jjoG5L0Odeyao6UOPCVc"; // 애플리케이션 클라이언트 아이디값";
+			String clientSecret = "EX0nHpNPpN"; // 애플리케이션 클라이언트 시크릿값";
+			String token = (String) request.getSession().getAttribute("naver_accessToken"); // 네이버 로그인 접근 토큰;
+
+			String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=delete&" + 
+			"client_id=" + clientId + 
+			"&client_secret=" + clientSecret + 
+			"&access_token=" + token + 
+			"&service_provider=NAVER";
+
+			JsonParser parser = new JsonParser();
+			
+			try {
+
+				URL url = new URL(apiURL);
+				HttpURLConnection con = (HttpURLConnection) url.openConnection();
+				con.setRequestMethod("GET");
+				int responseCode = con.getResponseCode();
+
+				BufferedReader br;
+
+				if (responseCode == 200) { // 정상 호출
+					br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+									
+				} else { // 에러 발생
+					br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+					
+				}
+
+				String inputLine;
+				StringBuilder res = new StringBuilder();
+
+				while ((inputLine = br.readLine()) != null) {
+					res.append(inputLine);
+				}
+
+				br.close();
+				System.out.println( res.toString() );
+				
+				JsonElement jsonElement = parser.parse(res.toString());
+				
+				// JsonElement를 JsonObject로 변환
+
+				if (jsonElement.isJsonObject()) {
+					JsonObject j_ob = jsonElement.getAsJsonObject();
+
+					String result = j_ob.get("result").getAsString();
+					String access_token = j_ob.get("access_token").toString();
+					System.out.println("result : " + result);	
+					System.out.println("access_token : " + access_token);	
+					
+					/*
+					 * request.getRequestDispatcher("/Kakao_login2.jin").forward(request, response);
+					 */
+				}
+				
+				
+			} catch (Exception e) {
+				// Exception 로깅
+			}
+
+			break;
+
+			
+			
+		case 3:// 3. 카카오유저 일 경우 로그아웃
+			System.out.println("☆★☆★ 카카오 유저 탈퇴 ☆★☆★");
+			break;
+
+			
+			
+		default:
+
+			log.info("join_type 값이 1,2,3 범위를 벗어남");
+			break;
+		}
+		
+		
+		
 		if (userdao.delete(userdto) > 0) {
-
-			return 1;
+		
+			result_int=1;
 		}
 
-		return 0;
+		return result_int;
 	}
 
 }

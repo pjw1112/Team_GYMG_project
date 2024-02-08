@@ -201,10 +201,11 @@ public class FrontController {
 		JsonObject obj = (JsonObject) parser.parse(result);
 
 		if (obj != null) {// 카카오 로긴 성공 > 코드, 아이디 모두 수령 완료
-
+			System.out.println("☆★☆★★★"+obj);
 			String kakao_id = obj.get("id").getAsString();
 			String kakao_email = obj.get("kakao_account").getAsJsonObject().get("email").getAsString();
 			String kakao_nick = obj.get("properties").getAsJsonObject().get("nickname").getAsString();
+			String profile_image = obj.get("properties").getAsJsonObject().get("profile_image").getAsString();
 
 			System.out.println("카카오 로긴 성공 ");
 			System.out.println("kakao_id : " + kakao_id);
@@ -220,12 +221,14 @@ public class FrontController {
 			dto.setUser_ip(InetAddress.getLocalHost().getHostAddress());
 			dto.setUser_name(kakao_nick);
 			dto.setUser_nick(kakao_nick);
-			dto.setUser_phone("00000000000");
-			dto.setUser_pw(kakao_id);
+			dto.setUser_phone("01012345678");
+			dto.setUser_pw("password@1234");
+			dto.setSns_id(kakao_id);
 
 			item.put("userdto", dto);
 			item.put("login_type", "3");
-
+			item.put("profile_image", profile_image);
+			
 			log.info(".........dto : " + dto);
 
 			if (service.user_login(item, request, response) > 0) {
@@ -336,7 +339,7 @@ public class FrontController {
 			JsonObject jresponse = jsonObject.get("response").getAsJsonObject();
 
 			// Extract and format values
-			String id = jresponse.get("id").getAsString();
+			String naver_id = jresponse.get("id").getAsString();
 			String nickname = jresponse.get("nickname").getAsString();
 			String profile_image = jresponse.get("profile_image").getAsString();
 			String email = jresponse.get("email").getAsString();
@@ -344,7 +347,7 @@ public class FrontController {
 			String name = jresponse.get("name").getAsString();
 
 			// Print values (for demonstration)
-			System.out.println("ID: " + id);
+			System.out.println("ID: " + naver_id);
 			System.out.println("Nickname: " + nickname);
 			System.out.println("Profile Image: " + profile_image);
 			System.out.println("Email: " + email);
@@ -361,11 +364,14 @@ public class FrontController {
 			dto.setUser_name(name);
 			dto.setUser_nick(nickname);
 			dto.setUser_phone(mobile);
-			dto.setUser_pw(id);
+			dto.setUser_pw("password@1234");
+			dto.setSns_id(naver_id);
 
 			item.put("userdto", dto);
 			item.put("login_type", "2");
+			item.put("profile_image", profile_image);
 
+						
 			log.info(".........dto : " + dto);
 
 			if (service.user_login(item, request, response) > 0) {
