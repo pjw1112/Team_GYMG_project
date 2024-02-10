@@ -109,6 +109,7 @@ public class FrontController {
 		} else {
 			System.out.println("비정상실행");
 			br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+			return "GoToLoginPage.jin";
 		}
 
 		String line = "";
@@ -133,8 +134,7 @@ public class FrontController {
 
 			String access_token = j_ob.get("access_token").toString();
 
-			request.setAttribute("access_token", access_token);
-			request.getSession().setAttribute("access_token", access_token);
+			request.getSession().setAttribute("kakao_access_token", access_token);
 			/*
 			 * request.getRequestDispatcher("/Kakao_login2.jin").forward(request, response);
 			 */
@@ -160,7 +160,7 @@ public class FrontController {
 		PrintWriter out = response.getWriter();
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		String access_token = (String) request.getAttribute("access_token");
+		String access_token = (String) request.getSession().getAttribute("kakao_access_token");
 
 		//////////////////////////////////////////////////////////////////////
 		// 사용자 정보 받기
@@ -221,6 +221,7 @@ public class FrontController {
 			dto.setUser_ip(InetAddress.getLocalHost().getHostAddress());
 			dto.setUser_name(kakao_nick);
 			dto.setUser_nick(kakao_nick);
+			dto.setUser_intro("카카오 연동 가입 회원입니다. 회원정보 변경 시 최초 비밀번호는 password@1234 입니다. ");
 			dto.setUser_phone("01012345678");
 			dto.setUser_pw("password@1234");
 			dto.setSns_id(kakao_id);
@@ -230,17 +231,32 @@ public class FrontController {
 			item.put("profile_image", profile_image);
 			
 			log.info(".........dto : " + dto);
-
-			if (service.user_login(item, request, response) > 0) {
-
-				return "/jinPages/login_kakao.jsp";
+			int this_result = service.user_login(item, request, response);
+			log.info("☆★☆★ service.user_login 의 int this_result 값 : "+this_result);
+			switch (this_result) {
+			case 1:
+				request.setAttribute("message", "SNS 연동 간편 로그인 성공");
+				break;
+			case 2:
+				request.setAttribute("message", "SNS 간편 가입 성공했습니다! SNS 아이디로 로그인 합니다");
+				break;
+			case 3:
+				request.setAttribute("message", "기존 아이디에 SNS 간편 로그인 연동 성공했습니다!");
+				break;
+			case 4:
+				request.setAttribute("message", "SNS에 등록된 e-mail정보가 이미 다른 SNS간편가입으로 연동되어 있습니다. 가입시 연동한 SNS간편 로그인으로 다시 시도해주세요.");
+				break;
+			default:
+				request.setAttribute("message", "로그인에 실패했습니다. 관리자에게 문의해주세요.");
+				break;
 			}
-
 		}
 		br.close();
 		conn.disconnect();
 
-		return "";
+		return "/jinPages/login_naver.jsp";
+		
+		
 	}
 
 	/* -- Kakao Login Mappers -- */
@@ -289,6 +305,7 @@ public class FrontController {
 				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			} else { // 에러 발생
 				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+				return "GoToLoginPage.jin";
 			}
 			String inputLine;
 			StringBuilder res = new StringBuilder();
@@ -303,13 +320,17 @@ public class FrontController {
 		} catch (Exception e) {
 			// Exception 로깅
 		}
+		
+		if (my_object.get("error") != null) {
+			return "GoToLoginPage.jin";
+		}else {
 		accessToken = my_object.get("access_token").getAsString();
 		refresh_token = my_object.get("refresh_token").getAsString();
 		String token_type = my_object.get("token_type").getAsString();
 		String expires_in = my_object.get("expires_in").getAsString();
 
 		request.getSession().setAttribute("naver_accessToken", accessToken);
-		
+		}
 		
 		return "get_naver_member_profile.jin";
 	}
@@ -362,6 +383,7 @@ public class FrontController {
 			dto.setUser_id(email);
 			dto.setUser_ip(InetAddress.getLocalHost().getHostAddress());
 			dto.setUser_name(name);
+			dto.setUser_intro("네이버 연동 가입 회원입니다. 회원정보 변경 시 최초 비밀번호는 password@1234 입니다. ");
 			dto.setUser_nick(nickname);
 			dto.setUser_phone(mobile);
 			dto.setUser_pw("password@1234");
@@ -373,15 +395,28 @@ public class FrontController {
 
 						
 			log.info(".........dto : " + dto);
-
-			if (service.user_login(item, request, response) > 0) {
-
-				return "/jinPages/login_naver.jsp";
+			int this_result = service.user_login(item, request, response);
+			log.info("☆★☆★ service.user_login 의 int this_result 값 : "+this_result);
+			switch (this_result) {
+			case 1:
+				request.setAttribute("message", "SNS 연동 간편 로그인 성공");
+				break;
+			case 2:
+				request.setAttribute("message", "SNS 간편 가입 성공했습니다! SNS 아이디로 로그인 합니다");
+				break;
+			case 3:
+				request.setAttribute("message", "기존 아이디에 SNS 간편 로그인 연동 성공했습니다!");
+				break;
+			case 4:
+				request.setAttribute("message", "SNS에 등록된 e-mail정보가 이미 다른 SNS간편가입으로 연동되어 있습니다. 가입시 연동한 SNS간편 로그인으로 다시 시도해주세요.");
+				break;
+			default:
+				request.setAttribute("message", "로그인에 실패했습니다. 관리자에게 문의해주세요.");
+				break;
 			}
-
 		}
 
-		return "";
+		return "/jinPages/login_naver.jsp";
 	}
 
 	public String get(String apiUrl, Map<String, String> requestHeaders) {

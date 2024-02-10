@@ -279,7 +279,7 @@ public class AjaxController {
 					throws IOException, ServletException {
 
 		Map<String, Object> item = new HashMap<String, Object>();
-
+		
 		item.put("userdto", dto);
 		item.put("remember_id", remember_id);
 		item.put("remember_login", remember_login);
