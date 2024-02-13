@@ -50,9 +50,15 @@ public class FrontController {
    @RequestMapping(value="/findRestKakao.ye", method=RequestMethod.GET)
    public String findRest(@RequestParam Map<String, String> param, HttpServletRequest request) throws IOException {
 	   HttpSession session = request.getSession();
+	   String origin = "";
 	   
 //	   String origin = param.get("origin");
-	   String origin = session.getAttribute("longitude") + "," + session.getAttribute("latitude");
+	   if(session.getAttribute("longitude") != null) {
+		   origin = session.getAttribute("longitude") + "," + session.getAttribute("latitude");
+	   }else {
+		   origin =  param.get("origin");
+	   }
+	  
 			   
 	   String destination = param.get("destination");
 	   System.out.println("카카오 길찾기 ( 출발지 : " + origin + " / 도착지 : " + destination + " )");

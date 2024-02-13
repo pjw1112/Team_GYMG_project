@@ -97,6 +97,7 @@
 				</div>
 				<div class="rest-map">
 				<button class="org-large-btn find-rest-btn">길찾기</button>
+				<button class="org-large-btn find-parking-btn">근처 주차장</button>
 				</div>
 			</div>
 		</section>
@@ -145,6 +146,35 @@
 		</section>
 	</div>
 </div>
+<div class="layer-pop-modal">
+	<div class="layer-pop find-road">
+		<p class="popup-title">${list.get(0).rest_name} (${list.get(0).rest_address}
+							<c:if test="${list.get(0).rest_address2 != null}">, ${list.get(0).rest_address2}</c:if>)</p>
+		<button class = "close-pop-btn">
+			<img src="${pageContext.request.contextPath}/images/delete_icon.svg"/>
+		</button>
+		<div class="popup-content">
+			<span>현재 위치에서 길찾기</span>
+			<div class="find-road-map"></div>
+			
+		</div>
+	</div>
+	<div class="layer-pop find-parking">
+		<p class="popup-title">${list.get(0).rest_name} (${list.get(0).rest_address}
+							<c:if test="${list.get(0).rest_address2 != null}">, ${list.get(0).rest_address2}</c:if>)</p>
+		<button class = "close-pop-btn">
+			<img src="${pageContext.request.contextPath}/images/delete_icon.svg"/>
+		</button>
+		<div class="popup-content">
+			<span>근처 주차장 정보</span>
+			<div class="find-road-map"></div><!-- 여기 삭제하고 필요한 부분 삽입해서 작업해주세요-->
+		</div>
+	</div>
+</div>
+
+
+
+
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e6b5214426df989a43073f46ca3e2ca9&libraries=services"></script>
 <script>
 var mapContainer = document.querySelector('.rest-map'), // 지도를 표시할 div 
@@ -224,38 +254,52 @@ function shareMessage() {
 $(function(){
 	$('.find-rest-btn').on('click',function(){
 		alert('길찾기를 시작합니다.');
+		$('.layer-pop-modal').stop().show();
+		$('.layer-pop.find-road').stop().fadeIn(200);
 		
 		
-		let origin = '127.111202,37.394912,name=현재위치주소';
-		let destination = '127.111202,37.394912,name=식당명';
-		
-		getLocation();
-		
-		
-		
-		
-		
-		
-		
-		
-		/* $.ajax({
+		let origin = '127.111202,37.394912';
+		let destination = '127.111202,37.394912';
+		/* let origin = '';
+		let destination = ''; */
+	
+		$.ajax({
 			url : 'findRestKakao.ye',
 			type : "GET",
 			data : {origin : origin,
 					destination : destination},
 			dataType : "json",
+			contentType : 'application/json;charset=UTF-8',
 			error : function(xhr, status, msg){
 				alert(status + " / " + msg);
 			},
 			success : function(json){
-				console.log(json);
+				console.log(json.routes);
+				console.log(json.routes[0].summary.fare.taxi);
 			}
-		}) */
+		})
 		
 	})
 	
+	$('.close-pop-btn').on('click',function(){
+		$('.layer-pop.find-road, .layer-pop.find-parking').stop().fadeOut();
+		$('.layer-pop-modal').stop().fadeOut(200);
+	})
 	
+
 })
+
+$(function(){
+	$('.find-parking-btn').on('click',function(){
+		alert('근처 주차장 찾기');
+		$('.layer-pop-modal').stop().show();
+		$('.layer-pop.find-parking').stop().fadeIn(200);
+	})
+})
+
+
+
+
 </script>
 <script>
 //위치정보 사용
