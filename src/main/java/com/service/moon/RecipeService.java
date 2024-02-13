@@ -1,12 +1,15 @@
 package com.service.moon;
 
 import java.util.List;
+import java.util.Map;
 
 import com.dto.moon.RecipeDto;
 import com.dto.moon.RecipeVoDto;
 import com.dto.moon.StepDto;
 
 public interface RecipeService {
+	public void deleteRecipe();
+	public void resetRecipe();
 	
 	public int insertRecipe(RecipeVoDto recipeVoDto);
 	
@@ -14,7 +17,9 @@ public interface RecipeService {
 	
 	public int insertRecipeIngredient(RecipeVoDto recipeVoDto);
 	
-	public List<RecipeVoDto> recipeAll(RecipeVoDto recipeVoDto);
+	public List<RecipeVoDto> recipeAll();
+	
+	public RecipeVoDto recipeDetail(RecipeVoDto recipeVoDto);
 	
 	public List<RecipeVoDto> recipeStep(RecipeVoDto recipeVoDto);
 	

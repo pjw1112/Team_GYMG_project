@@ -9,10 +9,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.dto.moon.RecipeVoDto;
 import com.service.moon.RecipeService;
 
+@Component
 public class CrawlingRecipe {
 	
 	@Autowired
@@ -31,6 +33,7 @@ public class CrawlingRecipe {
 	        Elements elements = doc.select(".common_sp_list_li .common_sp_thumb a");
 	
 	        for (Element element : elements) {
+	        	// /recipe/숫자8개 
 	            String relativeHref = element.attr("href");
 	            String completeUrl = makeAbsoluteUrl(baseUrl, relativeHref);
 	
@@ -45,6 +48,7 @@ public class CrawlingRecipe {
 	                Elements steps = subDoc.select(".view_step .view_step_cont");
 	                Elements ingredients = subDoc.select("div.cont_ingre2 div.ready_ingre3 ul:not(.case1) li");
 	                
+	                //main recipe db에 넣는 과정
 	                for (Element imgElement : imgElements) {
 	                    String imageUrl = imgElement.attr("src");
 	                    String title = titleElements.text();
@@ -60,6 +64,7 @@ public class CrawlingRecipe {
 	                    service.insertRecipe(recipeVoDto);
 	                }
 	                
+	                //recipe steps를 db에 넣는 과정
 	                for(Element step : steps) {
 	                	String step_html = step.html();
 	                	recipeVoDto.setRecipe_id(i);
@@ -68,6 +73,7 @@ public class CrawlingRecipe {
 	                }
 	                i++;
 	                
+	                //recipe ingredient를 db에 넣는 과정
 	                for (Element ingredient : ingredients) {
 	                    String text = ingredient.text();
 	
@@ -80,7 +86,6 @@ public class CrawlingRecipe {
 	                    recipeVoDto.setIngredient_name(name);
 	                    recipeVoDto.setIngredient_amount(quantity);
 	                    service.insertRecipeIngredient(recipeVoDto);
-	                    
 	                 }
 	                 j++;
 	                
@@ -95,7 +100,7 @@ public class CrawlingRecipe {
 	
 	}
 
-	
+	//메인 화면에서 가져온 서브Url 을 baseUrl과 합치는 
 	private String makeAbsoluteUrl(String baseUrl, String relativeHref) {
         try {
             URL base = new URL(baseUrl);

@@ -1,6 +1,7 @@
 package com.service.moon;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,16 @@ public class RecipeServiceImpl implements RecipeService{
 	@Autowired
 	RecipeDao dao;
 
+	@Override
+	public void deleteRecipe() {
+		dao.deleteRecipe();
+	}
+
+	@Override
+	public void resetRecipe() {
+		dao.resetRecipe();
+	}
+	
 	@Override
 	public int insertRecipe(RecipeVoDto recipeVoDto) {
 		return dao.insertRecipe(recipeVoDto);
@@ -31,10 +42,15 @@ public class RecipeServiceImpl implements RecipeService{
 	}
 
 	@Override
-	public List<RecipeVoDto> recipeAll(RecipeVoDto recipeVoDto) {
-		return dao.recipeAll(recipeVoDto);
+	public List<RecipeVoDto> recipeAll() {
+		return dao.recipeAll();
 	}
 
+	@Override
+	public RecipeVoDto recipeDetail(RecipeVoDto recipeVoDto) {
+		return dao.recipeDetail(recipeVoDto);
+	}
+	
 	@Override
 	public List<RecipeVoDto> recipeStep(RecipeVoDto recipeVoDto) {
 		return dao.recipeStep(recipeVoDto);
@@ -44,5 +60,7 @@ public class RecipeServiceImpl implements RecipeService{
 	public List<RecipeVoDto> recipeIngredient(RecipeVoDto recipeVoDto) {
 		return dao.recipeIngredient(recipeVoDto);
 	}
+
+	
 
 }
