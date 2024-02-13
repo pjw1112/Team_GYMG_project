@@ -18,13 +18,18 @@ import com.dto.moon.BoardDto;
 import com.dto.moon.BoardLikeDto;
 import com.dto.moon.BoardReplyDto;
 import com.dto.moon.BoardResultDto;
+import com.dto.moon.ReviewDto;
 import com.service.moon.BoardService;
+import com.service.moon.ReviewService;
 
 @Controller("moon-controller")
 public class FrontController {
 	
 	@Autowired
 	BoardService service;
+	
+	@Autowired
+	ReviewService rservice;
 	
 
 	
@@ -173,5 +178,56 @@ public class FrontController {
 	}
 	
 	
+	
+	
+	
+	
+	
+	@RequestMapping(value="/rest_review_write.moon", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> insertReview(@RequestParam(value="rest_no") int rest_no, ReviewDto reviewDto ) {
+		Map<String, Object> result = new HashMap<>();
+		reviewDto.setRest_no(rest_no);
+		int insertResult = rservice.insertReview(reviewDto);
+		result.put("result", insertResult);
+		System.out.println(result);
+		return result;
+	}
+	@RequestMapping(value="/rest_review.moon", method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> readReviewAll(@RequestParam(value="rest_no") int rest_no, ReviewDto reviewDto) {
+		Map<String, Object> para = new HashMap<>();
+		Map<String, Object> result = new HashMap<>();
+		para.put("rest_no", rest_no);
+		result.put("reviewCnt", rservice.readReviewCnt(para));
+		result.put("list", rservice.readAllReview(para));
+		result.put("reviewAvg", rservice.restReviewAvg(para));
+		return result;
+	}
+	@RequestMapping(value="/rest_review_delete.moon", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> deleteReview(@RequestParam(value="rest_no") int rest_no, int review_no, ReviewDto reviewDto) {
+		reviewDto.setReview_no(review_no);
+		Map<String, Object> result = new HashMap<>();
+		result.put("delete", rservice.deleteReview(reviewDto));
+		return result;
+	}
+	
+	@RequestMapping(value="/rest_review_star.moon", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> reviewStar(@RequestParam(value="rest_no") int rest_no, ReviewDto reviewDto) {
+		Map<String, Object> result = new HashMap<>();
+		
+		for (int i = 1; i <= 5; i++) {
+			Map<String, Object> para = new HashMap<>();
+			para.put("rest_no", rest_no);
+			para.put("review_star", i);
+			
+			String key = "star" + i;
+			result.put(key, rservice.restReviewCnt(para));
+		}
+		
+		return result;
+	}
 	
 }

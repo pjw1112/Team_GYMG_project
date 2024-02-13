@@ -22,7 +22,7 @@ public class UserDto {
 	private String user_intro;
 	private String user_ip;
 	private String user_time;
-	
+	private String sns_id;
 	
 	
 }

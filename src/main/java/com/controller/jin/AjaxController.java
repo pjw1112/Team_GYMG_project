@@ -2,6 +2,8 @@ package com.controller.jin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,8 +35,16 @@ public class AjaxController {
 
 	@Autowired
 	LocationDao locationdao;
-	
 	/*
+	휴대폰 인증 		/ sendsmsverify.jin / receivesmsverify.jin
+	이메일 인증 		/ receiveemailverify.jin
+	id중복체크 		/ IDduplicateCheck.jin
+	전체 관심장소 pull / locationListPull.jin
+	회원가입 			/ join_user_form_transfer.jin
+	유저 로그인 		/ user_login.jin
+	유저 로그인-쿠키 	/ user_login_byCookie.jin
+	유저 프로필 이미지	/ user_profile_img_check.jin
+	유저 관심장소 		/ user_locationListPull.jin
 	 * 
 	 * 
 	 * 
@@ -269,7 +279,7 @@ public class AjaxController {
 					throws IOException, ServletException {
 
 		Map<String, Object> item = new HashMap<String, Object>();
-
+		
 		item.put("userdto", dto);
 		item.put("remember_id", remember_id);
 		item.put("remember_login", remember_login);
@@ -385,7 +395,6 @@ public class AjaxController {
 	 * 
 	 * 
 	 */
-	
 	
 	
 	
