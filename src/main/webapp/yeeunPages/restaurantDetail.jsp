@@ -249,9 +249,7 @@
 		</button>
 		<div class="popup-content">
 			<span>현재 위치에서 길찾기</span>
-			<div class="find-road-map">
-				
-			</div>
+			<div class="find-road-map"></div>
 		</div>
 	</div>
 	<div class="layer-pop find-parking">
@@ -318,7 +316,6 @@
 		</div>
 	</div>
 </div>
-
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e6b5214426df989a43073f46ca3e2ca9&libraries=services"></script>
 <script>
 var mapContainer = document.querySelector('.rest-map'), // 지도를 표시할 div 
@@ -429,9 +426,10 @@ $(function(){
 		$('.layer-pop.find-road, .layer-pop.find-parking').stop().fadeOut();
 		$('.layer-pop-modal').stop().fadeOut(200);
 	})
-	
-
+  
 })
+  
+  
 
 $(function(){
 	$('.find-parking-btn').on('click',function(){
@@ -440,41 +438,8 @@ $(function(){
 		$('.layer-pop.find-parking').stop().fadeIn(200);
 	})
 })
-
-
-
-
 </script>
-<script>
-//위치정보 사용
-function getLocation() {
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(getAddressByCoords,redirectLocation, geo_options);
-        //navigator.geolocation.getCurrentPosition(successCallback,errorCallback,{ timeout: 10_000 });
-	} else {
-		alert('현재 위치를 가져올 수 없습니다.');
-	}
-}
 
-// 위치 정보 조회 성공시 호출
-function getAddressByCoords(position) {
-	var longitude = position.coords.longitude;
-	var latitude = position.coords.latitude;
-	console.log("현재 위치  : (경도) "+longitude + ", (위도) " + latitude);
-	
-}
-
-//위치 정보 조회 실패시 호출
-function redirectLocation(error) {
-	alert('에러 발생');
-}
-
-//타임아웃 변수
-var geo_options = {
-	maximumAge        : 5000, 
-	timeout           : 10000
-};
-</script>
 <script>
 //위치정보 사용
 function getLocation() {
