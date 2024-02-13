@@ -922,6 +922,9 @@ let img_pre;
 
 	
 	 //프로필 이미지 가져와서 버튼에 넣기
+	 function start_http(str) {
+   			 return /^http/.test(str);
+		}
 	 $.ajax({
 			url : "user_profile_img_check.jin",
 			type : "POST",
@@ -937,10 +940,15 @@ let img_pre;
 				console.log(data);
 				console.log(typeof(data));
 				
-				if(data!="false"){
+				if(data!="false"){//
 					
+					if(start_http(data)){
+						$("#profile_img_button").attr("src", data);
+						
+					}else{
+					/*
 					$("#profile_img_button").attr("src", "${pageContext.request.contextPath}/resources/upload/"+data);
-					
+					*/
 					var imgPath = "${pageContext.request.contextPath}/resources/upload/" + data;
 
 					// 이미지가 존재하는지 확인
@@ -954,19 +962,13 @@ let img_pre;
 					    $("#profile_img_button").attr("src", "${pageContext.request.contextPath}/resources/upload/default.svg");
 					};
 					img.src = imgPath; // 이미지 로드 시도
-
+					}
+					}else{
 					
+					}//
 					
-					
-					
-					
-					
-				}else{
-					
-				}
 				
-				
-				
+			//	
 			}
 		});
 	

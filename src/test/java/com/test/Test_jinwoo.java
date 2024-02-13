@@ -36,6 +36,9 @@ public class Test_jinwoo {
 
 	@Autowired
 	UserDao userDao;
+	
+	@Autowired
+	UserDto userDto;
 
 	@Test
 	@Ignore
@@ -103,7 +106,7 @@ public class Test_jinwoo {
 		
 	}
 	
-	@Test
+	@Test @Ignore
 	public void test9() throws IOException {
 		
 		String urlapi = "https://apis-navi.kakaomobility.com/v1/directions?";
@@ -155,7 +158,11 @@ public class Test_jinwoo {
 		System.out.println("카카오 모빌리티 경로 api 결과 : "+result);
 		
 	}
-	
+
+	@Test
+	public void test10() {
+		System.out.println(userDto);
+	}
 	
 	
 

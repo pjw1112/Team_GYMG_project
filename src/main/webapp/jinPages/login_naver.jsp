@@ -8,7 +8,7 @@
 </head>
 <body>
 <script type="text/javascript">
-alert("네이버 로그인 성공!!");
+alert("${message}");
 location.href="index.ye";
 </script>
 </body>
