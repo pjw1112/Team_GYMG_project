@@ -46,6 +46,8 @@
 	src="${pageContext.request.contextPath}/resources/js/summernote/lang/summernote-ko-KR.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/summernote/summernote-lite.css">
+	
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
 <title>가봄,맛봄</title>
 <script>
 	if (getCookieValue("remember_login")) {
@@ -129,7 +131,13 @@
 						<div class="item_inColumn2 ">
 							<a href="board_list.moon?ctg_no=2">맛집게시판</a>
 						</div>
-
+						<!-- 		 -->
+						<!-- 		 -->
+						<div class="item_inColumn2 ">
+							<a href="recipeAll.moon">해볼, 먹어볼</a>
+						</div>
+						<!-- 		 -->
+						<!-- 		 -->
 					</c:when>
 					<c:otherwise>
 						<c:choose>
@@ -144,7 +152,13 @@
 								<div class="item_inColumn2">
 									<a href="board_list.moon?ctg_no=1">게시판</a>
 								</div>
-
+								<!-- 		 -->
+								<!-- 		 -->
+								<div class="item_inColumn2 ">
+									<a href="recipeAll.moon">해볼, 먹어볼</a>
+								</div>
+								<!-- 		 -->
+								<!-- 		 -->
 							</c:when>
 							<c:when test="${sessionScope.login_user_dto.type_no == 2}">
 
@@ -160,7 +174,13 @@
 								<div class="item_inColumn2 ">
 									<a href="searchResult.ye?ctg_no=&searchKey=">가볼,맛볼</a>
 								</div>
-
+								<!-- 		 -->
+								<!-- 		 -->
+								<div class="item_inColumn2 ">
+									<a href="recipeAll.moon">해볼, 먹어볼</a>
+								</div>
+								<!-- 		 -->
+								<!-- 		 -->
 							</c:when>
 
 						</c:choose>
