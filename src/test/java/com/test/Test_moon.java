@@ -18,7 +18,9 @@ import com.dto.moon.BoardDto;
 import com.dto.moon.BoardLikeDto;
 import com.dto.moon.BoardReplyDto;
 import com.dto.moon.BoardResultDto;
+import com.dto.moon.RecipeVoDto;
 import com.service.moon.BoardService;
+import com.service.moon.RecipeService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -33,7 +35,7 @@ public class Test_moon {
 	BoardDao bdao;
 	
 	@Autowired
-	BoardService bservice;
+	RecipeService service;
 	
 	@Test	@Ignore
 	public void test0() {
@@ -112,8 +114,9 @@ public class Test_moon {
 //		log.info(bservice.readAllBoard(1));
 	}
 	
-	@Test	
+	@Test	@Ignore
 	public void test3() {
+
 		Map<String , Object> result = new HashMap<>();
 		BoardDto dto = new BoardDto();
 		BoardResultDto rdto = new BoardResultDto(); 
@@ -160,7 +163,17 @@ public class Test_moon {
 //		likedto.setBoard_no(95);
 //		log.info("..........." + bservice.boardUnLike(likedto));
 		
-		log.info("..........." + bservice.noticeList(4));
+		//log.info("..........." + bservice.noticeList(4));
 		
+	}
+	
+	@Test
+	public void test4() {
+		RecipeVoDto dto = new RecipeVoDto();
+		dto.setRecipe_id(1);
+		log.info("................"  + service.recipeDetail(dto));
+		dto = service.recipeDetail(dto);
+		log.info("!!!!!!!!!!!!!!!!!!!" + dto);
+		log.info("!!!!!!!!!!!!!!!!!!!" + dto.getTitle());
 	}
 }
