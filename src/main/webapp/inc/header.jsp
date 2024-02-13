@@ -21,17 +21,13 @@
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/yeeun.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-	href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap"
-	rel="stylesheet" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/reset.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/css/base.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/common.css" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/base.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css" />
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/css/yeeun.css" />
@@ -45,6 +41,8 @@
 	src="${pageContext.request.contextPath}/resources/js/summernote/lang/summernote-ko-KR.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/summernote/summernote-lite.css">
+	
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
 <title>가봄,맛봄</title>
 <script>
 	if (getCookieValue("remember_login")) {
@@ -128,7 +126,13 @@
 						<div class="item_inColumn2 ">
 							<a href="board_list.moon?ctg_no=2">맛집게시판</a>
 						</div>
-
+						<!-- 		 -->
+						<!-- 		 -->
+						<div class="item_inColumn2 ">
+							<a href="recipeAll.moon">해볼, 먹어볼</a>
+						</div>
+						<!-- 		 -->
+						<!-- 		 -->
 					</c:when>
 					<c:otherwise>
 						<c:choose>
@@ -143,7 +147,13 @@
 								<div class="item_inColumn2">
 									<a href="board_list.moon?ctg_no=1">게시판</a>
 								</div>
-
+								<!-- 		 -->
+								<!-- 		 -->
+								<div class="item_inColumn2 ">
+									<a href="recipeAll.moon">해볼, 먹어볼</a>
+								</div>
+								<!-- 		 -->
+								<!-- 		 -->
 							</c:when>
 							<c:when test="${sessionScope.login_user_dto.type_no == 2}">
 
@@ -159,7 +169,13 @@
 								<div class="item_inColumn2 ">
 									<a href="searchResult.ye?ctg_no=&searchKey=">가볼,맛볼</a>
 								</div>
-
+								<!-- 		 -->
+								<!-- 		 -->
+								<div class="item_inColumn2 ">
+									<a href="recipeAll.moon">해볼, 먹어볼</a>
+								</div>
+								<!-- 		 -->
+								<!-- 		 -->
 							</c:when>
 
 						</c:choose>
@@ -186,24 +202,33 @@
 			-->
 			<div class="header_column4 header_column">
 				<div class="session_check">
-
+				
+					
+					
 					<c:choose>
 						<c:when test="${empty sessionScope.login_user_dto}">
 							<!-- 로그인이 되어있지 않은 경우 -->
-							<a href="GoToLoginPage.jin" class="header_session_btn">로그인</a> | <a
-								href="GoToJoin1Page.jin" class="header_session_btn">회원가입</a>
+							<a href="GoToLoginPage.jin" class="header_session_btn">&nbsp;<i class="fa-solid fa-door-open my_red"></i>&nbsp;로그인&nbsp;</a> <span class="gray_bar">|</span> 
+							<a href="GoToJoin1Page.jin" class="header_session_btn">&nbsp;<i class="fa-solid fa-file-signature my_red"></i>&nbsp;회원가입&nbsp;</a>
 						</c:when>
 						<c:otherwise>
 							<c:choose>
 								<c:when test="${sessionScope.login_user_dto.type_no == 1}">
-									<strong>${sessionScope.login_user_dto.user_name}</strong> 님 | 
-							<strong>ADMIN</strong> |
-							<a href="user_logout.jin" class="header_session_btn"><strong>Out</strong></a>
+								
+								<strong class="user_name">${sessionScope.login_user_dto.user_name}</strong> <span class="nim">님</span> 
+								<span class="gray_bar">|</span> 
+								<a href="mp_tab1.jin" class="header_session_btn">&nbsp;<i class="fa-solid fa-user-nurse my_red"></i>&nbsp;ADMIN&nbsp;</a> 
+								<span class="gray_bar">|</span>
+								<a href="user_logout.jin" class="header_session_btn">&nbsp;<i class="fa-solid fa-right-to-bracket my_red"></i>&nbsp;Log Out&nbsp;</a>
 								</c:when>
 								<c:when test="${sessionScope.login_user_dto.type_no == 2}">
-									<strong>${sessionScope.login_user_dto.user_name}</strong> 님 | 
-							<a href="GoToMic_tab1Page.jin" class="header_session_btn"><strong>MY</strong></a> |
-							<a href="user_logout.jin" class="header_session_btn"><strong>Log Out</strong></a>
+								
+								<div class="profile_img">
+									<img src="${pageContext.request.contextPath}/images/no_profile.svg" id="profile_img_header">
+								</div>
+									<strong class="user_name">${sessionScope.login_user_dto.user_name}</strong> <span class="nim">님</span>&nbsp;<span class="gray_bar">|</span> 
+							<a href="mp_tab1.jin" class="header_session_btn">&nbsp;<i class="fa-solid fa-inbox my_red"></i>&nbsp;MY&nbsp;</a><span class="gray_bar">|</span>
+							<a href="user_logout.jin" class="header_session_btn">&nbsp;<i class="fa-solid fa-right-to-bracket my_red"></i>&nbsp;Log Out&nbsp;</a>
 								</c:when>
 
 							</c:choose>
@@ -218,7 +243,58 @@
 			</div>
 
 		</header>
-		
+		<script>
+		//프로필 이미지 가져와서 버튼에 넣기
+		 function start_http(str) {
+	   			 return /^http/.test(str);
+			}
+		 $.ajax({
+				url : "user_profile_img_check.jin",
+				type : "POST",
+				dataType : "text",
+				data : {
+					"user_no" : ${login_user_dto.user_no}
+				},
+				error : function(xhr, status, msg) {
+					alert("오류가 발생했습니다. 관리자에게 문의해주세요.\n"+"status : "+status + "/n" +"msg : "+ msg);
+				},
+				success : function(data){
+					
+					console.log(data);
+					console.log(typeof(data));
+					
+					if(data!="false"){//
+						
+						if(start_http(data)){
+							$("#profile_img_header").attr("src", data);
+							
+						}else{
+						/*
+						$("#profile_img_header").attr("src", "${pageContext.request.contextPath}/resources/upload/"+data);
+						*/
+						var imgPath = "${pageContext.request.contextPath}/resources/upload/" + data;
+
+						// 이미지가 존재하는지 확인
+						var img = new Image();
+						img.onload = function() {
+						    // 이미지가 로드되면, 이미지 경로를 변경하여 이미지를 표시
+						    $("#profile_img_header").attr("src", imgPath);
+						};
+						img.onerror = function() {
+						    // 이미지 로드에 실패한 경우, 기본 그림 파일 경로를 사용하여 이미지를 표시
+						    $("#profile_img_header").attr("src", "${pageContext.request.contextPath}/resources/upload/default.svg");
+						};
+						img.src = imgPath; // 이미지 로드 시도
+						}
+						}else{
+						
+						}//
+						
+					
+				//	
+				}
+			});
+		</script>
 		<!-- 여기 위로 1HEADER -->
 		<!-- 여기 위로 HEADER -->
 		<!-- 여기 위로 HEADER -->

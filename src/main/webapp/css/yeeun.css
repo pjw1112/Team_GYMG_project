@@ -307,6 +307,24 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
 }
+/* 식당 수정 */
+ul.rest-file-ye {
+	margin-top: 30px;
+	display: flex;
+	gap: 10px;
+}
+
+ul.rest-file-ye li {
+	width: 100px;
+	height: 100px;
+	background-color: #ddd;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+ul.rest-file-ye li img {
+	height: 100%;
+}
 /* 식당 삭제 */
 #rest-delete-form label {
 	display: inline-block;
@@ -612,12 +630,12 @@ ul.main-rest-list1 li a .rest-img-box img {
 }
 
 .rest-desc {
-    font-size: 14px;
-    margin-bottom: 17px;
-    line-height: normal;
-    text-overflow: ellipsis;
-    text-wrap: nowrap;
-    overflow: hidden;
+	font-size: 14px;
+	margin-bottom: 17px;
+	line-height: normal;
+	text-overflow: ellipsis;
+	text-wrap: nowrap;
+	overflow: hidden;
 }
 
 .ctg-name {
@@ -846,6 +864,10 @@ p.rest-tel {
 	flex-direction: row;
 }
 
+.rest-img-empty {
+	margin-top: 50px;
+}
+
 .rest-img-box::after {
 	display: block;
 	content: '';
@@ -859,8 +881,8 @@ p.rest-tel {
 
 .rest-img-box div {
 	height: 100%;
-	width: calc(100%/ 3);
-	background: url('../images/dummy_rest_img.png') no-repeat center;
+	background-position: center;
+	background-repeat: no-repeat;
 	background-size: cover;
 }
 
@@ -916,7 +938,7 @@ p.rest-tel {
 	display: inline-block;
 	width: 65px;
 	font-weight: 500;
-	line-height: normal;
+	line-height: 160%;
 }
 
 .rest-text dl.biz-time ul li {
@@ -941,6 +963,20 @@ p.rest-tel {
 	border: 1px solid #ddd;
 	width: 400px;
 	border-radius: 10px;
+}
+
+.rest-map button.org-large-btn {
+	position: absolute;
+	z-index: 10;
+	bottom: 7px;
+	width: calc((100% - 30px) / 2);
+	left: 10px;
+	padding: 12px !important;
+	text-align: center;
+}
+.rest-map button.org-large-btn.find-parking-btn{
+	left: unset;
+	right : 10px;
 }
 
 .rest-social {
@@ -971,10 +1007,6 @@ p.rest-tel {
 	flex-direction: column;
 	gap: 10px;
 	font-size: 14px;
-}
-
-.rest-social .social-item>span {
-	font-weight: 500;
 }
 
 .rest-social .social-item:last-child {
@@ -1039,6 +1071,95 @@ section.rest-menu {
 	float: right;
 	font-size: 14px;
 }
+
+/* 식당 길찾기 팝업 */
+.layer-pop.find-road {
+    width: 800px;
+    height: 550px;
+    background-color: #fff;
+    position: fixed;
+    left: 50%;
+    z-index: 100;
+    border-radius: 20px;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    padding: 70px 30px 30px 30px;
+    display: none;
+    top: 50%;
+}
+.layer-pop.find-parking {
+    width: 800px;
+    height: 550px;
+    background-color: #fff;
+    position: fixed;
+    left: 50%;
+    z-index: 100;
+    border-radius: 20px;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    padding: 70px 30px 30px 30px;
+    display: none;
+    top: 50%;
+}
+
+.layer-pop-modal {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.3);
+	left: 0;
+	top: 0;
+	z-index: 10;
+	display:none;
+}
+
+.layer-pop .close-pop-btn {
+	position: absolute;
+	right: 30px;
+	width: 30px;
+	height: 30px;
+	top: 25px;
+	
+}
+
+.layer-pop .close-pop-btn img {
+	width: 100%;
+}
+
+.find-road-map {
+	background-color: #ddd;
+	width: 100%;
+	height: 400px;
+	margin: 10px auto;
+	border-radius: 10px;
+}
+
+.layer-pop.find-road span,
+.layer-pop.find-parking span {
+	font-size: 16px;
+	font-weight: 600;
+	margin-top: 10px;
+	background-color : #fd9b36;
+	color : #fff;
+	padding: 10px 15px;
+	border-radius: 20px;
+	margin-top: 20px;
+	display:inline-block;
+}
+
+.layer-pop .popup-title {
+	position: absolute;
+	top: 30px;
+	font-size: 20px;
+	font-weight: 600;
+	text-indent: 10px;
+}
+
+.popup-content {
+	overflow: scroll;
+	height: 100%;
+}
+
 /* pagenation */
 /* pagenation */
 /* pagenation */
