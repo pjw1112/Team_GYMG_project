@@ -239,7 +239,7 @@
            	</div>	<!-- end review -->
 		</section>
 	</div>
-</div>s
+</div>
 <div class="layer-pop-modal">
 	<div class="layer-pop find-road">
 		<p class="popup-title">${list.get(0).rest_name} (${list.get(0).rest_address}
@@ -398,28 +398,9 @@ function shareMessage() {
 $(function(){
 	$('.find-rest-btn').on('click',function(){
 		alert('길찾기를 시작합니다.');
-<<<<<<< HEAD
-		
-		
-		let origin = '127.111202,37.394912,name=현재위치주소';
-		let destination = '127.111202,37.394912,name=식당명';
-=======
 		$('.layer-pop-modal').stop().show();
 		$('.layer-pop.find-road').stop().fadeIn(200);
->>>>>>> refs/heads/moon0131
 		
-<<<<<<< HEAD
-		getLocation();
-		
-		
-		
-		
-		
-		
-		
-		
-		/* $.ajax({
-=======
 		
 		let origin = '127.111202,37.394912';
 		let destination = '127.111202,37.394912';
@@ -427,7 +408,6 @@ $(function(){
 		let destination = ''; */
 	
 		$.ajax({
->>>>>>> refs/heads/moon0131
 			url : 'findRestKakao.ye',
 			type : "GET",
 			data : {origin : origin,
@@ -441,20 +421,16 @@ $(function(){
 				console.log(json.routes);
 				console.log(json.routes[0].summary.fare.taxi);
 			}
-		}) */
+		})
 		
 	})
 	
-<<<<<<< HEAD
-	
-=======
 	$('.close-pop-btn').on('click',function(){
 		$('.layer-pop.find-road, .layer-pop.find-parking').stop().fadeOut();
 		$('.layer-pop-modal').stop().fadeOut(200);
 	})
 	
 
->>>>>>> refs/heads/moon0131
 })
 
 $(function(){
