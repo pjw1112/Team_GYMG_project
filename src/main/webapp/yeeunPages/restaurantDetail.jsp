@@ -151,7 +151,7 @@
            						<img src="${pageContext.request.contextPath}/images/star5.svg" alt="별 5개">
            					</div>
            					<div class="progress-bar">           
-								<div class="progress progress1"></div>
+								<div class="progress progress5"></div>
 								<span class="progress_cnt star5"></span>
 							</div>
            				</div>
@@ -160,7 +160,7 @@
            						<img src="${pageContext.request.contextPath}/images/star4.svg" alt="별 4개">
            					</div>
            					<div class="progress-bar">           
-								<div class="progress progress2"></div>
+								<div class="progress progress4"></div>
 								<span class="progress_cnt star4"></span>
 							</div>
            				</div>
@@ -178,7 +178,7 @@
            						<img src="${pageContext.request.contextPath}/images/star2.svg" alt="별 2개">
            					</div>
            					<div class="progress-bar">           
-								<div class="progress progress4"></div>
+								<div class="progress progress2"></div>
 								<span class="progress_cnt star2"></span>
 							</div>
            				</div>
@@ -187,7 +187,7 @@
            						<img src="${pageContext.request.contextPath}/images/star1.svg" alt="별 1개">
            					</div>
            					<div class="progress-bar">           
-								<div class="progress progress5"></div>
+								<div class="progress progress1"></div>
 								<span class="progress_cnt star1"></span>
 							</div>
            				</div>
@@ -434,8 +434,19 @@ $(function(){
 $(function(){
 	$('.find-parking-btn').on('click',function(){
 		alert('근처 주차장 찾기');
-		$('.layer-pop-modal').stop().show();
-		$('.layer-pop.find-parking').stop().fadeIn(200);
+		 $.ajax({
+             url: "findParking.moon?rest_no=" + ${list.get(0).rest_no},
+             type: "GET",
+             dataType:"json",
+             error: function (xhr, status, msg) {
+                 alert(status + "/" + msg);
+             },
+             success: function (json) {
+				console.log(json[0].parkingName);
+           		$('.layer-pop-modal').stop().show();
+				$('.layer-pop.find-parking').stop().fadeIn(200);
+             }
+         });
 	})
 })
 </script>
@@ -530,7 +541,7 @@ $(function(){
 		var reviewContent = $('#review_content');
 		var sessionUserNo = $("#sessionUserNo").data('user-no');
 		var deleteReviewBtn = $('.rest_review_delete_btn_input');
-		
+		var reviewCnt="";
 		
 		reviewReadAll();
 		restReviewStar();
@@ -581,6 +592,7 @@ $(function(){
                 	$(".rest_review_cnt").html("리뷰(" + json.reviewCnt + ")");
                 	$(".social-item_span").html("리뷰(" + json.reviewCnt + ")");
                 	$(".social-item-avg").html(json.reviewAvg.toFixed(1));
+                	reviewCnt = json.reviewCnt;
                 	reviewListResult(json);
                 }
             });
@@ -638,32 +650,36 @@ $(function(){
                 },
                 success: function (json) {
                 	reviewReadAll();
+                	restReviewStar();
                 }
             });
         }
         
         
         function restReviewStar(){
-        	$.ajax({
-                url: "rest_review_star.moon?rest_no=" + ${list.get(0).rest_no},
-                type: "POST",
-                dataType: "json",
-                error: function (xhr, status, msg) {
-                    alert(status + "/" + msg);
-                },
-                success: function (json) {
-                	console.log(json);
-                	$(".progress").empty();
-                	$(".star1").html(json.star1);
-                	$(".star2").html(json.star2);
-                	$(".star3").html(json.star3);
-                	$(".star4").html(json.star4);
-                	$(".star5").html(json.star5);
-                	
-                	
-                }
-            });
-        }
+            $.ajax({
+                 url: "rest_review_star.moon?rest_no=" + ${list.get(0).rest_no},
+                 type: "POST",
+                 dataType: "json",
+                 error: function (xhr, status, msg) {
+                     alert(status + "/" + msg);
+                 },
+                 success: function (json) {
+                    $(".progress").empty();
+                    updateStar(".star1", json.star1);
+                    updateStar(".star2", json.star2);
+                    updateStar(".star3", json.star3);
+                    updateStar(".star4", json.star4);
+                    updateStar(".star5", json.star5);
+                 }
+             });
+         }
+       
+         function updateStar(selector, cnt){
+         	   var width = (cnt/reviewCnt)*100 + "%";
+         	   $(selector).html(cnt);
+         	   $(".progress" + selector.slice(-1)).css("width", width);
+         }
 		
 	
 	});
