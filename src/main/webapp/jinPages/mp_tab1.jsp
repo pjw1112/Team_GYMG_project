@@ -91,13 +91,13 @@ table {
 
 .navbar3 {
 	/*border : 1px solid blue;*/
-	width : 80px;
+	padding-top : 15px;
+	width : 120px;
 	height : 80px;
 	float : right;
 	margin : 20px;
+	text-align: center;
 }
-
-
 
 .bar2 {
 	display: flex;
@@ -173,6 +173,25 @@ font-weight: bold;
 	color : #FD9B36;
 	font-weight: normal;
 }
+
+.mp_tab{
+	/*border : 1px solid blue;*/
+	padding : 15px;
+}
+
+.user_setting_icon{
+	font-size : 40px;
+	color : #FD9B36;
+}
+.user_setting_bottom{
+	font-size : 14px;
+	color : #FD9B36;
+}
+.mp_tab_selected{
+	background-color: #ffdfbe;
+	border-radius: 10px;
+	color : white!important;
+}
 </style>
 
 
@@ -195,8 +214,8 @@ font-weight: bold;
 			<div class="mp_intro">${login_user_dto.user_intro }</div>
 			
 		</div>
-		<div class="navbar3">
-			<a href=""><i class="fa-solid fa-gear"></i>회원 정보 변경</a>
+		<div class="navbar3 hoveractive">
+			<a href="GoToMic_tab1Page.jin"><span class="user_setting_icon"><i class="fa-regular fa-address-card"></i></span><p class="user_setting_bottom">회원 정보 수정</p></a>
 		</div>
 
 	</div>
@@ -205,10 +224,11 @@ font-weight: bold;
 
 	<div class="bar2">
 
-		<a href="postwrite.jee">작성 게시글</a> <a href="writereply.jee">작성 댓글</a>
-
-		<a href="writereview.jee">작성 리뷰</a> <a href="likeres.jee">좋아요 식당</a> <a
-			href="likewrite.jee">좋아요 게시글</a>
+		<a class="mp_tab mp_tab1 hoveractive mp_tab_selected" href="postwrite.jee">작성 게시글</a> 
+		<a class="mp_tab mp_tab2 hoveractive" href="writereply.jee">작성 댓글</a>
+		<a class="mp_tab mp_tab3 hoveractive" href="writereview.jee">작성 리뷰</a> 
+		<a class="mp_tab mp_tab4 hoveractive" href="likeres.jee">좋아요 식당</a> 
+		<a class="mp_tab mp_tab5 hoveractive" href="likewrite.jee">좋아요 게시글</a>
 
 	</div>
 
@@ -270,7 +290,7 @@ font-weight: bold;
 				type : "POST",
 				dataType : "text",
 				data : {
-					"user_no" : ${login_user_dto.user_no}
+					"user_no" : "0${login_user_dto.user_no}"
 				},
 				error : function(xhr, status, msg) {
 					alert("오류가 발생했습니다. 관리자에게 문의해주세요.\n"+"status : "+status + "/n" +"msg : "+ msg);
