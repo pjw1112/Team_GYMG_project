@@ -930,7 +930,7 @@ let img_pre;
 			type : "POST",
 			dataType : "text",
 			data : {
-				"user_no" : ${login_user_dto.user_no}
+				"user_no" : "0${login_user_dto.user_no}"
 			},
 			error : function(xhr, status, msg) {
 				alert("오류가 발생했습니다. 관리자에게 문의해주세요.\n"+"status : "+status + "/n" +"msg : "+ msg);
