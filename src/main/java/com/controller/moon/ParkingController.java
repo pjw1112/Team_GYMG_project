@@ -37,20 +37,25 @@ public class ParkingController {
 	ParkingApi parkingApi;
 	
 	@RequestMapping(value="/findParking.moon", method=RequestMethod.GET)
-	public String board_single(@RequestParam(value="rest_no") int rest_no, RestInfoDto restInfoDto ,Model model ) throws Exception {
+	@ResponseBody
+	public List<Map<String, Object>> board_single(@RequestParam(value="rest_no") int rest_no, RestInfoDto restInfoDto ,Model model ) throws Exception {
 		
 		String address1 = service.restAddress(restInfoDto);
 		System.out.println("................" + address1);
 		String realAddress = extractDistrict.findDistrict(address1);
+		System.out.println("........" + realAddress);
+		
+		/*
 		String areaCode = service.areaCode(realAddress);
 		
 		System.out.println("................." + areaCode);
-		parkingApi.parkingApi("서초구");
+		*/
+		List<Map<String, Object>> parkinginfo = parkingApi.parkingApi(realAddress);
+		System.out.println(">>>>>>>>>>>>" + parkinginfo);
 		
-		
-		model.addAttribute("rest", service.restAddress(restInfoDto));
-		model.addAttribute("areaCode", areaCode);
-		return "redirect:/detail.ye";
+		model.addAttribute("parking", parkinginfo);
+//		return "redirect:/detail.ye?rest_no=" + rest_no;
+		return parkinginfo;
 	}
 	
 	
