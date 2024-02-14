@@ -62,7 +62,15 @@ header {
 	align-items: center;
 	padding-left: 20px;
 }
-
+#profile_img_header{
+	border-radius : 999px;
+	width : 30px;
+	margin-right : 5px;
+}
+.user_name{
+	font-weight: bold;
+	
+}
 .search_bar_inHeader {
 	position: relative;
 	border: 3px solid #fd9b36;
@@ -70,6 +78,32 @@ header {
 	width: 360px;
 	height: 38px;
 }
+a.header_session_btn{
+	color : #fd9b36!important;
+	
+}
+a.header_session_btn:hover{
+	transform: scale(0.9);
+	opacity: 0.8;
+}
+a.header_session_btn:active{
+	transform: scale(0.7);
+	opacity: 0.6;
+}
+.gray_bar{
+	color : #aaaaaa;
+}
+.nim{
+	color : #fd9b36;
+}
+.my_red{
+	color : #fa8108;
+}
+
+
+
+
+
 
 .submit_inSearchBar {
 	width: 60px;

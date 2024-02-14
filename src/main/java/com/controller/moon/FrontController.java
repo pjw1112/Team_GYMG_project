@@ -199,9 +199,15 @@ public class FrontController {
 		Map<String, Object> para = new HashMap<>();
 		Map<String, Object> result = new HashMap<>();
 		para.put("rest_no", rest_no);
-		result.put("reviewCnt", rservice.readReviewCnt(para));
+		int cnt = rservice.readReviewCnt(para);
+		result.put("reviewCnt", cnt);
 		result.put("list", rservice.readAllReview(para));
-		result.put("reviewAvg", rservice.restReviewAvg(para));
+		if(cnt > 0) {
+			result.put("reviewAvg", rservice.restReviewAvg(para));
+		}else {
+			result.put("reviewAvg", "0.0");
+		}
+		
 		return result;
 	}
 	@RequestMapping(value="/rest_review_delete.moon", method=RequestMethod.POST)

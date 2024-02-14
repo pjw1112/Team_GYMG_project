@@ -722,8 +722,9 @@ input#board_title {
     white-space: nowrap;
     transition: var(--bs-progress-bar-transition);
     width: 360px;
-    background-color: beige;
+    background-color: #eee;
     position: relative;
+    border-radius: 5px;
 }
 .progress_cnt {
     position: absolute;
@@ -743,13 +744,12 @@ input#board_title {
 }
 .rest_review_single {
 	display: flex;
-	align-items: center;
-	padding: 22px;
-	background-color: white;
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-	margin-bottom: 10px;
-	border-radius: 10px;
-	justify-content: space-between;
+    align-items: center;
+    padding: 30px 0;
+    background-color: white;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+    
 }
 .rest_review{
 	display: flex;
@@ -786,4 +786,19 @@ input#board_title {
 }
 .rest_review_cnt{
 	margin: 20px 0;
+}
+.progress5{
+	background-color: #FDA54A;
+}
+.progress4{
+	background-color: #FEB972;
+}
+.progress3{
+	background-color: #FECD9A;
+}
+.progress2{
+	background-color: #FEE1C3;
+}
+.progress1{
+	background-color: #FFF5EB;
 }

@@ -40,16 +40,17 @@ public class ParkingController {
 	public String board_single(@RequestParam(value="rest_no") int rest_no, RestInfoDto restInfoDto ,Model model ) throws Exception {
 		
 		String address1 = service.restAddress(restInfoDto);
+		System.out.println("................" + address1);
 		String realAddress = extractDistrict.findDistrict(address1);
 		String areaCode = service.areaCode(realAddress);
 		
 		System.out.println("................." + areaCode);
-		parkingApi.test_api(areaCode);
+		parkingApi.parkingApi("서초구");
 		
 		
 		model.addAttribute("rest", service.restAddress(restInfoDto));
 		model.addAttribute("areaCode", areaCode);
-		return "parking_all";
+		return "redirect:/detail.ye";
 	}
 	
 	

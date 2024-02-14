@@ -1009,10 +1009,6 @@ p.rest-tel {
 	font-size: 14px;
 }
 
-.rest-social .social-item>span {
-	font-weight: 500;
-}
-
 .rest-social .social-item:last-child {
 	border-right: 1px solid #ddd;
 }
