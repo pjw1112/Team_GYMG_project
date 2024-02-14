@@ -8,19 +8,11 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon"
-	href="${pageContext.request.contextPath}/images/spoon.svg"
-	type="image/png">
-
-<script src="https://kit.fontawesome.com/5081dee0c3.js"
-	crossorigin="anonymous"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="icon" href="${pageContext.request.contextPath}/images/spoon.svg" type="image/png">
+<script src="https://kit.fontawesome.com/5081dee0c3.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/yeeun.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -29,18 +21,13 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/base.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css" />
 
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/css/yeeun.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/moon_css.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/yeeun.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/moon_css.css" />
 
 
-<script
-	src="${pageContext.request.contextPath}/resources/js/summernote/summernote-lite.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/js/summernote/lang/summernote-ko-KR.js"></script>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/summernote/summernote-lite.css">
+<script src="${pageContext.request.contextPath}/resources/js/summernote/summernote-lite.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/summernote/lang/summernote-ko-KR.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/summernote/summernote-lite.css">
 	
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
 <title>가봄,맛봄</title>
@@ -108,7 +95,7 @@
 	
 	
 		<header>
-			<div class="header_column1 header_column">
+			<div class="header_column1 header_column hoveractive">
 				<a href="index.ye">가봄, 맛봄<img alt="가봄,맛봄"
 					src="${pageContext.request.contextPath}/images/spoon.svg"></a>
 			</div>
@@ -117,18 +104,18 @@
 				<c:choose>
 					<c:when test="${empty sessionScope.login_user_dto}">
 						<!-- 로그인이 되어있지 않은 경우 -->
-						<div class="item_inColumn2 ">
+						<div class="item_inColumn2 hoveractive ">
 							<a href="searchResult.ye?ctg_no=&searchKey=">맛봄찾기</a>
 						</div>
-						<div class="item_inColumn2 ">
+						<div class="item_inColumn2 hoveractive ">
 							<a href="board_list.moon?ctg_no=1">자유게시판</a>
 						</div>
-						<div class="item_inColumn2 ">
+						<div class="item_inColumn2 hoveractive ">
 							<a href="board_list.moon?ctg_no=2">맛집게시판</a>
 						</div>
 						<!-- 		 -->
 						<!-- 		 -->
-						<div class="item_inColumn2 ">
+						<div class="item_inColumn2 hoveractive ">
 							<a href="recipeAll.moon">해볼, 먹어볼</a>
 						</div>
 						<!-- 		 -->
@@ -138,18 +125,18 @@
 						<c:choose>
 							<c:when test="${sessionScope.login_user_dto.type_no == 1}">
 
-								<div class="item_inColumn2">
+								<div class="item_inColumn2 hoveractive">
 									<a href="#">회원관리</a>
 								</div>
-								<div class="item_inColumn2">
+								<div class="item_inColumn2 hoveractive">
 									<a href="${pageContext.request.contextPath}/adminRestList.ye">식당관리</a>
 								</div>
-								<div class="item_inColumn2">
+								<div class="item_inColumn2 hoveractive">
 									<a href="board_list.moon?ctg_no=1">게시판</a>
 								</div>
 								<!-- 		 -->
 								<!-- 		 -->
-								<div class="item_inColumn2 ">
+								<div class="item_inColumn2 hoveractive ">
 									<a href="recipeAll.moon">해볼, 먹어볼</a>
 								</div>
 								<!-- 		 -->
@@ -157,21 +144,21 @@
 							</c:when>
 							<c:when test="${sessionScope.login_user_dto.type_no == 2}">
 
-								<div class="item_inColumn2 ">
+								<div class="item_inColumn2 hoveractive ">
 									<a href="searchResult.ye?ctg_no=&searchKey=">맛봄찾기</a>
 								</div>
-								<div class="item_inColumn2 ">
+								<div class="item_inColumn2 hoveractive ">
 									<a href="board_list.moon?ctg_no=1">자유게시판</a>
 								</div>
-								<div class="item_inColumn2 ">
+								<div class="item_inColumn2 hoveractive ">
 									<a href="board_list.moon?ctg_no=2">맛집게시판</a>
 								</div>
-								<div class="item_inColumn2 ">
+								<div class="item_inColumn2 hoveractive ">
 									<a href="searchResult.ye?ctg_no=&searchKey=">가볼,맛볼</a>
 								</div>
 								<!-- 		 -->
 								<!-- 		 -->
-								<div class="item_inColumn2 ">
+								<div class="item_inColumn2 hoveractive ">
 									<a href="recipeAll.moon">해볼, 먹어볼</a>
 								</div>
 								<!-- 		 -->
@@ -248,12 +235,13 @@
 		 function start_http(str) {
 	   			 return /^http/.test(str);
 			}
+		
 		 $.ajax({
 				url : "user_profile_img_check.jin",
 				type : "POST",
 				dataType : "text",
 				data : {
-					"user_no" : ${login_user_dto.user_no}
+					"user_no" : "0${login_user_dto.user_no}"
 				},
 				error : function(xhr, status, msg) {
 					alert("오류가 발생했습니다. 관리자에게 문의해주세요.\n"+"status : "+status + "/n" +"msg : "+ msg);
