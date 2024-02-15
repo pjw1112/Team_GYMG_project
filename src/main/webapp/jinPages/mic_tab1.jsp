@@ -918,13 +918,10 @@ let img_pre;
 		$(".img_upload_wrapper").toggle();
 	});
 	
-	
-
-	
 	 //프로필 이미지 가져와서 버튼에 넣기
 	 function start_http(str) {
    			 return /^http/.test(str);
-		}
+	 }
 	 $.ajax({
 			url : "user_profile_img_check.jin",
 			type : "POST",
