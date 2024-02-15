@@ -205,7 +205,7 @@ font-weight: bold;
 		
 		<div class="navbar1">
 			<div class="profile_img_mp">
-				<img src="${pageContext.request.contextPath}/images/no_profile.svg" id="profile_img_mp">
+				<img src="${pageContext.request.contextPath}/resources/upload/default.svg" class="login_user_profile_img" id="profile_img_mp">
 			</div>
 		</div>
 		
@@ -282,6 +282,7 @@ font-weight: bold;
 
 <script>
 		//프로필 이미지 가져와서 버튼에 넣기
+		/*
 		 function start_http(str) {
 	   			 return /^http/.test(str);
 			}
@@ -306,9 +307,7 @@ font-weight: bold;
 							$("#profile_img_mp").attr("src", data);
 							
 						}else{
-						/*
-						$("#profile_img_mp").attr("src", "${pageContext.request.contextPath}/resources/upload/"+data);
-						*/
+						
 						var imgPath = "${pageContext.request.contextPath}/resources/upload/" + data;
 
 						// 이미지가 존재하는지 확인
@@ -331,6 +330,7 @@ font-weight: bold;
 				//	
 				}
 			});
+		 */
 		</script>
 
 

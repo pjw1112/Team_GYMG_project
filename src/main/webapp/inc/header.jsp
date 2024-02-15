@@ -1,9 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,7 +18,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/base.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css" />
-
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/yeeun.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/moon_css.css" />
 
@@ -211,7 +208,7 @@
 								<c:when test="${sessionScope.login_user_dto.type_no == 2}">
 								
 								<div class="profile_img">
-									<img src="${pageContext.request.contextPath}/images/no_profile.svg" id="profile_img_header">
+									<img src="${pageContext.request.contextPath}/resources/upload/default.svg" id="profile_img_header" class="login_user_profile_img">
 								</div>
 									<strong class="user_name">${sessionScope.login_user_dto.user_name}</strong> <span class="nim">님</span>&nbsp;<span class="gray_bar">|</span> 
 							<a href="mp_tab1.jin" class="header_session_btn">&nbsp;<i class="fa-solid fa-inbox my_red"></i>&nbsp;MY&nbsp;</a><span class="gray_bar">|</span>
@@ -230,6 +227,7 @@
 			</div>
 
 		</header>
+		
 		<script>
 		//프로필 이미지 가져와서 버튼에 넣기
 		 function start_http(str) {
@@ -248,15 +246,26 @@
 				},
 				success : function(data){
 					
+					console.log("1111111111111111");
 					console.log(data);
 					console.log(typeof(data));
 					
 					if(data!="false"){//
-						
+						console.log("2222222222222222222");
+					
+					
 						if(start_http(data)){
-							$("#profile_img_header").attr("src", data);
+							
+							console.log("333333333333333");
+							
+							$('.login_user_profile_img').each(function(){
+								console.log("444444444444444");
+						        $(this).attr('src', data);
+						    });
 							
 						}else{
+							
+							console.log("555555555555555555");
 						/*
 						$("#profile_img_header").attr("src", "${pageContext.request.contextPath}/resources/upload/"+data);
 						*/
@@ -264,25 +273,50 @@
 
 						// 이미지가 존재하는지 확인
 						var img = new Image();
+						console.log("66666666666666666");
+						
+						
+						
 						img.onload = function() {
-						    // 이미지가 로드되면, 이미지 경로를 변경하여 이미지를 표시
-						    $("#profile_img_header").attr("src", imgPath);
+							 // 이미지가 로드되면, 이미지 경로를 변경하여 이미지를 표시
+						    console.log("777777777777777777");
+						  /*  $("#profile_img_header").attr("src", imgPath);*/
+						    $('.login_user_profile_img').each(function(){
+						    	console.log("888888888888888");
+						        $(this).attr('src', imgPath);
+						    });
+						    console.log("9999999999999999");
 						};
+						console.log("10 10 10 10 10 10 10 10 10 10 10000");
+						
+						
+						
 						img.onerror = function() {
+							console.log("11 11 11 11 11 11 11 11");
 						    // 이미지 로드에 실패한 경우, 기본 그림 파일 경로를 사용하여 이미지를 표시
-						    $("#profile_img_header").attr("src", "${pageContext.request.contextPath}/resources/upload/default.svg");
+						    console.log("이미지 로드 실패");
+						  /*  $("#profile_img_header").attr("src", "${pageContext.request.contextPath}/resources/upload/default.svg");*/
+						    $('.login_user_profile_img').each(function(){
+						    	console.log("12 12 12 12 12 12 12 12");
+						        $(this).attr('src', "${pageContext.request.contextPath}/resources/upload/default.svg");
+						    });
+						    console.log("13 13 13 13 13 13 13 13");
 						};
+						
+						
+						
 						img.src = imgPath; // 이미지 로드 시도
-						}
-						}else{
+								
 						
-						}//
-						
+						}//else end
 					
-				//	
-				}
-			});
+					}//if end
+					
+				}//success end
+				
+			});//ajax end
 		</script>
+		
 		<!-- 여기 위로 1HEADER -->
 		<!-- 여기 위로 HEADER -->
 		<!-- 여기 위로 HEADER -->
