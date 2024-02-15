@@ -918,19 +918,16 @@ let img_pre;
 		$(".img_upload_wrapper").toggle();
 	});
 	
-	
-
-	
 	 //프로필 이미지 가져와서 버튼에 넣기
 	 function start_http(str) {
    			 return /^http/.test(str);
-		}
+	 }
 	 $.ajax({
 			url : "user_profile_img_check.jin",
 			type : "POST",
 			dataType : "text",
 			data : {
-				"user_no" : ${login_user_dto.user_no}
+				"user_no" : "0${login_user_dto.user_no}"
 			},
 			error : function(xhr, status, msg) {
 				alert("오류가 발생했습니다. 관리자에게 문의해주세요.\n"+"status : "+status + "/n" +"msg : "+ msg);
