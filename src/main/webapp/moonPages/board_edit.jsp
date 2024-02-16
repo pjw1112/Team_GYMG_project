@@ -9,13 +9,13 @@
            	 <form method="post" action="board_edit.moon?board_no=${editBoard.board_no }">
            		<div class="board_write_ctg_wrapper"><!-- 게시판 글쓰기 select 박스 -->
            			<select name="ctg_no" class="board_write_ctg">
-           				<option value="1">자유게시판</option>
-           				<option value="2">맛집게시판</option>
+           				<option value="1" ${editBoard.ctg_no eq 1 ? 'selected' : ''}>자유게시판</option>
+           				<option value="2" ${editBoard.ctg_no eq 2 ? 'selected' : ''}>맛집게시판</option>
            				
            				<c:choose>
 					        <c:when test="${sessionScope.login_user_dto.user_no == 1}">
-					            <option value="3">자유게시판 - 공지</option>
-					            <option value="4">맛집게시판 - 공지</option>	
+					            <option value="3" ${editBoard.ctg_no eq 3 ? 'selected' : ''}>자유게시판 - 공지</option>
+					            <option value="4" ${editBoard.ctg_no eq 4 ? 'selected' : ''}>맛집게시판 - 공지</option>	
 					        </c:when>
 					    </c:choose>
            			</select>
@@ -27,7 +27,6 @@
            		<div class="board_write_writer"><!-- 작성자 보여주는 div -->
            			<p>작성자 : ${editBoard.board_nick }</p>	
            		</div>
-           		
            		<div><!-- 에디터 -->
 					  <textarea id="summernote" name="board_content">${editBoard.board_content }</textarea>
            		</div>

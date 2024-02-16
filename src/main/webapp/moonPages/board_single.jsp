@@ -11,6 +11,22 @@
             		
             			<div class="board_single_title"> <!-- 제목 -->
             			 	<p>${singleBoard.board_title }</p>
+            			 	<p class="board_single_title_ctg">
+						        <c:choose>
+						            <c:when test="${singleBoard.ctg_no eq 1}">
+						                자유게시판
+						            </c:when>
+						            <c:when test="${singleBoard.ctg_no eq 2}">
+						                맛집게시판
+						            </c:when>
+						            <c:when test="${singleBoard.ctg_no eq 3}">
+						                자유게시판-공지
+						            </c:when>
+						            <c:otherwise>
+						                맛집게시판-공지
+						            </c:otherwise>
+						        </c:choose>
+						    </p>
             			</div>
             		</div>
             		
@@ -137,7 +153,10 @@
 			//세션없으면 (로그인X) 좋아요 버튼 클릭 x        
 	        if(sessionUserNo == ""){
 	        	likeBtn.click(function(){
-	        		alert('로그인 후 이용가능한 서비스입니다.');
+	        		var result = confirm("로그인 후 이용가능한 서비스입니다. \n로그인 창으로 이동하시겠습니까? ");
+	                if (result) {
+	                    location.href="${pageContext.request.contextPath }/GoToLoginPage.jin";
+	                }
 	        	});
 	        }else{
 		        //로그인 후, 사용자 번호, 게시글 번호 받아와서 좋아요 누른 상태인지, 아닌지 보여줌
@@ -173,10 +192,16 @@
 	        })
 	        
 	        writeBtnNologin.click(function(){
-	        	alert('로그인 후 이용가능한 서비스입니다.');
+	        	var result = confirm("로그인 후 이용가능한 서비스입니다. \n로그인 창으로 이동하시겠습니까? ");
+	            if (result) {
+	                location.href="${pageContext.request.contextPath }/GoToLoginPage.jin";
+	            }
 	        })
 	        replyWriteBtnNologin.click(function(){
-	        	alert('로그인 후 이용가능한 서비스입니다.');
+	        	var result = confirm("로그인 후 이용가능한 서비스입니다. \n로그인 창으로 이동하시겠습니까? ");
+	            if (result) {
+	                location.href="${pageContext.request.contextPath }/GoToLoginPage.jin";
+	            }
 	        })
 	        
 	        //게시물 삭제 confirm 창 삭제 -> 게시판 첫 화면으로 이동
@@ -191,7 +216,12 @@
 	        // 댓글 삭제 버튼 클릭 이벤트
 	        $(document).on('click', '.board_single_review_delete_btn_input', function () {
 	            var replyNo = $(this).closest('.board_single_review_single').data('no');
-	            deleteReply(replyNo);
+	            
+	            var result = confirm("댓글을 삭제하시겠습니까?");
+	            if (result) {
+	                alert("삭제했습니다!");
+		            deleteReply(replyNo);
+	            }
 	        });
 	        
 	        /* 
