@@ -19,7 +19,7 @@ public class CrawlingScheduler {
 //	@Scheduled(cron = "0 0 0 * * *") // 매일 자정에 실행
 //	@Scheduled(cron = "0 0/1 * * * *")
 //	@Scheduled(cron = "0 0 9 * * ?")
-	@Scheduled(cron = "0 01 16 * * ?")
+	@Scheduled(cron = "0 31 09 * * ?")
 	public void CrawlingSchedule() {
 		//db 삭제
 		crawlingReset.Crawlingreset();

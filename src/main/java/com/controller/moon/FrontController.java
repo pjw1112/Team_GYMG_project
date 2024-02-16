@@ -1,10 +1,8 @@
 package com.controller.moon;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,13 +41,11 @@ public class FrontController {
 	
 	@RequestMapping(value="/board_list.moon", method=RequestMethod.GET)
 	public String list(@RequestParam(value="ctg_no", defaultValue = "1") int ctg_no, 
-					@RequestParam(value="pstartno", defaultValue = "0") int pstartno, 
-					@RequestParam(value="key", defaultValue = "0") String key, 
-					@RequestParam(value="value", defaultValue = "0") String value, 
-					Model model) {
+					   @RequestParam(value="pstartno", defaultValue = "0") int pstartno, 
+					   @RequestParam(value="key", defaultValue = "0") String key, 
+					   @RequestParam(value="value", defaultValue = "0") String value, 
+					   Model model) {
 		Map<String, Object> para = new HashMap<>();
-		System.out.println("ctg_no : " + ctg_no + ",       pstartno : " + pstartno);
-		System.out.println("key : " + key + ",     value : " + value);
 		para.put("ctg_no", ctg_no);
 		para.put("pstartno", pstartno);
 		para.put("key", key);
@@ -57,9 +53,7 @@ public class FrontController {
 		para.put("onepagelimit", 10);
 		model.addAttribute("value", value);
 		model.addAttribute("list", service.boardList(para));
-//		System.out.println("::::::list" + service.boardList(para));
 		model.addAttribute("paging", service.paging(pstartno, para));
-//		System.out.println("::::::paging" + service.paging(pstartno, para));
 		return "board";
 	}
 	
@@ -74,8 +68,6 @@ public class FrontController {
 	
 	@RequestMapping(value="/board_write_done.moon", method=RequestMethod.POST)
 	public String board_insert(BoardDto boardDto, Model model) {
-		
-		System.out.println(">>>>" + boardDto);
 		model.addAttribute("board_insert", service.insertBoard(boardDto));
 		return 	"redirect:/board_list.moon?ctg_no=1";
 	}
@@ -104,7 +96,7 @@ public class FrontController {
 	@RequestMapping(value="/board_delete.moon", method=RequestMethod.GET)
 	public String board_delete(@RequestParam(value="board_no") int board_no, BoardResultDto boardResultDto, Model model ) {
 		boardResultDto.setBoard_no(board_no);
-		service.deleteBoard(boardResultDto);
+		
 		return "redirect:/board_list.moon?ctg_no=1";
 	}
 	
@@ -181,8 +173,7 @@ public class FrontController {
 	
 	
 	
-	
-	
+	// 식당 리뷰
 	@RequestMapping(value="/rest_review_write.moon", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> insertReview(@RequestParam(value="rest_no") int rest_no, ReviewDto reviewDto ) {
