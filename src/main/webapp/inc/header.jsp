@@ -246,17 +246,17 @@
 				},
 				success : function(data){
 					
-					console.log("1111111111111111");
+					/*console.log("1111111111111111");*/
 					console.log(data);
 					console.log(typeof(data));
 					
 					if(data!="false"){//
-						console.log("2222222222222222222");
+						/*console.log("2222222222222222222");*/
 					
 					
 						if(start_http(data)){
 							
-							console.log("333333333333333");
+							/*console.log("333333333333333");*/
 							
 							$('.login_user_profile_img').each(function(){
 								console.log("444444444444444");
@@ -265,7 +265,7 @@
 							
 						}else{
 							
-							console.log("555555555555555555");
+							/*console.log("555555555555555555");*/
 						/*
 						$("#profile_img_header").attr("src", "${pageContext.request.contextPath}/resources/upload/"+data);
 						*/
@@ -273,34 +273,34 @@
 
 						// 이미지가 존재하는지 확인
 						var img = new Image();
-						console.log("66666666666666666");
+						/*console.log("66666666666666666");*/
 						
 						
 						
 						img.onload = function() {
 							 // 이미지가 로드되면, 이미지 경로를 변경하여 이미지를 표시
-						    console.log("777777777777777777");
+						    /*console.log("777777777777777777");*/
 						  /*  $("#profile_img_header").attr("src", imgPath);*/
 						    $('.login_user_profile_img').each(function(){
-						    	console.log("888888888888888");
+						    	/*console.log("888888888888888");*/
 						        $(this).attr('src', imgPath);
 						    });
-						    console.log("9999999999999999");
+						    /*console.log("9999999999999999");*/
 						};
-						console.log("10 10 10 10 10 10 10 10 10 10 10000");
+						/*console.log("10 10 10 10 10 10 10 10 10 10 10000");*/
 						
 						
 						
 						img.onerror = function() {
-							console.log("11 11 11 11 11 11 11 11");
+							/*console.log("11 11 11 11 11 11 11 11");*/
 						    // 이미지 로드에 실패한 경우, 기본 그림 파일 경로를 사용하여 이미지를 표시
 						    console.log("이미지 로드 실패");
 						  /*  $("#profile_img_header").attr("src", "${pageContext.request.contextPath}/resources/upload/default.svg");*/
 						    $('.login_user_profile_img').each(function(){
-						    	console.log("12 12 12 12 12 12 12 12");
+						    	/*console.log("12 12 12 12 12 12 12 12");*/
 						        $(this).attr('src', "${pageContext.request.contextPath}/resources/upload/default.svg");
 						    });
-						    console.log("13 13 13 13 13 13 13 13");
+						    /*console.log("13 13 13 13 13 13 13 13");*/
 						};
 						
 						
