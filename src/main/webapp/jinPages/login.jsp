@@ -8,6 +8,7 @@
 <!-- header -->
 <!-- header -->
 <!-- header -->
+
 <%
  	/*http://15.164.164.72:8080/Team_GYMG/naver_login.jin*/
     String clientId = "jjoG5L0Odeyao6UOPCVc";//애플리케이션 클라이언트 아이디값";
@@ -33,6 +34,7 @@
 
 
 <style>
+
 * {
 	padding: 0;
 	margin: 0;

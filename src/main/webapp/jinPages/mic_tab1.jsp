@@ -15,11 +15,13 @@
 			<div class="inner_container">
 				
 				<div class="tab">
+				
 					<!-- 
 				<div class="tab_item tab_1"><a href="GoToMic_tab1Page.jin">회원정보 변경</a></div>
 				<div class="tab_item tab_2"><a href="GoToMic_tab2Page.jin">비밀번호 변경</a></div>
 				<div class="tab_item tab_3"><a href="GoToMic_tab3Page.jin">회원 탈퇴</a></div>
-			 -->
+			 		-->
+			 		
 					<a href="GoToMic_tab1Page.jin">
 					<div class="tab_item tab_1">회원정보 변경</div></a> 
 					<a href="GoToMic_tab2Page.jin">
@@ -55,7 +57,7 @@
 					<div class="profile">
 						<div class="profile_sec1">
 							<div class="profile_img">
-								<img src="${pageContext.request.contextPath}/images/no_profile.svg" id="profile_img_button">
+								<img src="${pageContext.request.contextPath}/resources/upload/default.svg" class="login_user_profile_img" id="profile_img_button">
 
 							</div>
 						</div>
@@ -918,19 +920,18 @@ let img_pre;
 		$(".img_upload_wrapper").toggle();
 	});
 	
-	
 
-	
 	 //프로필 이미지 가져와서 버튼에 넣기
+	 /*
 	 function start_http(str) {
    			 return /^http/.test(str);
-		}
+	 }
 	 $.ajax({
 			url : "user_profile_img_check.jin",
 			type : "POST",
 			dataType : "text",
 			data : {
-				"user_no" : ${login_user_dto.user_no}
+				"user_no" : "0${login_user_dto.user_no}"
 			},
 			error : function(xhr, status, msg) {
 				alert("오류가 발생했습니다. 관리자에게 문의해주세요.\n"+"status : "+status + "/n" +"msg : "+ msg);
@@ -940,38 +941,36 @@ let img_pre;
 				console.log(data);
 				console.log(typeof(data));
 				
-				if(data!="false"){//
+				if(data!="false"){
 					
 					if(start_http(data)){
 						$("#profile_img_button").attr("src", data);
 						
 					}else{
-					/*
-					$("#profile_img_button").attr("src", "${pageContext.request.contextPath}/resources/upload/"+data);
-					*/
+					
 					var imgPath = "${pageContext.request.contextPath}/resources/upload/" + data;
 
-					// 이미지가 존재하는지 확인
+					
 					var img = new Image();
 					img.onload = function() {
-					    // 이미지가 로드되면, 이미지 경로를 변경하여 이미지를 표시
+					    
 					    $("#profile_img_button").attr("src", imgPath);
 					};
 					img.onerror = function() {
-					    // 이미지 로드에 실패한 경우, 기본 그림 파일 경로를 사용하여 이미지를 표시
+					    
 					    $("#profile_img_button").attr("src", "${pageContext.request.contextPath}/resources/upload/default.svg");
 					};
-					img.src = imgPath; // 이미지 로드 시도
+					img.src = imgPath; 
 					}
 					}else{
 					
-					}//
+					}
 					
 				
-			//	
+			
 			}
 		});
-	
+	*/
 	
 	
 	 //유저 정보 수정 업데이트
