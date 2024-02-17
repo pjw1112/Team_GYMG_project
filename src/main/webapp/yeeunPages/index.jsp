@@ -105,7 +105,14 @@
 					<li class="rest-small-card"><a href="detail.ye?rest_no=${list.rest_no}" title="식당명 상세페이지 이동">
 								<div>
 									<figure class="rest-img-box">
-										<img src="${pageContext.request.contextPath}/images/dummy_rest_img.png" alt="" />
+										<c:choose>
+										    <c:when test="${list.file_name == null}">
+										        <img src="${pageContext.request.contextPath}/images/rest_no_img.svg" alt="" />
+										    </c:when>
+										    <c:otherwise>
+										        <img src="${pageContext.request.contextPath}/resources/uploads/${list.file_name}" alt="" />
+										    </c:otherwise>
+										</c:choose>
 									</figure>
 									<p class="review-box">
 										<img src="${pageContext.request.contextPath}/images/star_icon.svg" alt="별 아이콘" /> <span>${list.review_avg}
@@ -201,7 +208,9 @@ function getLocList(loc){
 				var a = $('<a></a>').attr('href', 'detail.ye?rest_no=' + item.rest_no).attr('title', item.rest_name + '상세페이지 이동');
 				var div = $('<div></div>');
 				var figure = $('<figure class="rest-img-box"></figure>');
-				var img = $('<img>').attr('src', '${pageContext.request.contextPath}/images/dummy_rest_img.png').attr('alt', '');
+				let imgsrc = '/resources/uploads/'+'<c:out value="${list.file_name}" />';
+				if(imgsrc == ''){imgsrc = '/images/rest_no_img.svg'}
+				var img = $('<img>').attr('src', '${pageContext.request.contextPath}'+imgsrc).attr('alt', '');
 				
 				figure.append(img);
 				div.append(figure);
@@ -226,7 +235,7 @@ function getLocList(loc){
 			    div.append(likeBox);
 			    a.append(div);
 			    li.append(a);
-			    $('ul.main-rest-list1').append(li);
+			    $('.sec4 ul.main-rest-list1').append(li);
 
 			})
 			

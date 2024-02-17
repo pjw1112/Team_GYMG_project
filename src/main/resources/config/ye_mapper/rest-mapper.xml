@@ -20,6 +20,7 @@
 		<result property="rest_like_cnt" column="rest_like_cnt" />
 		<result property="review_avg" column="review_avg" />
 		<result property="review_cnt" column="review_cnt" />
+		<result property="file_name" column="file_name" />
 	</resultMap>
 	<select id="readRestInfo" resultMap="restInfoMap">
 		SELECT
@@ -31,9 +32,11 @@
 		r.rest_address,
 		r.rest_address2,
 		r.rest_tel,
+		date_format(r.rest_time, '%Y-%m-%d') as rest_time,
 		COUNT(DISTINCT rl.rest_like_no) AS rest_like_cnt,
-		AVG(rr.review_star) AS review_avg,
-		COUNT(DISTINCT rr.review_no) AS review_cnt
+		ROUND(AVG(rr.review_star),1) AS review_avg,
+		COUNT(DISTINCT rr.review_no) AS review_cnt,
+		fn.file_name
 		FROM
 		restaurant r
 		LEFT JOIN rest_category rc USING (ctg_no)
@@ -42,6 +45,15 @@
 		USING
 		(rest_no)
 		LEFT JOIN review rr USING (rest_no)
+	    LEFT JOIN (
+	        SELECT rest_no, file_name
+	        FROM img_file 
+	        JOIN (
+	            SELECT rest_no, MIN(file_no) AS file_no
+	            FROM rest_file
+	            GROUP BY rest_no
+	        ) AS title_file USING (file_no)
+	    ) AS fn USING (rest_no)
 		WHERE
 		r.rest_no =
 		#{rest_no}
@@ -121,8 +133,9 @@
 		r.rest_address2,
 		r.rest_tel,
 		COUNT(DISTINCT rl.rest_like_no) AS rest_like_cnt,
-		AVG(rr.review_star) AS review_avg,
-		COUNT(DISTINCT rr.review_no) AS review_cnt
+		ROUND(AVG(rr.review_star),1) AS review_avg,
+		COUNT(DISTINCT rr.review_no) AS review_cnt,
+		fn.file_name
 		FROM
 		restaurant r
 		LEFT JOIN
@@ -132,6 +145,15 @@
 		(rest_no)
 		LEFT JOIN review rr USING
 		(rest_no)
+	    LEFT JOIN (
+	        SELECT rest_no, file_name
+	        FROM img_file 
+	        JOIN (
+	            SELECT rest_no, MIN(file_no) AS file_no
+	            FROM rest_file
+	            GROUP BY rest_no
+	        ) AS title_file USING (file_no)
+	    ) AS fn USING (rest_no)
 		WHERE r.rest_no IN
 		(SELECT rest_no
 		FROM restaurant WHERE
@@ -148,7 +170,7 @@
 		LIMIT 6
 	</select>
 	<select id="mainLikeRec" resultMap="restInfoMap">
-		SELECT
+		<!-- SELECT
 		r.rest_no,
 		rc.ctg_no,
 		rc.ctg_name,
@@ -158,7 +180,7 @@
 		r.rest_address2,
 		r.rest_tel,
 		COUNT(DISTINCT rl.rest_like_no) AS rest_like_cnt,
-		AVG(rr.review_star) AS review_avg,
+		ROUND(AVG(rr.review_star),1) AS review_avg,
 		COUNT(DISTINCT rr.review_no) AS review_cnt
 		FROM
 		restaurant r
@@ -179,6 +201,48 @@
 		r.rest_tel
 		ORDER BY rest_like_cnt desc,
 		review_avg desc, review_cnt desc
+		LIMIT 6 -->
+		SELECT
+		    r.rest_no,
+		    rc.ctg_no,
+		    rc.ctg_name,
+		    r.rest_name,
+		    r.rest_desc,
+		    r.rest_address,
+		    r.rest_address2,
+		    r.rest_tel,
+		    COUNT(DISTINCT rl.rest_like_no) AS rest_like_cnt,
+		    ROUND(AVG(rr.review_star),1) AS review_avg,
+		    COUNT(DISTINCT rr.review_no) AS review_cnt,
+		    fn.file_name
+		FROM
+		    restaurant r
+		    LEFT JOIN rest_category rc USING (ctg_no)
+		    LEFT JOIN rest_like rl USING (rest_no)
+		    LEFT JOIN review rr USING (rest_no)
+		    LEFT JOIN (
+		        SELECT rest_no, file_name
+		        FROM img_file 
+		        JOIN (
+		            SELECT rest_no, MIN(file_no) AS file_no
+		            FROM rest_file
+		            GROUP BY rest_no
+		        ) AS title_file USING (file_no)
+		    ) AS fn USING (rest_no)
+		GROUP BY
+		    r.rest_no,
+		    rc.ctg_no,
+		    rc.ctg_name,
+		    r.rest_name,
+		    r.rest_desc,
+		    r.rest_address,
+		    r.rest_address2,
+		    r.rest_tel,
+		    fn.file_name
+		ORDER BY
+		    rest_like_cnt DESC,
+		    review_avg DESC,
+		    review_cnt DESC
 		LIMIT 6
 	</select>
 	<select id="searchCtg" resultMap="restInfoMap">
@@ -192,8 +256,9 @@
 		r.rest_address2,
 		r.rest_tel,
 		COUNT(DISTINCT rl.rest_like_no) AS rest_like_cnt,
-		AVG(rr.review_star) AS review_avg,
-		COUNT(DISTINCT rr.review_no) AS review_cnt
+		ROUND(AVG(rr.review_star),1) AS review_avg,
+		COUNT(DISTINCT rr.review_no) AS review_cnt,
+		fn.file_name
 		FROM
 		restaurant r
 		LEFT
@@ -204,6 +269,15 @@
 		(rest_no)
 		LEFT JOIN review rr
 		USING (rest_no)
+	    LEFT JOIN (
+	        SELECT rest_no, file_name
+	        FROM img_file 
+	        JOIN (
+	            SELECT rest_no, MIN(file_no) AS file_no
+	            FROM rest_file
+	            GROUP BY rest_no
+	        ) AS title_file USING (file_no)
+	    ) AS fn USING (rest_no)
 		<where>
 			<if test="ctgNos != null and ctgNos.size() > 0">
 				AND ctg_no IN

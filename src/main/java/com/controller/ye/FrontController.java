@@ -47,20 +47,20 @@ public class FrontController {
    
    // 카카오 길찾기
    @ResponseBody
-   @RequestMapping(value="/findRestKakao.ye", method=RequestMethod.GET)
-   public String findRest(@RequestParam Map<String, String> param, HttpServletRequest request) throws IOException {
-	   HttpSession session = request.getSession();
+   @RequestMapping(value="/findRestKakao.ye", method=RequestMethod.GET, 
+		    headers = "Content-Type=application/json", // 헤더 이름과 값의 쌍으로 설정
+		    produces = "application/json; charset=UTF-8")
+   public String findRest(@RequestParam Map<String, String> param) throws IOException {
 	   
-//	   String origin = param.get("origin");
-	   String origin = session.getAttribute("longitude") + "," + session.getAttribute("latitude");
-			   
+	   String origin = param.get("origin");
 	   String destination = param.get("destination");
+	   
 	   System.out.println("카카오 길찾기 ( 출발지 : " + origin + " / 도착지 : " + destination + " )");
 	   
 	   String REST_API_KEY = "53b7e029069bb988d3e217b3f96575eb";
 	   String api_url = "https://apis-navi.kakaomobility.com/v1/directions?";
 	   String api_parameter = "origin=" + origin
-	   		+ "&destination=127.10824367964793,37.401937080111644"
+	   		+ "&destination=" + destination
 	   		+ "&waypoints="
 	   		+ "&priority=RECOMMEND"
 	   		+ "&car_fuel=GASOLINE&car_hipass=false"
@@ -180,6 +180,12 @@ public class FrontController {
 			   fileDto.setFile_name(save);
 			   
 				String rootPath = request.getSession().getServletContext().getRealPath("/resources/uploads");
+				System.out.println("=============================================================");
+				System.out.println("=============================================================");
+				System.out.println("=============================================================");
+				System.out.println("=============================================================");
+				System.out.println("=============================================================");
+				System.out.println(rootPath);
 //			   String rootPath = "/Users/yeeun/git/Team_GYMG_project/src/main/webapp/resources/uploads";
 				
 			   File target = new File(rootPath, save);
@@ -290,8 +296,7 @@ public class FrontController {
 	   String latitude = param.get("latitude");
 	   
 	   HttpSession session = request.getSession();
-	   session.setAttribute("longitude", longitude);
-	   session.setAttribute("latitude", latitude);
+	   session.setAttribute("userCoord", longitude + "," + latitude);
 	   
 	   String REST_API_KEY = "53b7e029069bb988d3e217b3f96575eb";
 	   String api_url = "https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=" + longitude + "&y=" + latitude;
@@ -336,6 +341,7 @@ public class FrontController {
 	  return resultString;
 	   
    }
+
    
    @GetMapping("getLocList.ye")
    @ResponseBody

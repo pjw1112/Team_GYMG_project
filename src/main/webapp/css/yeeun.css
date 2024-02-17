@@ -574,6 +574,7 @@ ul.main-rest-list1 {
 	gap: 20px;
 	justify-content: center;
 	width: 1000px;
+    justify-content: flex-start;
 }
 
 ul.main-rest-list1 .rest-small-card {
@@ -1009,10 +1010,6 @@ p.rest-tel {
 	font-size: 14px;
 }
 
-.rest-social .social-item>span {
-	font-weight: 500;
-}
-
 .rest-social .social-item:last-child {
 	border-right: 1px solid #ddd;
 }
@@ -1129,15 +1126,48 @@ section.rest-menu {
 .layer-pop .close-pop-btn img {
 	width: 100%;
 }
-
-.find-road-map {
-	background-color: #ddd;
-	width: 100%;
-	height: 400px;
-	margin: 10px auto;
-	border-radius: 10px;
+.find-road-container{
+	display: flex;
+	margin-top : 15px;
+	gap: 2%;
 }
-
+.find-road-map {
+    background-color: #ddd;
+    width: 49%;
+    height: 379px;
+    border-radius: 10px;
+    position: relative;
+}
+a.find-road-kakao {
+    position: absolute;
+    top: 88px;
+    /* left: 50%; */
+    /* transform: translateX(-50%); */
+    right: 30px;
+    z-index: 5;
+    background-color: #292b4d;
+    color: #feea00;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-weight: 500;
+}
+.find-road-info {
+    background-color: #eee;
+    width: 49%;
+    height: 379px;
+    border-radius: 10px;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    padding: 10px;
+    overflow: scroll;
+}
+.find-road-info li {
+    background-color: #fff;
+    line-height: 160%;
+    border-radius: 5px;
+    padding: 10px;
+}
 .layer-pop.find-road span,
 .layer-pop.find-parking span {
 	font-size: 16px;
@@ -1149,6 +1179,7 @@ section.rest-menu {
 	border-radius: 20px;
 	margin-top: 20px;
 	display:inline-block;
+	margin-right: 5px;
 }
 
 .layer-pop .popup-title {
