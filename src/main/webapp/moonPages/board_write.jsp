@@ -10,7 +10,6 @@
            			<select name="ctg_no" class="board_write_ctg">
            				<option value="1">자유게시판</option>
            				<option value="2">맛집게시판</option>
-           				
            				<c:choose>
 					        <c:when test="${sessionScope.login_user_dto.user_no == 1}">
 					            <option value="3">자유게시판 - 공지</option>

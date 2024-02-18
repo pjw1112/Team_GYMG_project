@@ -314,8 +314,16 @@ select, input {
 
 .board_single_title {
 	float: left;
+	float: left;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
-
+.board_single_title_ctg{
+	color: white;
+    font-weight: 600;
+    font-size: 18px;
+}
 .board_single_title_data {
 	text-align: right;
 	margin-bottom: 30px;
@@ -661,14 +669,7 @@ input#board_title {
 	margin-left: 10px;
 }
 
-.parking-info {
-	background-color: #fff;
-	border-radius: 10px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	padding: 20px;
-	max-width: 400px;
-	width: 100%;
-}
+
 .rest_review_user{
 	display: flex;
 }
@@ -801,4 +802,79 @@ input#board_title {
 }
 .progress1{
 	background-color: #FFF5EB;
+}
+.parking_content_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.parking_info {
+	background-color: #fff;
+	border-radius: 10px;
+	border: 1px solid #ddd;
+	margin: 20px;
+	padding : 30px;
+	display: flex;
+	flex-direction: column;
+    align-items: flex-start;
+    gap:25px;
+    width: 100%;
+}
+.parking_name_wrapper{
+	display: flex;
+    align-items: flex-end;
+    width: 100%;
+    justify-content: space-between;
+}
+.parking_name {
+    font-size: 20px;
+    font-weight: 500;
+}
+.parking_area {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.parking_per {
+    height: 40px;
+    width: 100%;
+    background-color: #fd9b36;
+    position: relative;
+}
+.parking_per_comment{
+  	position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.parking_pay.free{
+	font-weight: 500;
+	padding: 5px 10px;
+    background-color: #239BE5;
+    color: #fff;
+    border-radius: 5px;
+}
+.parking_pay.paid{
+	font-weight: 500;
+	padding: 5px 10px;
+    background-color: #FD5A36;
+    color: #fff;
+    border-radius: 5px;
+}
+.parking_per_result{
+	background-color: #ddd;
+	max-width: 100%;
+}
+.parking_cur.full{
+	color: #FD5A36;
+    margin-right: 10px;
+}
+.recipe-img-box{
+	width: 280px;
+	height: 215px;
+	overflow: hidden;
+	border-radius: 20px;
+}
+.recipe-img-box img{
+	width:100%;	
 }

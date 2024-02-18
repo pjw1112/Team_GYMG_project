@@ -13,7 +13,7 @@
 						href="recipedetail.moon?recipe_id=${recipe.recipe_id}"
 						title="상세페이지 이동">
 							<div class="inner-box">
-								<figure class="rest-img-box">
+								<figure class="recipe-img-box">
 									<img
 										src="${recipe.img_url}"
 										alt="레시피 사진" />

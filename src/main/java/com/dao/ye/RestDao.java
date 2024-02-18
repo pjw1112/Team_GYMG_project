@@ -22,9 +22,11 @@ public interface RestDao {
 	
 	/* searchRestult */
 	public List<RestInfoDto> searchCtg(@Param("searchKey") String searchKey, @Param("ctgNos") List<Integer> ctgNos); //test
+	
 	/*
 	restInfo
 	*/
+	
 	public List<RestInfoDto> listRestInfo(); // test
 	public RestInfoDto readRestInfo(int restNo); //test
 	public int insertRestInfo(RestInfoDto dto); //test

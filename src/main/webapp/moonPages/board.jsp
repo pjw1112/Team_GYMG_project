@@ -9,8 +9,8 @@
             <div class="board_wrapper"> <!-- 전체 내용 감싸는 div -->
                 <div class="board_tap_wrapper"> <!-- 카테고리 tab 감싸는 박스 -->
                     <ul class="board_tabs">
-                        <li><a href="board_list.moon?pstartno=0&ctg_no=1&key=0&value=0" <c:if test="${param.ctg_no==1 }">class="tab_active" </c:if>>자유게시판</a></li>
-                        <li><a href="board_list.moon?pstartno=0&ctg_no=2&key=0&value=0" <c:if test="${param.ctg_no==2 }">class="tab_active" </c:if>>맛집게시판</a></li>
+                        <li><a href="board_list.moon?pstartno=0&ctg_no=1&key=0&value=0" <c:if test="${param.ctg_no==1 }">class="tab_active"</c:if> >자유게시판</a></li>
+                        <li><a href="board_list.moon?pstartno=0&ctg_no=2&key=0&value=0" <c:if test="${param.ctg_no==2 }">class="tab_active"</c:if> >맛집게시판</a></li>
                     </ul>
                 </div> <!-- 카테고리 tab 감싸는 박스 -->
 
@@ -37,8 +37,6 @@
                         <input type="button" value="검색" id="search_button" class="">
                     </div>
                 </div> <!-- 검색 박스 -->
-
-
                 <c:choose>
 				    <c:when test="${empty sessionScope.login_user_dto}">
 				    	<div class="board_write_list_btn_wrapper">
@@ -67,10 +65,7 @@
                                     <th>추천</th>
                                 </tr>
                             </thead>
-                            
-                            
                             <tbody class="board_tbody">
-                            	
 	                           	<!-- 공지 -->
                             	<c:forEach var="boardList" items="${list }" varStatus="status" >
 	                                <tr>
@@ -131,7 +126,10 @@
 	    	})
 	    	
 	    	 writeBtnNologin.click(function(){
-	        	alert('로그인 후 이용가능한 서비스입니다.');
+	    		 var result = confirm("로그인 후 이용가능한 서비스입니다. \n로그인 창으로 이동하시겠습니까? ");
+	             if (result) {
+	                 location.href="${pageContext.request.contextPath }/GoToLoginPage.jin";
+	             }
 	        })
 	        
 	       function noticeList(){

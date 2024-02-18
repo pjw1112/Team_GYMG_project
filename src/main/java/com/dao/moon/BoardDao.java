@@ -15,16 +15,6 @@ import com.dto.moon.BoardResultDto;
 @MyDao
 public interface BoardDao {
 	
-	/*
-	public List<BoardDto> readAllBoard(int ctg_no);
-	public List<BoardDto> readTitleBoard(Map<String, Object> para);
-	public List<BoardDto> readNickBoard(Map<String, Object> para);
-	public List<BoardDto> readContentBoard(Map<String, Object> para);
-	
-	public int updateBoardLike(BoardDto bdto);
-	public int updateBoardLikeCancle(BoardDto bdto);
-	*/
-	
 	public List<BoardDto> noticeList(int ctg_no);
 	
 	public int listCnt(Map<String, Object> map);
