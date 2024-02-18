@@ -120,9 +120,14 @@
 						title="${rest.rest_name} 상세페이지 이동">
 							<div class="inner-box">
 								<figure class="rest-img-box">
-									<img
-										src="${pageContext.request.contextPath}/images/dummy_rest_img.png"
-										alt="" />
+									<c:choose>
+									    <c:when test="${rest.file_name == null}">
+									        <img src="${pageContext.request.contextPath}/images/rest_no_img.svg" alt="" />
+									    </c:when>
+									    <c:otherwise>
+									        <img src="${pageContext.request.contextPath}/resources/uploads/${rest.file_name}" alt="" />
+									    </c:otherwise>
+									</c:choose>
 								</figure>
 								<div>
 									<p class="review-box">
