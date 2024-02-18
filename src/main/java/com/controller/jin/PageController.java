@@ -1,6 +1,10 @@
 package com.controller.jin;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -13,10 +17,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dao.TestDao;
 import com.dto.jin.UserDto;
+import com.dto.moon.BoardDto;
+import com.dto.moon.BoardReplyDto;
+import com.dto.moon.BoardResultDto;
+import com.dto.moon.ReviewDto;
+import com.dto.ye.RestInfoDto;
 import com.service.jin.JService;
+import com.service.jin.PagingService;
+import com.service.moon.BoardService;
+import com.service.ye.RestService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -30,6 +43,15 @@ public class PageController {
 	@Autowired
 	JService service;
 
+	@Autowired
+	PagingService Pservice;
+	
+	@Autowired
+	BoardService Bservice;
+	
+	@Autowired
+	RestService Rservice;
+	
 	
 	/* -- GoToTestPage.jin >> "/testPages/test-jin.jsp" -- */
 
@@ -152,31 +174,112 @@ public class PageController {
 		return "/jinPages/mic_tab1_fail.jsp";
 	}
 
+	
+	
+	
 	@RequestMapping(value = "/mp_tab1.jin", method = { RequestMethod.GET })
-	public String mp_tab1() {
+	public String mp_tab1(Model model, @RequestParam(value="pstartno", defaultValue="0")int pstartno, int user_no ) {
+		
+		Map<String, Integer> para = new HashMap<String, Integer>();
+		para.put("pstartno", pstartno);
+		para.put("onepagelimit", 10);
+		para.put("user_no", user_no);
+		
+		List<BoardDto> list = Pservice.listCnt(para);
+		List<Integer> likelist = new ArrayList<Integer>();
+		for(int i=0;i< list.size();i++) {
+			likelist.add( Pservice.listLike(list.get(i).getBoard_no()) );
+		}
+		
+		
+		model.addAttribute("list", list);
+		model.addAttribute("likelist", likelist);
+		model.addAttribute("paging", Pservice.paging(user_no, pstartno));
+		
 		return "/jinPages/mp_tab1.jsp";
 	}
 
+	
+	
+	
 	@RequestMapping(value = "/mp_tab2.jin", method = { RequestMethod.GET })
-	public String mp_tab2() {
+	public String mp_tab2(Model model, @RequestParam(value="pstartno", defaultValue="0")int pstartno, int user_no ) {
+		
+		Map<String, Integer> para = new HashMap<String, Integer>();
+		para.put("pstartno", pstartno);
+		para.put("onepagelimit", 10);
+		para.put("user_no", user_no);
+		
+		List<BoardReplyDto> list = Pservice.replylistCnt(para);
+		List<String> titlelist = new ArrayList<String>();
+		for(int i=0;i< list.size();i++) {
+			BoardResultDto dto = new BoardResultDto();
+			dto.setBoard_no(list.get(i).getBoard_no());
+			titlelist.add( Bservice.readOneBoard(dto).getBoard_title());
+		}
+		
+		
+		model.addAttribute("list", list);
+		model.addAttribute("titlelist", titlelist);
+		model.addAttribute("paging", Pservice.replypaging(user_no, pstartno));
+		
+		
+		
 		return "/jinPages/mp_tab2.jsp";
 	}
 
 	@RequestMapping(value = "/mp_tab3.jin", method = { RequestMethod.GET })
-	public String mp_tab3() {
+	public String mp_tab3(Model model, @RequestParam(value="pstartno", defaultValue="0")int pstartno, int user_no ) {
+		
+		Map<String, Integer> para = new HashMap<String, Integer>();
+		para.put("pstartno", pstartno);
+		para.put("onepagelimit", 10);
+		para.put("user_no", user_no);
+		
+		List<ReviewDto> list = Pservice.reviewlistCnt(para);
+		List<String> titlelist = new ArrayList<String>();
+		for(int i=0;i< list.size();i++) {
+			
+			titlelist.add( ((RestInfoDto)Rservice.readRest(list.get(i).getRest_no()).get(0)).getRest_name()  );
+		}
+		
+		
+		model.addAttribute("list", list);
+		model.addAttribute("titlelist", titlelist);
+		model.addAttribute("paging", Pservice.reviewpaging(user_no, pstartno));
+		
 		return "/jinPages/mp_tab3.jsp";
 	}
 
+	
 	@RequestMapping(value = "/mp_tab4.jin", method = { RequestMethod.GET })
 	public String mp_tab4() {
+		
+		
+		
+		
 		return "/jinPages/mp_tab4.jsp";
 	}
 
+	
+	
 	@RequestMapping(value = "/mp_tab5.jin", method = { RequestMethod.GET })
 	public String mp_tab5() {
+		
+		
+		
 		return "/jinPages/mp_tab5.jsp";
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping(value = "/message.jin", method = { RequestMethod.POST })
 	public String message() {
 		return "/jinPages/message.jsp";
