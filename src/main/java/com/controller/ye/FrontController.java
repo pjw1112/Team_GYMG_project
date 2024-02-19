@@ -179,14 +179,9 @@ public class FrontController {
 			   String save = uid.toString() + "_" + file.getOriginalFilename();
 			   fileDto.setFile_name(save);
 			   
-				String rootPath = request.getSession().getServletContext().getRealPath("/resources/uploads");
-				System.out.println("=============================================================");
-				System.out.println("=============================================================");
-				System.out.println("=============================================================");
-				System.out.println("=============================================================");
-				System.out.println("=============================================================");
-				System.out.println(rootPath);
+			   String rootPath = request.getSession().getServletContext().getRealPath("/resources/uploads");
 //			   String rootPath = "/Users/yeeun/git/Team_GYMG_project/src/main/webapp/resources/uploads";
+				System.out.println(rootPath);
 				
 			   File target = new File(rootPath, save);
 			   FileCopyUtils.copy(file.getBytes(), target);
