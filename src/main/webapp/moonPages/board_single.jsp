@@ -334,7 +334,7 @@
 					
 						if(start_http(data)){
 							
-							$(reply_profile_img).attr("src", "${pageContext.request.contextPath}/resources/upload/"+data);
+							$(reply_profile_img).attr("src", data);
 							
 						}else{
 							
@@ -503,7 +503,7 @@
 					
 						if(start_http(data)){
 							
-							$(".board_single_writer_profile_image img").attr("src", "${pageContext.request.contextPath}/resources/upload/"+data);
+							$(".board_single_writer_profile_image img").attr("src", data);
 							
 						}else{
 							

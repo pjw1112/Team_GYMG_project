@@ -204,7 +204,8 @@
 						<div class="rest_review_user_wrapper">
 							<div class="rest_review_user">
 								<!-- 닉네임 -->
-								<p class="login_user_profile_img"></p>
+								
+								<img class="login_user_profile_img" style="width:35px; border-radius: 99px;">
 								<p class="rest_review_nick">${sessionScope.login_user_dto.user_nick }</p>
 							</div>
 							<div class="rest_review_star_selectbox">
@@ -797,7 +798,7 @@ function start_http(str) {
 	 		               
 	 		                  if(start_http(data)){
 	 		                     
-	 		                     $(reply_profile_img).attr("src", "${pageContext.request.contextPath}/resources/upload/"+data);
+	 		                     $(reply_profile_img).attr("src", data);
 	 		                     
 	 		                  }else{
 	 		                     
@@ -915,7 +916,7 @@ function start_http(str) {
          
             if(start_http(data)){
                
-               $(".board_single_writer_profile_image img").attr("src", "${pageContext.request.contextPath}/resources/upload/"+data);
+               $(".board_single_writer_profile_image img").attr("src",data);
                
             }else{
                
