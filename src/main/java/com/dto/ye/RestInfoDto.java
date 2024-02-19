@@ -20,4 +20,5 @@ public class RestInfoDto {
 	private int rest_like_cnt;
 	private float review_avg;
 	private int review_cnt;
+	private String file_name;
 }

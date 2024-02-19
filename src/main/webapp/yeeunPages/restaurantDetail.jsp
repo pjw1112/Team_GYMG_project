@@ -540,72 +540,81 @@ console.log("유저 coor : " + userCoord);
 }
 // 경로 찾기 함수 start
 function findRoad(userCoord,restCoord){
-	console.log('userCoord : ' + userCoord + " , restCoord : " + restCoord);
-	
-	$.ajax({
-		url : 'findRestKakao.ye',
-		type : "GET",
-		data : {origin : userCoord,
-				destination : restCoord},
-		dataType : "json",
-		contentType : 'application/json;charset=UTF-8',
-		error : function(xhr, status, msg){
-			alert(status + " / " + msg);
-		},
-		success : function(json){
-			console.log(json.routes);
-			
-			let taxiFare = Number(json.routes[0].summary.fare.taxi).toLocaleString();
-			let distance = json.routes[0].sections[0].distance;
-			if(distance < 1000){
-				distance = distance + 'm';
-			}else{
-				distance = (distance/1000).toFixed(1)+'km';
-			}
-			let duration = json.routes[0].sections[0].duration;
-			if(duration < 3600){
-				duration = Math.floor(duration/60) + '분';
-			}else{
-				duration = Math.floor(duration/3600)+'시간 '+  Math.floor((duration%3600)/60) + '분';
-			}
-			
-			let totalDistance = $('<span>').text('현재 위치에서 '+distance);
-			let totalDuration = $('<span>').text(duration+' 소요');
-			let taxi = $('<span>').text('택시요금 '+taxiFare+'원');
-			$('.find-road-tag').append(totalDistance).append(totalDuration).append(taxi);
-			
-			json.routes[0].sections[0].guides.forEach(function(guide,index) {
-				let name = '';
-				if(guide.name != ''){
-					name = guide.name + "에서 ";
-				}
-				if(index != 0){
-					if(index != json.routes[0].sections[0].guides.length-1){
-						$('.find-road-info').append($('<li>').text(index +'. '+ name + guide.distance + "m 직진 후 " + guide.guidance));
-					}else{
-						$('.find-road-info').append($('<li>').text(index +'. '+ guide.distance + "m 직진 후 " + guide.guidance));
-					}
-				}
-			});
+   console.log('userCoord : ' + userCoord + " , restCoord : " + restCoord);
+   
+   $.ajax({
+      url : 'findRestKakao.ye',
+      type : "GET",
+      data : {origin : userCoord,
+            destination : restCoord},
+      dataType : "json",
+      contentType : 'application/json;charset=UTF-8',
+      error : function(xhr, status, msg){
+         alert(status + " / " + msg);
+      },
+      success : function(json){
+         console.log(json.routes);
+         
+         let taxiFare = Number(json.routes[0].summary.fare.taxi).toLocaleString();
+         let distance = json.routes[0].sections[0].distance;
+         if(distance < 1000){
+            distance = distance + 'm';
+         }else{
+            distance = (distance/1000).toFixed(1)+'km';
+         }
+         let duration = json.routes[0].sections[0].duration;
+         if(duration < 3600){
+            duration = Math.floor(duration/60) + '분';
+         }else{
+            duration = Math.floor(duration/3600)+'시간 '+  Math.floor((duration%3600)/60) + '분';
+         }
+         
+         let totalDistance = $('<span>').text('현재 위치에서 '+distance);
+         let totalDuration = $('<span>').text(duration+' 소요');
+         let taxi = $('<span>').text('택시요금 '+taxiFare+'원');
+         $('.find-road-tag').append(totalDistance).append(totalDuration).append(taxi);
+         
+         let guides = json.routes[0].sections[0].guides;
+         let roads = json.routes[0].sections[0].roads;
+         
+         console.log (roads[0].name);
+         for(let i = 0; i < guides.length-1; i++){
+        	 if(i == 0){
+        		 $('.find-road-info').append($('<li>').text(i+1 +'. '+ roads[i].name + ' ' +roads[i].distance + "m 직진" )); 
+        	 }else{
+	        	 $('.find-road-info').append($('<li>').text(i+1 +'. '+ roads[i].name + ' ' + guides[i].guidance + ' 후 ' +roads[i].distance + "m 이동" ));
+        	 }
+         }
+         
+        /*  json.routes[0].sections.forEach(function(section,index) {
+             section.roads.forEach(function(road){
+            	 $('.find-road-info').append($('<li>').text(index +'. '+ road.name + guide.distance + "m 직진"));
+           	 })
+        	 section.guides.forEach(function(guide){
+        		 let name = guide.name;
+        		 if(name != ''){name += ' 에서';}
+        		 $('.find-road-info').append($('<li>').text(index +'. '+ road.name + guide.distance + "m 이동"));
+             })
+         }); */
 
-			json.routes[0].sections[0].roads.forEach(function(road,index) {
-				let lng = '';
-				let lat = '';
-				road.vertexes.forEach(function(vertex,index){
-					
-					if(index%2==0){
-						lng = vertex;
-					}else{
-						lat = vertex;
-						linePath.push(new kakao.maps.LatLng(lat, lng));
-					}
-					
-				});
-			});
-			console.log(linePath);
-			
-		}
-	})
+         json.routes[0].sections[0].roads.forEach(function(road,index) {
+            let lng = '';
+            let lat = '';
+            road.vertexes.forEach(function(vertex,index){
+               
+               if(index%2==0){
+                  lng = vertex;
+               }else{
+                  lat = vertex;
+                  linePath.push(new kakao.maps.LatLng(lat, lng));
+               }
+               
+            });
+         });
+         console.log(linePath);
+         
+      }
+   })
 } // 경로 찾기 함수 end
 </script>
 <!-- 예은 end -->
