@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dao.TestDao;
+import com.dao.jin.JinPagingDao;
 import com.dto.jin.UserDto;
 import com.dto.moon.BoardDto;
 import com.dto.moon.BoardReplyDto;
@@ -28,6 +29,7 @@ import com.dto.moon.ReviewDto;
 import com.dto.ye.RestInfoDto;
 import com.service.jin.JService;
 import com.service.jin.PagingService;
+import com.service.jin.PagingServiceImpl;
 import com.service.moon.BoardService;
 import com.service.ye.RestService;
 
@@ -253,10 +255,18 @@ public class PageController {
 
 	
 	@RequestMapping(value = "/mp_tab4.jin", method = { RequestMethod.GET })
-	public String mp_tab4() {
+	public String mp_tab4(Model model, @RequestParam(value="pstartno", defaultValue="0")int pstartno, int user_no ) {
 		
+		Map<String, Integer> para = new HashMap<String, Integer>();
+		para.put("pstartno", pstartno);
+		para.put("onepagelimit", 10);
+		para.put("user_no", user_no);
 		
-		
+		List<RestInfoDto> list =Pservice.likeRestListCnt(para);
+		List<String> ctglist = new ArrayList<String>();
+				
+		model.addAttribute("list", list);
+		model.addAttribute("paging", Pservice.likeRestpaging(user_no, pstartno));
 		
 		return "/jinPages/mp_tab4.jsp";
 	}
@@ -264,8 +274,15 @@ public class PageController {
 	
 	
 	@RequestMapping(value = "/mp_tab5.jin", method = { RequestMethod.GET })
-	public String mp_tab5() {
+	public String mp_tab5(Model model, @RequestParam(value="pstartno", defaultValue="0")int pstartno, int user_no ) {
 		
+		Map<String, Integer> para = new HashMap<String, Integer>();
+		para.put("pstartno", pstartno);
+		para.put("onepagelimit", 10);
+		para.put("user_no", user_no);
+		
+		model.addAttribute("list", Pservice.likeBoardListCnt(para));
+		model.addAttribute("paging", Pservice.likeBoardpaging(user_no, pstartno));
 		
 		
 		return "/jinPages/mp_tab5.jsp";
@@ -273,7 +290,22 @@ public class PageController {
 
 	
 	
-	
+	@RequestMapping(value = "/admin1.jin", method = { RequestMethod.GET })
+	public String admin1(Model model, @RequestParam(value="pstartno", defaultValue="0")int pstartno) {
+		
+		Map<String, Integer> para = new HashMap<String, Integer>();
+		para.put("pstartno", pstartno);
+		para.put("onepagelimit", 10);
+		
+		
+		
+		
+		model.addAttribute("list", Pservice.userListCnt(para));
+		model.addAttribute("paging", Pservice.userpaging(pstartno));
+		model.addAttribute("total", Pservice.userTotal());
+		
+		return "/jinPages/admin1.jsp";
+	}
 	
 	
 	

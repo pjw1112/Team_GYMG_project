@@ -8,6 +8,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.dto.jin.UserDto;
+
 public interface JService {
 	
 	public int user_duplicateIdCheck(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
@@ -38,6 +40,9 @@ public interface JService {
 	
 	public int delete_user(Map<String, Object> item, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 	
+	public UserDto userDetail_byAdmin(int user_no);
+	public int userUpdate_byAdmin(UserDto dto);
+	public int userDelete_byAdmin(UserDto dto);
 	
 	
 }

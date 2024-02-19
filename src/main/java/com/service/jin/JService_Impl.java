@@ -939,4 +939,45 @@ public class JService_Impl implements JService {
 		return result_int;
 	}
 
+	@Override
+	public UserDto userDetail_byAdmin(int user_no) {
+		// TODO Auto-generated method stub
+		
+		UserDto dto = new UserDto();
+		dto.setUser_no(user_no);
+		return userdao.read(dto);
+	}
+
+	@Override
+	public int userUpdate_byAdmin(UserDto dto) {
+		// TODO Auto-generated method stub
+		return userdao.userUpdate_byAdmin(dto);
+	}
+
+	@Override
+	public int userDelete_byAdmin(UserDto dto) {
+		// TODO Auto-generated method stub
+		return userdao.delete(dto);
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

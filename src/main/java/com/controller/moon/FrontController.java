@@ -96,7 +96,7 @@ public class FrontController {
 	@RequestMapping(value="/board_delete.moon", method=RequestMethod.GET)
 	public String board_delete(@RequestParam(value="board_no") int board_no, BoardResultDto boardResultDto, Model model ) {
 		boardResultDto.setBoard_no(board_no);
-		
+		service.deleteBoard(boardResultDto);
 		return "redirect:/board_list.moon?ctg_no=1";
 	}
 	
@@ -113,7 +113,7 @@ public class FrontController {
 	
 	@RequestMapping(value="/board_reply.moon", method=RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> board_reply(@RequestParam(value="board_no") int board_no, BoardReplyDto boardReplyDto, Model model ) {
+	public Map<String, Object> board_reply(@RequestParam(value="board_no") int board_no, BoardReplyDto boardReplyDto) {
 		Map<String, Object> para = new HashMap<>();
 		Map<String, Object> result = new HashMap<>();
 		para.put("board_no", board_no);

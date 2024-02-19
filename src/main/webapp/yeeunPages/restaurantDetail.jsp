@@ -141,17 +141,6 @@
 				</c:forEach>
 			</div>
 		</section>
-		<section class="rest-menu">
-			<h3>메뉴</h3>
-			<div class="menu-list">
-				<c:forEach var="menu" items="${list.get(2)}">
-					<dl>
-						<dt>${menu.menu_name}</dt>
-						<dd>${menu.menu_price}원</dd>
-					</dl>
-				</c:forEach>
-			</div>
-		</section>
 		<section class="rest-review">
 			<h3 class="rest_review_cnt"></h3>
 			<div class="board_single_review">
@@ -214,10 +203,8 @@
 					<div class="rest_review_write">
 						<div class="rest_review_user_wrapper">
 							<div class="rest_review_user">
-								<!-- 프로필사진 -->
-								<img src="${pageContext.request.contextPath}/images/profile.svg"
-									alt="작성자 닉네임">
 								<!-- 닉네임 -->
+								<p class="login_user_profile_img"></p>
 								<p class="rest_review_nick">${sessionScope.login_user_dto.user_nick }</p>
 							</div>
 							<div class="rest_review_star_selectbox">
@@ -665,6 +652,11 @@ $(function(){
 </script>
 
 <script>
+function start_http(str) {
+    return /^http/.test(str);
+}
+
+
 // 식당 리뷰 script
 	$(function(){
 		var reviewWriteNologin = $('#rest_review_write_btn_nologin');
@@ -737,6 +729,8 @@ $(function(){
         }
 		//뽑아온 리뷰 리스트 보여주기 ~ 
         function reviewListResult(json) {
+		
+			console.log(json.list)
             $("#rest_review_list").empty();
 			//반복문
 			if(json.list == 0){
@@ -749,13 +743,14 @@ $(function(){
 				
 	         	$.each(json.list, function (idx, list) {
 	                var deleteBtn = $(" <img src='${pageContext.request.contextPath}/images/delete_icon.svg' alt='delete버튼' class='rest_review_delete_btn_input'/>");
+	                var reply_profile_img = $("<img>").attr("src", "${pageContext.request.contextPath}/images/profile.svg").attr("alt", "작성자 사진").addClass("rest_review_profile");
 	                var reviewItem = $("<div>").addClass("rest_review_single").attr("data-no", list.review_no)
 	                    .append(
 						    $("<div>").addClass("rest_review")
 						        .append(
 						            $("<div>").addClass("rest_review_list_user")
-						                .append($("<img>").attr("src", "${pageContext.request.contextPath}/images/profile.svg").attr("alt", "작성자 사진"))
-						                .append($("<p>").html(list.review_auth))
+						           		.append(reply_profile_img)
+						                .append($("<p>").addClass("rest_review_user_p").html(list.review_auth))
 						                .append($("<p>").addClass("rest_review_time_p").html(list.review_time))
 						        )
 						        .append(
@@ -774,6 +769,61 @@ $(function(){
 	                    );
 	                }
 	                reviewItem.appendTo("#rest_review_list");
+	                
+	                function start_http(str) {
+	                    return /^http/.test(str);
+	            	}
+	                
+	                //리플 작성 유저 프로필 삽입
+	                //console.log(list.user_no);
+	                //reply_profile_img
+	                $.ajax({
+	 		            url : "user_profile_img_check.jin",
+	 		            type : "POST",
+	 		            dataType : "text",
+	 		            data : {
+	 		               "user_no" : list.user_no
+	 		            },
+	 		            error : function(xhr, status, msg) {
+	 		               alert("오류가 발생했습니다. 관리자에게 문의해주세요.\n"+"status : "+status + "/n" +"msg : "+ msg);
+	 		            },
+	 		            success : function(data){
+	 		               
+	 		               console.log(typeof(data));
+	 		               
+	 		               if(data!="false"){//
+	 		                  console.log("---------------------------------")
+	 		                  console.log("유저 프로필 이미지 정보 수신 성공 : "+data);
+	 		               
+	 		                  if(start_http(data)){
+	 		                     
+	 		                     $(reply_profile_img).attr("src", "${pageContext.request.contextPath}/resources/upload/"+data);
+	 		                     
+	 		                  }else{
+	 		                     
+	 		                  var imgPath = "${pageContext.request.contextPath}/resources/upload/" + data;
+	 		
+	 		                  // 이미지가 존재하는지 확인
+	 		                  var img = new Image();
+	 		                                    
+	 		                  img.onload = function() {
+	 		                     $(reply_profile_img).attr("src",imgPath);
+	 		                  };
+	 		                  
+	 		                  img.onerror = function() {
+	 		                     $(reply_profile_img).attr("src","${pageContext.request.contextPath}/resources/upload/default.svg");
+	 		                  };
+	 		                  
+	 		                  img.src = imgPath; // 이미지 로드 시도
+	 		                  }//else end
+	 		                 }//if end
+	 		               }//success end
+	 		              });//ajax end
+	 		            //리플 작성 유저 프로필 삽입 end 
+	                
+	                
+	                
+	                
 	            });	//each end 
 			}
         }
@@ -807,8 +857,6 @@ $(function(){
         }
         
         function restReviewStar(){
-        	$(".rest_review_single").attr("readOnly","true");  
-        	$(".rest_review_write_btn").attr("readOnly","true");  
             $.ajax({
                  url: "rest_review_star.moon?rest_no=" + ${list.get(0).rest_no},
                  type: "POST",
@@ -840,6 +888,58 @@ $(function(){
              });
          }
 	});
+</script>
+<script>
+//프로필 이미지 가져와서 작성자 이미지 넣기
+ function start_http(str) {
+          return /^http/.test(str);
+   }
+
+ $.ajax({
+      url : "user_profile_img_check.jin",
+      type : "POST",
+      dataType : "text",
+      data : {
+         "user_no" : "0${singleBoard.user_no}"
+      },
+      error : function(xhr, status, msg) {
+         alert("오류가 발생했습니다. 관리자에게 문의해주세요.\n"+"status : "+status + "/n" +"msg : "+ msg);
+      },
+      success : function(data){
+         
+         console.log(typeof(data));
+         
+         if(data!="false"){//
+            
+            console.log("유저 프로필 이미지 정보 수신 성공 : "+data);
+         
+            if(start_http(data)){
+               
+               $(".board_single_writer_profile_image img").attr("src", "${pageContext.request.contextPath}/resources/upload/"+data);
+               
+            }else{
+               
+            var imgPath = "${pageContext.request.contextPath}/resources/upload/" + data;
+
+            // 이미지가 존재하는지 확인
+            var img = new Image();
+                              
+            img.onload = function() {
+               $(".board_single_writer_profile_image img").attr("src",imgPath);
+            };
+            
+            img.onerror = function() {
+               $(".board_single_writer_profile_image img").attr("src","${pageContext.request.contextPath}/resources/upload/default.svg");
+            };
+            
+            img.src = imgPath; // 이미지 로드 시도
+            }//else end
+         
+         }//if end
+         
+      }//success end
+      
+   });//ajax end
 </script>
 
 

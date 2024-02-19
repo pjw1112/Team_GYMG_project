@@ -258,9 +258,11 @@ a:hover {
 		<thead>
 			<tr>
 				<th scope="col">no</th>
-				<th scope="col">게시글</th>
-				<th scope="col">댓글 내용</th>
-				<th scope="col">댓글 작성일</th>
+				<th scope="col">카테고리</th>
+				<th scope="col">게시글 제목</th>
+				
+				<th scope="col">작성자</th>
+				<th scope="col">작성일자</th>
 				
 				
 				
@@ -270,10 +272,18 @@ a:hover {
 		<tbody class="board-table">
 			<c:forEach var="dto" varStatus="status" items="${list}">
 				<tr>
-					<td style="width: 150px;">${dto.reply_no}</td>
-					<td style="width: 250px; text-align : left;" ><a href="board_single.moon?board_no=${dto.board_no}" class="overflow">${titlelist[status.index] }</a></td>
-					<td style="width: 500px; text-align : left; padding-left: 50px;">${dto.reply_content}</td>
-					<td scope="col">${dto.reply_time}</td>
+					<td style="width: 150px;">${dto.board_no}</td>
+					<td style="width: 150px; text-align : center;" >
+					<c:if test="${dto.ctg_no eq 1}">자유게시판</c:if>
+					<c:if test="${dto.ctg_no eq 2}">맛집게시판</c:if>
+					<c:if test="${dto.ctg_no eq 3}">자유게시판공지</c:if>
+					<c:if test="${dto.ctg_no eq 4}">맛집게시판공지</c:if>
+					
+					</td>
+					<td style="width: 500px; text-align : left; padding-left: 50px;"><a href="board_single.moon?board_no=${dto.board_no}" class="overflow">${dto.board_title}</a></td>
+					
+					<td scope="col">${dto.board_nick}</td>
+					<td scope="col">${dto.board_time}</td>
 				</tr>
 			</c:forEach>
 		</tbody>

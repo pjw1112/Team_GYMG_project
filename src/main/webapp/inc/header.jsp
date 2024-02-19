@@ -123,7 +123,7 @@
 							<c:when test="${sessionScope.login_user_dto.type_no == 1}">
 
 								<div class="item_inColumn2 hoveractive">
-									<a href="#">회원관리</a>
+									<a href="admin1.jin">회원관리</a>
 								</div>
 								<div class="item_inColumn2 hoveractive">
 									<a href="${pageContext.request.contextPath}/adminRestList.ye">식당관리</a>

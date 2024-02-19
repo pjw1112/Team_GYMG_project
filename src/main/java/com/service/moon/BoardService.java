@@ -56,4 +56,7 @@ public interface BoardService {
 	//게시글 좋아요
 	public int boardLike(BoardLikeDto boardLikeDto);
 	
+	public List<String> readProfile(Map<String, Object> map);
+	
+	public String readBoardProfile(int board_no);
 }

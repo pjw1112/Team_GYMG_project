@@ -196,7 +196,7 @@ a:hover {
 	cursor: default;
 }
 .overflow {
- width : 250px;
+ 
  display : block;
  white-space: nowrap; 
  overflow: hidden; 
@@ -263,9 +263,9 @@ a:hover {
 		<thead>
 			<tr>
 				<th scope="col">no</th>
-				<th scope="col">게시글</th>
-				<th scope="col">댓글 내용</th>
-				<th scope="col">댓글 작성일</th>
+				<th scope="col">카테고리</th>
+				<th scope="col">식당명</th>
+				<th scope="col">주소</th>
 				
 				
 				
@@ -275,10 +275,10 @@ a:hover {
 		<tbody class="board-table">
 			<c:forEach var="dto" varStatus="status" items="${list}">
 				<tr>
-					<td style="width: 150px;">${dto.reply_no}</td>
-					<td style="width: 250px; text-align : left;" ><a href="board_single.moon?board_no=${dto.board_no}" class="overflow">${titlelist[status.index] }</a></td>
-					<td style="width: 500px; text-align : left; padding-left: 50px;">${dto.reply_content}</td>
-					<td scope="col">${dto.reply_time}</td>
+					<td style="width: 150px;">${dto.rest_no}</td>
+					<td style="width: 150px; text-align : center;" >${dto.ctg_name }</td>
+					<td style="width: 200px; text-align : center;"><a href="detail.ye?rest_no=${dto.rest_no}">${dto.rest_name}</a></td>
+					<td >${dto.rest_address} ${dto.rest_address2}</td>
 				</tr>
 			</c:forEach>
 		</tbody>

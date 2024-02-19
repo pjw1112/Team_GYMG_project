@@ -271,6 +271,7 @@
 	                    alert(status + "/" + msg);
 	                },
 	                success: function (json) {
+	                	console.log(json);
 	                	$(".board_single_title_data span:last-child").html("댓글수 : " + json.replyCnt);
 	                	$(".board_single_review_cnt").html("댓글수 : " + json.replyCnt);
 	                    replyListResult(json);
@@ -284,12 +285,13 @@
 				//반복문
 	            $.each(json.list, function (idx, list) {
 	                var deleteBtn = $(" <img src='${pageContext.request.contextPath}/images/delete_icon.svg' alt='delete버튼' class='board_single_review_delete_btn_input'/>");
+	                var reply_profile_img = $("<img>").attr("src", "${pageContext.request.contextPath}/images/profile.svg").attr("alt", "작성자 사진");
 	                var replyItem = $("<div>").addClass("board_single_review_single").attr("data-no", list.reply_no)
 	                    .append(
 						    $("<div>").addClass("board_single_review_profile_img")
 						        .append(
 						            $("<div>").addClass("board_single_review_nick_time")
-						                .append($("<img>").attr("src", "${pageContext.request.contextPath}/images/profile.svg").attr("alt", "작성자 사진"))
+						                .append(reply_profile_img)
 						                .append($("<p>").html(list.reply_nick))
 						                .append($("<p>").html(list.reply_time))
 						        )
@@ -308,6 +310,54 @@
 	                    );
 	                }
 	                replyItem.appendTo("#board_reply_list_div");
+	                
+	            //리플 작성 유저 프로필 삽입
+	            //console.log(list.user_no);
+	            //reply_profile_img
+	            $.ajax({
+				url : "user_profile_img_check.jin",
+				type : "POST",
+				dataType : "text",
+				data : {
+					"user_no" : list.user_no
+				},
+				error : function(xhr, status, msg) {
+					alert("오류가 발생했습니다. 관리자에게 문의해주세요.\n"+"status : "+status + "/n" +"msg : "+ msg);
+				},
+				success : function(data){
+					
+					console.log(typeof(data));
+					
+					if(data!="false"){//
+						
+						console.log("유저 프로필 이미지 정보 수신 성공 : "+data);
+					
+						if(start_http(data)){
+							
+							$(reply_profile_img).attr("src", "${pageContext.request.contextPath}/resources/upload/"+data);
+							
+						}else{
+							
+						var imgPath = "${pageContext.request.contextPath}/resources/upload/" + data;
+
+						// 이미지가 존재하는지 확인
+						var img = new Image();
+												
+						img.onload = function() {
+							$(reply_profile_img).attr("src",imgPath);
+						};
+						
+						img.onerror = function() {
+							$(reply_profile_img).attr("src","${pageContext.request.contextPath}/resources/upload/default.svg");
+						};
+						
+						img.src = imgPath; // 이미지 로드 시도
+						}//else end
+					  }//if end
+					}//success end
+				  });//ajax end
+				//리플 작성 유저 프로필 삽입 end 
+	                
 	            });	//each end
 	        }
 			
@@ -425,6 +475,59 @@
 	        
 	    	
 	    });
+		</script>
+		
+		<script>
+		//프로필 이미지 가져와서 작성자 이미지 넣기
+		 function start_http(str) {
+	   			 return /^http/.test(str);
+			}
+		
+		 $.ajax({
+				url : "user_profile_img_check.jin",
+				type : "POST",
+				dataType : "text",
+				data : {
+					"user_no" : "0${singleBoard.user_no}"
+				},
+				error : function(xhr, status, msg) {
+					alert("오류가 발생했습니다. 관리자에게 문의해주세요.\n"+"status : "+status + "/n" +"msg : "+ msg);
+				},
+				success : function(data){
+					
+					console.log(typeof(data));
+					
+					if(data!="false"){//
+						
+						console.log("유저 프로필 이미지 정보 수신 성공 : "+data);
+					
+						if(start_http(data)){
+							
+							$(".board_single_writer_profile_image img").attr("src", "${pageContext.request.contextPath}/resources/upload/"+data);
+							
+						}else{
+							
+						var imgPath = "${pageContext.request.contextPath}/resources/upload/" + data;
+
+						// 이미지가 존재하는지 확인
+						var img = new Image();
+												
+						img.onload = function() {
+							$(".board_single_writer_profile_image img").attr("src",imgPath);
+						};
+						
+						img.onerror = function() {
+							$(".board_single_writer_profile_image img").attr("src","${pageContext.request.contextPath}/resources/upload/default.svg");
+						};
+						
+						img.src = imgPath; // 이미지 로드 시도
+						}//else end
+					
+					}//if end
+					
+				}//success end
+				
+			});//ajax end
 		</script>
 	    </div>
 <%@ include file="../inc/footer.jsp" %>

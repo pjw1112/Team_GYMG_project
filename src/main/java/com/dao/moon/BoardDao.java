@@ -44,4 +44,8 @@ public interface BoardDao {
 	public int boardUnLike(BoardLikeDto boardLikeDto);
 	
 	public int boardLike(BoardLikeDto boardLikeDto);
+	
+	public List<String> readProfile(Map<String, Object> map);
+	
+	public String readBoardProfile(int board_no);
 }

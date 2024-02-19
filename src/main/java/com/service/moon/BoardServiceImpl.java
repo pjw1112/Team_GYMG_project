@@ -26,15 +26,21 @@ public class BoardServiceImpl implements BoardService{
 		return dao.noticeList(ctg_no);
 	}
 
+
+	
 	@Override
 	public List<BoardDto> boardList(Map<String, Object> para) {
 		return dao.boardList(para);
 	}
 
+
+
 	@Override
 	public PagingDto paging(int pstartno, Map<String, Object> para) {
 		return new PagingDto(dao.listCnt(para), pstartno);
 	}
+
+
 
 	@Override
 	public int insertBoard(BoardDto boardDto) {
@@ -47,26 +53,34 @@ public class BoardServiceImpl implements BoardService{
 		return dao.insertBoard(boardDto);
 	}
 
+
+
 	@Override
 	public BoardDto readOneBoard(BoardResultDto boardResultDto) {
 		dao.updateBoardHit(boardResultDto);
 		return dao.readOneBoard(boardResultDto);
 	}
 	
+	
 	@Override
 	public BoardDto editBoard(BoardResultDto boardResultDto) {
 		return dao.readOneBoard(boardResultDto);
 	}
+
 		
 	@Override
 	public int editBoard2(BoardResultDto boardResultDto) {
 		return dao.updateBoard(boardResultDto);
 	}
 
+
+
 	@Override
 	public int deleteBoard(BoardResultDto boardResultDto) {
 		return dao.deleteBoard(boardResultDto);
 	}
+
+
 
 	@Override
 	public int insertBoardReply(BoardReplyDto boardReplyDto) {
@@ -81,6 +95,7 @@ public class BoardServiceImpl implements BoardService{
 		return dao.insertBoardReply(boardReplyDto);
 	}
 
+	
 	@Override
 	public int readReplyCnt(Map<String, Object> map) {
 		return dao.readReplyCnt(map);
@@ -91,29 +106,57 @@ public class BoardServiceImpl implements BoardService{
 		return dao.readAllReply(map);
 	}
 
+
+
 	@Override
 	public int deleteBoareReply(BoardReplyDto boardReplyDto) {
 		return dao.deleteBoareReply(boardReplyDto);
 	}
+
+
 
 	@Override
 	public int boardLikeCnt(BoardLikeDto boardLikeDto) {
 		return dao.boardLikeCnt(boardLikeDto);
 	}
 	
+
 	@Override
 	public int boardLikeCheck(BoardLikeDto boardLikeDto) {
 		return dao.boardLikeCheck(boardLikeDto);
 	}
+
+
 
 	@Override
 	public int boardUnLike(BoardLikeDto boardLikeDto) {
 		return dao.boardUnLike(boardLikeDto);
 	}
 
+
+
 	@Override
 	public int boardLike(BoardLikeDto boardLikeDto) {
 		return dao.boardLike(boardLikeDto);
 	}
+
+
+
+	@Override
+	public List<String> readProfile(Map<String, Object> map) {
+		return dao.readProfile(map);
+	}
+
+
+
+	@Override
+	public String readBoardProfile(int board_no) {
+		return dao.readBoardProfile(board_no);
+	}
+
+
+
+
+	
 
 }

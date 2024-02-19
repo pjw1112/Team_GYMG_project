@@ -249,10 +249,6 @@ a:hover {
 
 
 	<table class="mypage_table">
-		<!-- <caption>
-        작성게시글
-    </caption> -->
-
 		<thead>
 			<tr>
 				<th scope="col">no</th>

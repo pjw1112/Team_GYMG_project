@@ -19,4 +19,6 @@ public interface UserDao {
 	public UserDto read(UserDto dto);
 	public UserDto read_user_no(UserDto dto);
 	public List<UserDto> readAll();
+	
+	public int userUpdate_byAdmin(UserDto dto);
 }
