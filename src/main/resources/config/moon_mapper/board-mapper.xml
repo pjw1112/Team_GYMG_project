@@ -137,10 +137,21 @@
 	</insert>
 	
 	
-	
+	<select id="readProfile" parameterType="java.util.HashMap" resultType="String">
+		SELECT i.file_name
+		FROM board_reply br
+		JOIN user_file uf ON br.user_no = uf.user_no
+		JOIN img_file i ON uf.file_no = i.file_no
+		WHERE br.board_no = #{board_no}
+		ORDER BY br.reply_no DESC;
+	</select>
 
-	
-	
-	
+	<select id="readBoardProfile" parameterType="int" resultType="String">
+		SELECT i.file_name
+		FROM board br
+		JOIN user_file uf ON br.user_no = uf.user_no
+		JOIN img_file i ON uf.file_no = i.file_no
+		WHERE br.board_no = #{board_no}
+	</select>
 	
 </mapper>

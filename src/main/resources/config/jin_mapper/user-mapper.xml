@@ -43,21 +43,33 @@
 		
 	</update>
 
-
+	
 
 	<update id="updatepw" parameterType="UserDto">
 		update user set user_pw=#{user_pw}
 		<where>
 			<if test="user_id != null">and user_id=#{user_id}</if>
 			<if test="user_no != null">and user_no=#{user_no}</if>
-			</where>
+		</where>
 	</update>
 
-
+	<update id="userUpdate_byAdmin" parameterType="UserDto">
+		update user set
+		user_id = #{user_id},
+		user_name = #{user_name},
+		user_nick = #{user_nick},
+		user_phone = #{user_phone}, 
+		user_intro = #{user_intro} 
+		where user_no=#{user_no} 
+	</update>
 
 	<delete id="delete" parameterType="UserDto">
-		delete from user where
-		user_no=#{user_no} and user_pw=#{user_pw}
+		delete from user 
+		<where>
+			<if test="user_pw == null">and user_no=#{user_no}</if>
+			<if test="user_pw != null">and user_no=#{user_no} and user_pw=#{user_pw}</if>
+		</where>
+		
 	</delete>
 
 

@@ -35,6 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -788,12 +789,42 @@ public class FrontController {
 
 	
 	
+	// 어드민 유저 조회
+	@RequestMapping(value = "/UserDetail_byAdmin.jin", method = { RequestMethod.GET, RequestMethod.POST  })
+	public String UserDetail_byAdmin(int user_no, Model model) {
+				
+		model.addAttribute("user_dto",service.userDetail_byAdmin(user_no));
+				
+		return "/jinPages/admin2.jsp";
+	}
+		
 	
+	// 어드민 유저 업데이트
+	@RequestMapping(value = "/UserUpdate_byAdmin.jin", method = { RequestMethod.POST })
+	public String UserUpdate_byAdmin(UserDto dto, Model model) {
+					int i=0;
+		if((i=service.userUpdate_byAdmin(dto)) > 0) {
+			model.addAttribute("update",true);
+		}else {
+			model.addAttribute("update",false);
+		}
+		
+		System.out.println("☆★☆★☆★☆★☆★☆★☆★☆★.."+i);
+		String user_no = Integer.toString(dto.getUser_no());	
+		
+		
+		
+		return "UserDetail_byAdmin.jin?user_no="+user_no;
+	}
 	
-	
-	
-	
-	
+	// 어드민 유저 딜리트
+	@RequestMapping(value = "/UserDelete_byAdmin.jin", method = { RequestMethod.GET })
+	public String UserDelete_byAdmin(UserDto dto) {
+						
+		service.userDelete_byAdmin(dto);
+				
+		return "admin1.jin";
+	}
 	
 	
 	/*

@@ -123,7 +123,7 @@
 							<c:when test="${sessionScope.login_user_dto.type_no == 1}">
 
 								<div class="item_inColumn2 hoveractive">
-									<a href="#">회원관리</a>
+									<a href="admin1.jin">회원관리</a>
 								</div>
 								<div class="item_inColumn2 hoveractive">
 									<a href="${pageContext.request.contextPath}/adminRestList.ye">식당관리</a>
@@ -201,7 +201,7 @@
 								
 								<strong class="user_name">${sessionScope.login_user_dto.user_name}</strong> <span class="nim">님</span> 
 								<span class="gray_bar">|</span> 
-								<a href="mp_tab1.jin" class="header_session_btn">&nbsp;<i class="fa-solid fa-user-nurse my_red"></i>&nbsp;ADMIN&nbsp;</a> 
+								<a href="mp_tab1.jin?user_no=${sessionScope.login_user_dto.user_no}" class="header_session_btn">&nbsp;<i class="fa-solid fa-user-nurse my_red"></i>&nbsp;ADMIN&nbsp;</a> 
 								<span class="gray_bar">|</span>
 								<a href="user_logout.jin" class="header_session_btn">&nbsp;<i class="fa-solid fa-right-to-bracket my_red"></i>&nbsp;Log Out&nbsp;</a>
 								</c:when>
@@ -211,7 +211,7 @@
 									<img src="${pageContext.request.contextPath}/resources/upload/default.svg" id="profile_img_header" class="login_user_profile_img">
 								</div>
 									<strong class="user_name">${sessionScope.login_user_dto.user_name}</strong> <span class="nim">님</span>&nbsp;<span class="gray_bar">|</span> 
-							<a href="mp_tab1.jin" class="header_session_btn">&nbsp;<i class="fa-solid fa-inbox my_red"></i>&nbsp;MY&nbsp;</a><span class="gray_bar">|</span>
+							<a href="mp_tab1.jin?user_no=${sessionScope.login_user_dto.user_no}" class="header_session_btn">&nbsp;<i class="fa-solid fa-inbox my_red"></i>&nbsp;MY&nbsp;</a><span class="gray_bar">|</span>
 							<a href="user_logout.jin" class="header_session_btn">&nbsp;<i class="fa-solid fa-right-to-bracket my_red"></i>&nbsp;Log Out&nbsp;</a>
 								</c:when>
 

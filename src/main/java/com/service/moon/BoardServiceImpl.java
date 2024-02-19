@@ -141,6 +141,22 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 
+
+	@Override
+	public List<String> readProfile(Map<String, Object> map) {
+		return dao.readProfile(map);
+	}
+
+
+
+	@Override
+	public String readBoardProfile(int board_no) {
+		return dao.readBoardProfile(board_no);
+	}
+
+
+
+
 	
 
 }

@@ -195,6 +195,13 @@ a:hover {
 	color: white !important;
 	cursor: default;
 }
+.overflow {
+ width : 250px;
+ display : block;
+ white-space: nowrap; 
+ overflow: hidden; 
+ text-overflow: ellipsis; /* 넘치는 텍스트에 말줄임표 표시 */
+}
 </style>
 
 
@@ -233,29 +240,30 @@ a:hover {
 
 	<div class="bar2">
 
-		<div class="mp_tab mp_tab1 mp_tab_selected" >작성 게시글</div>
+		<a class="mp_tab mp_tab1 hoveractive" href="mp_tab1.jin?user_no=${sessionScope.login_user_dto.user_no}">작성 게시글</a>
 		<a class="mp_tab mp_tab2 hoveractive" href="mp_tab2.jin?user_no=${sessionScope.login_user_dto.user_no}">작성 댓글</a>
 		<a class="mp_tab mp_tab3 hoveractive" href="mp_tab3.jin?user_no=${sessionScope.login_user_dto.user_no}">작성 리뷰</a>
 		<a class="mp_tab mp_tab4 hoveractive" href="mp_tab4.jin?user_no=${sessionScope.login_user_dto.user_no}">좋아요 식당</a> 
-		<a class="mp_tab mp_tab5 hoveractive" href="mp_tab5.jin?user_no=${sessionScope.login_user_dto.user_no}">좋아요 게시글</a>
+		<div class="mp_tab mp_tab5 mp_tab_selected" >좋아요 게시글</div>
 
 	</div>
 
 	<hr class="hr">
 
-
-
-
-
-
 	<table class="mypage_table">
+		<!-- <caption>
+        작성게시글
+    </caption> -->
+
 		<thead>
 			<tr>
 				<th scope="col">no</th>
+				<th scope="col">카테고리</th>
 				<th scope="col">게시글 제목</th>
-				<th scope="col">작성일</th>
-				<th scope="col">조회수</th>
-				<th scope="col">추천수</th>
+				
+				<th scope="col">작성자</th>
+				<th scope="col">작성일자</th>
+				
 				
 				
 			</tr>
@@ -265,12 +273,17 @@ a:hover {
 			<c:forEach var="dto" varStatus="status" items="${list}">
 				<tr>
 					<td style="width: 150px;">${dto.board_no}</td>
-					<td style="width: 650px; text-align : left; padding-left:50px;"><a href="board_single.moon?board_no=${dto.board_no}">${dto.board_title}</a></td>
+					<td style="width: 150px; text-align : center;" >
+					<c:if test="${dto.ctg_no eq 1}">자유게시판</c:if>
+					<c:if test="${dto.ctg_no eq 2}">맛집게시판</c:if>
+					<c:if test="${dto.ctg_no eq 3}">자유게시판공지</c:if>
+					<c:if test="${dto.ctg_no eq 4}">맛집게시판공지</c:if>
+					
+					</td>
+					<td style="width: 500px; text-align : left; padding-left: 50px;"><a href="board_single.moon?board_no=${dto.board_no}" class="overflow">${dto.board_title}</a></td>
+					
+					<td scope="col">${dto.board_nick}</td>
 					<td scope="col">${dto.board_time}</td>
-					<td scope="col">${dto.board_hit}</td>
-					<td scope="col">${likelist[status.index] }</td>
-					
-					
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -280,7 +293,7 @@ a:hover {
 			<!-- 이전 -->
 			<c:if test="${paging.start>= paging.bottomlimit }">
 				<li><a
-					href="${pageContext.request.contextPath}/mp_tab1.jin?pstartno=${(paging.start-2)*paging.onepagelimit}&user_no=${sessionScope.login_user_dto.user_no}">&lt;</a>
+					href="${pageContext.request.contextPath}/mp_tab5.jin?pstartno=${(paging.start-2)*paging.onepagelimit}&user_no=${sessionScope.login_user_dto.user_no}">&lt;</a>
 				</li>
 			</c:if>
 
@@ -288,7 +301,7 @@ a:hover {
 			<!-- 1 2 3 4 5 6 7 8 9 10 -->
 			<c:forEach begin="${paging.start }" end="${paging.end }" var="i">
 				<li <c:if test="${paging.current==i }">class="active"</c:if>><a
-					href="${pageContext.request.contextPath}/mp_tab1.jin?pstartno=${(i-1)*paging.onepagelimit}&user_no=${sessionScope.login_user_dto.user_no}">${i}</a>
+					href="${pageContext.request.contextPath}/mp_tab5.jin?pstartno=${(i-1)*paging.onepagelimit}&user_no=${sessionScope.login_user_dto.user_no}">${i}</a>
 				</li>
 			</c:forEach>
 
@@ -296,7 +309,7 @@ a:hover {
 			<!-- 다음 -->
 			<c:if test="${paging.end< paging.pagetotal }">
 				<li><a
-					href="${pageContext.request.contextPath}/mp_tab1.jin?pstartno=${(paging.end)*paging.onepagelimit}&user_no=${sessionScope.login_user_dto.user_no}">&gt;</a>
+					href="${pageContext.request.contextPath}/mp_tab5.jin?pstartno=${(paging.end)*paging.onepagelimit}&user_no=${sessionScope.login_user_dto.user_no}">&gt;</a>
 				</li>
 			</c:if>
 
